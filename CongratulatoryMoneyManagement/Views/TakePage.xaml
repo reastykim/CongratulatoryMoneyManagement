@@ -37,42 +37,62 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock x:Uid="Take_TakeEnvelopePhoto" Grid.Row="0" Grid.Column="0" Text="봉투 사진" Margin="20,15"
-                       Style="{StaticResource SubtitleTextBlockStyle}"/>
-            <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="{ThemeResource ButtonBorderThemeBrush}" Margin="20,0,20,50" CornerRadius="10">
+                       Style="{StaticResource SubheaderTextBlockStyle}"/>
+            <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" Margin="20,0,20,50" CornerRadius="10">
                 <controls:CameraControl x:Uid="CameraPage_CameraControl"/>    
             </Border>
 
             <TextBlock x:Uid="Take_CongratulatoryMoneyInfo" Grid.Row="0" Grid.Column="1" Text="축의금 내용" Margin="20,15"
-                       Style="{StaticResource SubtitleTextBlockStyle}"/>
-            <Grid Grid.Row="1" Grid.Column="1">
+                       Style="{StaticResource SubheaderTextBlockStyle}"/>
+            <Grid Grid.Row="1" Grid.Column="1" Margin="12,0,12,50">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition />
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Row="0">
+                    <TextBlock Text="금액" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource  SubtitleTextBlockStyle}"/>
+                    <Border BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" CornerRadius="10" Padding="{StaticResource MediumLeftTopRightBottomMargin}">
+                        <StackPanel>
+                            <VariableSizedWrapGrid Orientation="Horizontal">
+                                <RadioButton Content="직접입력" IsChecked="True"/>
+                                <RadioButton Content="30,000"/>
+                                <RadioButton Content="50,000"/>
+                                <RadioButton Content="70,000"/>
+                                <RadioButton Content="100,000"/>
+                                <RadioButton Content="150,000"/>
+                                <RadioButton Content="200,000"/>
+                            </VariableSizedWrapGrid>
+                            <TextBox Padding="{StaticResource TextBoxPadding}" InputScope="CurrencyAmount"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="금액"/>
-                <TextBox Grid.Row="1" Grid.Column="0" InputScope="CurrencyAmount"/>
+                <StackPanel Grid.Row="1" Margin="0,15,0,0">
+                    <TextBlock Text="손님" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource  SubtitleTextBlockStyle}"/>
+                    <Border BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" CornerRadius="10">
+                        <TextBox BorderThickness="0" Text="123123" Padding="{StaticResource TextBoxPadding}"/>
+                    </Border>
+                </StackPanel>
 
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="손님 이름"/>
-                <TextBox Grid.Row="3" Grid.Column="0"/>
+                <StackPanel Grid.Row="2" Margin="0,15,0,0">
+                    <TextBlock Text="답례품" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource  SubtitleTextBlockStyle}"/>
+                    <Border BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" CornerRadius="10" Padding="{StaticResource MediumLeftTopRightBottomMargin}">
+                        <StackPanel>
+                            <VariableSizedWrapGrid Orientation="Horizontal">
+                                <RadioButton Grid.Column="0" Content="식권" />
+                                <RadioButton Grid.Column="1" Content="교통비" />
+                            </VariableSizedWrapGrid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
 
-                <TextBlock Grid.Row="4" Grid.Column="0" Text="답례품"/>
-                <Grid Grid.Row="5" Grid.Column="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <RadioButton Grid.Column="0" Content="식권" />
-                    <RadioButton Grid.Column="1" Content="교통비" />
-                </Grid>
+                <StackPanel Grid.Row="3" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button Content="저장" Margin="{StaticResource MediumLeftRightMargin}"/>
+                    <Button Content="초기화" Margin="{StaticResource MediumLeftRightMargin}"/>
+                </StackPanel>
             </Grid>
         </Grid>
     </Grid>
