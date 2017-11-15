@@ -4,28 +4,76 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:controls="using:CongratulatoryMoneyManagement.Controls"
+    xmlns:converters="using:CongratulatoryMoneyManagement.Converters"
     Style="{StaticResource PageStyle}"
     DataContext="{Binding TakeViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d">
-    <Grid
-        x:Name="ContentArea"
-        Margin="{StaticResource MediumLeftRightMargin}">
 
+    <Page.Resources>
+        
+    </Page.Resources>
+    
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid.RowDefinitions>
             <RowDefinition x:Name="TitleRow" Height="48"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock
-            x:Name="TitlePage"
-            x:Uid="Take_Title"
-            Style="{StaticResource PageTitleStyle}" />
+        
 
-        <Grid 
-            Grid.Row="1" 
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.-->
+        <TextBlock x:Name="TitlePage" x:Uid="Take_Title"
+                   Text="축의금 입력" Style="{StaticResource PageTitleStyle}" />
+        <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Uid="Take_TakeEnvelopePhoto" Grid.Row="0" Grid.Column="0" Text="봉투 사진" Margin="20,15"
+                       Style="{StaticResource SubtitleTextBlockStyle}"/>
+            <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="{ThemeResource ButtonBorderThemeBrush}" Margin="20,0,20,50" CornerRadius="10">
+                <controls:CameraControl x:Uid="CameraPage_CameraControl"/>    
+            </Border>
+
+            <TextBlock x:Uid="Take_CongratulatoryMoneyInfo" Grid.Row="0" Grid.Column="1" Text="축의금 내용" Margin="20,15"
+                       Style="{StaticResource SubtitleTextBlockStyle}"/>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="금액"/>
+                <TextBox Grid.Row="1" Grid.Column="0" InputScope="CurrencyAmount"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="손님 이름"/>
+                <TextBox Grid.Row="3" Grid.Column="0"/>
+
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="답례품"/>
+                <Grid Grid.Row="5" Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <RadioButton Grid.Column="0" Content="식권" />
+                    <RadioButton Grid.Column="1" Content="교통비" />
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

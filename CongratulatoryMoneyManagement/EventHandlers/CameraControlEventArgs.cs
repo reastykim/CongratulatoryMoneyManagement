@@ -4,9 +4,9 @@ namespace CongratulatoryMoneyManagement.EventHandlers
 {
     public class CameraControlEventArgs : EventArgs
     {
-        public string Photo { get; set; }
+        public Uri Photo { get; set; }
 
-        public CameraControlEventArgs(string photo)
+        public CameraControlEventArgs(Uri photo)
         {
             Photo = photo;
         }

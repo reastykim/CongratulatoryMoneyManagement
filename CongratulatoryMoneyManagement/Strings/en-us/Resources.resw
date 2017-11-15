@@ -250,4 +250,10 @@ And this app was originally created for developer own wedding.</value>
     <value>This app is an application for managing 'congratulatory money'.
 And this app was originally created for developer own wedding.</value>
   </data>
+  <data name="Take_CongratulatoryMoneyInfo.Text" xml:space="preserve">
+    <value>Congratulatory Money Information</value>
+  </data>
+  <data name="Take_TakeEnvelopePhoto.Text" xml:space="preserve">
+    <value>Envelope Photo</value>
+  </data>
 </root>

@@ -26,21 +26,7 @@
             Style="{StaticResource PageTitleStyle}" />
 
         <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <controls:CameraControl x:Uid="CameraPage_CameraControl">
-                <i:Interaction.Behaviors>
-                    <ic:EventTriggerBehavior EventName="PhotoTaken">
-                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.PhotoTakenCommand}"/>
-                    </ic:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
-            </controls:CameraControl>           
-            <Image
-                Height="70"
-                Width="70"
-                Margin="20"
-                Stretch="UniformToFill"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Source="{x:Bind ViewModel.Photo, Mode=OneWay}"/>
+            <controls:CameraControl x:Uid="CameraPage_CameraControl"/>
         </Grid>
         
     </Grid>

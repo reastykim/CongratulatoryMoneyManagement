@@ -1,8 +1,8 @@
 ﻿using System;
-
+using CongratulatoryMoneyManagement.Helpers;
 using Windows.UI.Xaml.Data;
 
-namespace CongratulatoryMoneyManagement.Helpers
+namespace CongratulatoryMoneyManagement.Converters
 {
     public class EnumToBooleanConverter : IValueConverter
     {

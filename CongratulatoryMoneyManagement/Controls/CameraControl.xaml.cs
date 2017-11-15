@@ -19,10 +19,13 @@ using Windows.Storage.FileProperties;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media.Imaging;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace CongratulatoryMoneyManagement.Controls
 {
-    public sealed partial class CameraControl
+    public sealed partial class CameraControl : INotifyPropertyChanged
     {
         public event EventHandler<CameraControlEventArgs> PhotoTaken;
 
@@ -34,12 +37,16 @@ namespace CongratulatoryMoneyManagement.Controls
 
         public static readonly DependencyProperty IsInitializedProperty =
             DependencyProperty.Register("IsInitialized", typeof(bool), typeof(CameraControl), new PropertyMetadata(false));
-
+        
         public static readonly DependencyProperty CameraButtonStyleProperty =
             DependencyProperty.Register("CameraButtonStyle", typeof(Style), typeof(CameraControl), new PropertyMetadata(null));
 
         public static readonly DependencyProperty SwitchCameraButtonStyleProperty =
             DependencyProperty.Register("SwitchCameraButtonStyle", typeof(Style), typeof(CameraControl), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty ResetPhotoButtonStyleProperty =
+            DependencyProperty.Register("ResetPhotoButtonStyle", typeof(Style), typeof(CameraControl), new PropertyMetadata(null));
+        
 
         // Rotation metadata to apply to the preview stream and recorded videos (MF_MT_VIDEO_ROTATION)
         // Reference: http://msdn.microsoft.com/en-us/library/windows/apps/xaml/hh868174.aspx
@@ -72,6 +79,34 @@ namespace CongratulatoryMoneyManagement.Controls
             private set { SetValue(IsInitializedProperty, value); }
         }
 
+        public Uri PhotoUri
+        {
+            get { return photoUri; }
+            private set
+            {
+                if (photoUri != value)
+                {
+                    photoUri = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        private Uri photoUri;
+
+        public BitmapImage Photo
+        {
+            get { return photo; }
+            private set
+            {
+                if (photo != value)
+                {
+                    photo = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        private BitmapImage photo;
+
         public Style CameraButtonStyle
         {
             get { return (Style)GetValue(CameraButtonStyleProperty); }
@@ -84,12 +119,20 @@ namespace CongratulatoryMoneyManagement.Controls
             set { SetValue(SwitchCameraButtonStyleProperty, value); }
         }
 
+        public Style ResetPhotoButtonStyle
+        {
+            get { return (Style)GetValue(ResetPhotoButtonStyleProperty); }
+            set { SetValue(ResetPhotoButtonStyleProperty, value); }
+        }
+        
+
         public CameraControl()
         {
             InitializeComponent();
 
             CameraButtonStyle = Resources["CameraButtonStyle"] as Style;
             SwitchCameraButtonStyle = Resources["SwitchCameraButtonStyle"] as Style;
+            ResetPhotoButtonStyle = Resources["ResetPhotoButtonStyle"] as Style;
 
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
@@ -118,6 +161,7 @@ namespace CongratulatoryMoneyManagement.Controls
 
                     if (Panel == Panel.Back)
                     {
+                        // TODO : will be removed
                         _mediaCapture.SetRecordRotation(VideoRotation.Clockwise90Degrees);
                         _mediaCapture.SetPreviewRotation(VideoRotation.Clockwise90Degrees);
                         _mirroringPreview = false;
@@ -164,7 +208,7 @@ namespace CongratulatoryMoneyManagement.Controls
             }
         }
 
-        public async Task<string> TakePhoto()
+        public async Task<Uri> TakePhoto()
         {
             if (_capturing)
             {
@@ -181,10 +225,10 @@ namespace CongratulatoryMoneyManagement.Controls
                     .ToSimpleOrientation(_deviceOrientation, _mirroringPreview)
                     .ToPhotoOrientation(_mirroringPreview);
 
-                var photo = await ReencodeAndSavePhotoAsync(stream, photoOrientation);
-                PhotoTaken?.Invoke(this, new CameraControlEventArgs(photo));
+                var photoUri = await ReencodeAndSavePhotoAsync(stream, photoOrientation);
+                PhotoTaken?.Invoke(this, new CameraControlEventArgs(photoUri));
                 _capturing = false;
-                return photo;
+                return photoUri;
             }
         }
 
@@ -212,7 +256,17 @@ namespace CongratulatoryMoneyManagement.Controls
 
         private async void CaptureButton_Click(object sender, RoutedEventArgs e)
         {
-            await TakePhoto();
+            PhotoUri = await TakePhoto();
+            if (PhotoUri != null)
+            {
+                Photo = new BitmapImage(PhotoUri);
+            }
+        }
+
+        private void ResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            PhotoUri = null;
+            Photo = null;
         }
 
         private void SwitchButton_Click(object sender, RoutedEventArgs e)
@@ -275,7 +329,7 @@ namespace CongratulatoryMoneyManagement.Controls
             PreviewControl.Source = null;
         }
 
-        private async Task<string> ReencodeAndSavePhotoAsync(IRandomAccessStream stream, PhotoOrientation photoOrientation)
+        private async Task<Uri> ReencodeAndSavePhotoAsync(IRandomAccessStream stream, PhotoOrientation photoOrientation)
         {
             using (var inputStream = stream)
             {
@@ -293,7 +347,7 @@ namespace CongratulatoryMoneyManagement.Controls
                     await encoder.FlushAsync();
                 }
 
-                return file.Path;
+                return new Uri(file.Path);
             }
         }
 
@@ -342,5 +396,15 @@ namespace CongratulatoryMoneyManagement.Controls
                 ctrl.CleanAndInitialize();
             }
         }
+
+        #region Implements INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
     }
 }
