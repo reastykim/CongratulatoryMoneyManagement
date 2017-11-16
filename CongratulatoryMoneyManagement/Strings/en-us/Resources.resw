@@ -249,4 +249,10 @@ And this app was originally created for developer own wedding.</value>
   <data name="Take_TakeEnvelopePhoto.Text" xml:space="preserve">
     <value>Envelope Photo</value>
   </data>
+  <data name="MoneyOption_Input" xml:space="preserve">
+    <value>Input</value>
+  </data>
+  <data name="MoneyOption_SmallChange" xml:space="preserve">
+    <value>10</value>
+  </data>
 </root>

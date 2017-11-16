@@ -15,7 +15,7 @@ namespace CongratulatoryMoneyManagement.ViewModels
             get
             {
                 // TODO WTS: Replace this with your actual data
-                return SampleDataService.GetGridSampleData();
+                return null;// SampleDataService.GetGridSampleData();
             }
         }
     }

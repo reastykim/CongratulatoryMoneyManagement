@@ -6,6 +6,7 @@ using CongratulatoryMoneyManagement.Views;
 using GalaSoft.MvvmLight.Ioc;
 
 using Microsoft.Practices.ServiceLocation;
+using CongratulatoryMoneyManagement.Services.DataService;
 
 namespace CongratulatoryMoneyManagement.ViewModels
 {
@@ -14,6 +15,7 @@ namespace CongratulatoryMoneyManagement.ViewModels
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            SimpleIoc.Default.Register<IDataService, SimpleDataService>();
 
             SimpleIoc.Default.Register(() => new NavigationServiceEx());
             Register<PivotViewModel, PivotPage>();

@@ -12,17 +12,17 @@ namespace CongratulatoryMoneyManagement.Models
         /// <summary>
         /// 금액
         /// </summary>
-        public double Money
+        public decimal Sum
         {
-            get => money;
-            set => Set(ref money, value);
+            get => sum;
+            set => Set(ref sum, value);
         }
-        private double money;
+        private decimal sum;
 
         /// <summary>
         /// 주신 분
         /// </summary>
-        public string Name
+        public string GuestName
         {
             get => name;
             set => Set(ref name, value);

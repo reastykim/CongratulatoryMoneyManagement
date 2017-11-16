@@ -1,18 +1,42 @@
-﻿using System;
+﻿using CongratulatoryMoneyManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
-using CongratulatoryMoneyManagement.Models;
-
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
-namespace CongratulatoryMoneyManagement.Services
+namespace CongratulatoryMoneyManagement.Services.DataService
 {
-    // This class holds sample data used by some generated pages to show how they can be used.
-    // TODO WTS: Delete this file once your app is using real data.
-    public static class SampleDataService
+    public class SimpleDataService : IDataService
     {
-        private static IEnumerable<SampleOrder> AllOrders()
+        private List<CongratulatoryMoney> congratulatoryMoneyList = new List<CongratulatoryMoney>();
+        public SimpleDataService()
+        {
+
+        }
+
+        public IReadOnlyList<MoneyOption> AllMoneyOptions()
+        {
+            return new List<MoneyOption>
+            {
+                MoneyOption.Input,
+                new MoneyOption(30000),
+                new MoneyOption(50000),
+                new MoneyOption(70000),
+                new MoneyOption(100000),
+                new MoneyOption(150000),
+                new MoneyOption(200000),
+            };
+        }
+
+        public void SaveCongratulatoryMoney(CongratulatoryMoney item)
+        {
+            congratulatoryMoneyList.Add(item);
+        }
+
+        private IEnumerable<SampleOrder> AllOrders()
         {
             // The following is order summary data
             var data = new ObservableCollection<SampleOrder>
@@ -123,7 +147,7 @@ namespace CongratulatoryMoneyManagement.Services
         }
 
         // TODO WTS: Remove this once your grid page is displaying real data
-        public static ObservableCollection<SampleOrder> GetGridSampleData()
+        public ObservableCollection<SampleOrder> GetGridSampleData()
         {
             return new ObservableCollection<SampleOrder>(AllOrders());
         }
