@@ -142,12 +142,6 @@
   <data name="Camera_Exception_UnauthorizedAccess" xml:space="preserve">
     <value>카메라에 접근할 수 없습니다.</value>
   </data>
-  <data name="Camera_Title.Text" xml:space="preserve">
-    <value>카메라</value>
-  </data>
-  <data name="PivotItem_Camera.Header" xml:space="preserve">
-    <value>카메라</value>
-  </data>
   <data name="PivotItem_Settings.Header" xml:space="preserve">
     <value>설정</value>
   </data>

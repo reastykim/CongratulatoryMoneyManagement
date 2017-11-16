@@ -20,13 +20,10 @@ namespace CongratulatoryMoneyManagement.ViewModels
             Register<TakeViewModel, TakePage>();
             Register<SpendViewModel, SpendPage>();
             Register<StatementViewModel, StatementPage>();
-            Register<CameraViewModel, CameraPage>();
             Register<SettingsViewModel, SettingsPage>();
         }
 
         public SettingsViewModel SettingsViewModel => ServiceLocator.Current.GetInstance<SettingsViewModel>();
-
-        public CameraViewModel CameraViewModel => ServiceLocator.Current.GetInstance<CameraViewModel>();
 
         public StatementViewModel StatementViewModel => ServiceLocator.Current.GetInstance<StatementViewModel>();
 
