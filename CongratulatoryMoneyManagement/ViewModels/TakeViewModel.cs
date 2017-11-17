@@ -27,10 +27,18 @@ namespace CongratulatoryMoneyManagement.ViewModels
                     var isSelected = moneyOption == value;
                     moneyOption.IsSelected = isSelected;
                 }
+                RaisePropertyChanged("SelectedMoneyOption");
             }
         }
-        
-        public decimal Sum
+
+        public Uri PhotoUri
+        {
+            get { return photoUri; }
+            set { Set(ref photoUri, value); }
+        }
+        private Uri photoUri;
+
+        public double Sum
         {
             get { return sum; }
             set
@@ -41,7 +49,7 @@ namespace CongratulatoryMoneyManagement.ViewModels
                 }
             }
         }
-        private decimal sum;
+        private double sum;
         
         public string GuestName
         {
@@ -55,7 +63,21 @@ namespace CongratulatoryMoneyManagement.ViewModels
             }
         }
         private string guestName;
-        
+
+        public ReturnPresentType SelectedReturnPresentType
+        {
+            get => selectedReturnPresentType;
+            set => Set(ref selectedReturnPresentType, value);
+        }
+        private ReturnPresentType selectedReturnPresentType;
+
+        public uint ReturnPresentQuantity
+        {
+            get => returnPresentQuantity;
+            set => Set(ref returnPresentQuantity, value);
+        }
+        private uint returnPresentQuantity = 1;
+
         #endregion
 
         #region Fields
@@ -82,6 +104,8 @@ namespace CongratulatoryMoneyManagement.ViewModels
 
         #region Commands
 
+        #region Select Commands
+
         public RelayCommand<MoneyOption> SelectMoneyOptionCommand
         {
             get => selectMoneyOptionCommand ?? (selectMoneyOptionCommand = new RelayCommand<MoneyOption>(ExecuteSelectMoneyOption));
@@ -93,6 +117,21 @@ namespace CongratulatoryMoneyManagement.ViewModels
             Sum = SelectedMoneyOption.Sum;
         }
 
+        public RelayCommand<ReturnPresentType> SelectReturnPresentTypeCommand
+        {
+            get => selectReturnPresentTypeCommand ?? (selectReturnPresentTypeCommand = new RelayCommand<ReturnPresentType>(ExecuteSelectReturnPresentType));
+        }
+        private RelayCommand<ReturnPresentType> selectReturnPresentTypeCommand;
+        private void ExecuteSelectReturnPresentType(ReturnPresentType returnPresentType)
+        {
+            SelectedReturnPresentType = returnPresentType;
+        }
+
+        #endregion
+
+
+        #region Page Commands
+
         public RelayCommand SaveCommand
         {
             get => saveCommand ?? (saveCommand = new RelayCommand(ExecuteSave, CanExecuteSave));
@@ -103,13 +142,16 @@ namespace CongratulatoryMoneyManagement.ViewModels
             var newItem = new CongratulatoryMoney();
             newItem.GuestName = GuestName;
             newItem.Sum = Sum;
-            //newItem.ReturnPresent = new ReturnPresent();
+            newItem.EnvelopeImageUri = PhotoUri?.AbsolutePath;
+            newItem.ReturnPresent.Type = selectedReturnPresentType;
+            newItem.ReturnPresent.Quantity = ReturnPresentQuantity;
+
             dataService.SaveCongratulatoryMoney(newItem);
             ResetCommand.Execute(null);
         }
         private bool CanExecuteSave()
         {
-            return Sum > 0 && String.IsNullOrWhiteSpace(GuestName) != true;
+            return Sum > 0;// && String.IsNullOrWhiteSpace(GuestName) != true;
         }
 
         public RelayCommand ResetCommand
@@ -119,9 +161,13 @@ namespace CongratulatoryMoneyManagement.ViewModels
         private RelayCommand resetCommand;
         private void ExecuteReset()
         {
+            SelectMoneyOptionCommand.Execute(MoneyOptions.FirstOrDefault(MO => MO.Sum == 0d));
             GuestName = String.Empty;
-            SelectedMoneyOption = MoneyOptions.FirstOrDefault(MO => MO.Sum == Decimal.Zero);
+            SelectedReturnPresentType = ReturnPresentType.MealTickets;
+            ReturnPresentQuantity = 1;
         }
+
+        #endregion
 
         #endregion
     }

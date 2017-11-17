@@ -1,4 +1,5 @@
 ﻿using CongratulatoryMoneyManagement.Models;
+using CongratulatoryMoneyManagement.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,7 +22,7 @@ namespace CongratulatoryMoneyManagement.Services.DataService
         {
             return new List<MoneyOption>
             {
-                MoneyOption.Input,
+                new MoneyOption(0, "MoneyOption_Input".GetLocalized(), true),
                 new MoneyOption(30000),
                 new MoneyOption(50000),
                 new MoneyOption(70000),

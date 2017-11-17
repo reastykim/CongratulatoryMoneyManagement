@@ -131,8 +131,9 @@
     <Compile Include="Controls\CameraControl.xaml.cs">
       <DependentUpon>CameraControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\DebugConverter.cs" />
+    <Compile Include="Converters\EqualityConverter.cs" />
     <Compile Include="Converters\NullToCollapsedConverter.cs" />
-    <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="EventHandlers\CameraControlEventArgs.cs" />
     <Compile Include="Helpers\CameraOrientationExtensions.cs" />
     <Compile Include="Converters\EnumToBooleanConverter.cs" />

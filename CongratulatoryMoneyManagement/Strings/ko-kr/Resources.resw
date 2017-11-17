@@ -200,6 +200,18 @@
   <data name="Take_CongratulatoryMoneyInfo.Text" xml:space="preserve">
     <value>축의금 내용</value>
   </data>
+  <data name="Take_Guest.Text" xml:space="preserve">
+    <value>손님</value>
+  </data>
+  <data name="Take_ReturnPresent.Text" xml:space="preserve">
+    <value>답례품</value>
+  </data>
+  <data name="Take_ReturnPresent_Fare.Content" xml:space="preserve">
+    <value>교통비</value>
+  </data>
+  <data name="Take_ReturnPresent_MealTickets.Content" xml:space="preserve">
+    <value>식권</value>
+  </data>
   <data name="Take_TakeEnvelopePhoto.Text" xml:space="preserve">
     <value>봉투 사진</value>
   </data>

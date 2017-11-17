@@ -14,9 +14,6 @@ namespace CongratulatoryMoneyManagement.Models
     /// </summary>
     public class MoneyOption : ObservableObject, ISelectable
     {
-        public static MoneyOption Input => input;
-        private static MoneyOption input = new MoneyOption(Decimal.Zero, "MoneyOption_Input".GetLocalized());
-
         public static double SmallChange => double.Parse("MoneyOption_SmallChange".GetLocalized());
 
         public string Display
@@ -26,12 +23,12 @@ namespace CongratulatoryMoneyManagement.Models
         }
         private string display;
 
-        public decimal Sum
+        public double Sum
         {
             get => sum;
             set => Set(ref sum, value);
         }
-        private decimal sum;
+        private double sum;
 
         public bool IsSelected
         {
@@ -40,7 +37,7 @@ namespace CongratulatoryMoneyManagement.Models
         }
         private bool isSelected;
         
-        public MoneyOption(decimal sum, string display = null)
+        public MoneyOption(double sum, string display = null, bool isSelected = false)
         {
             Sum = sum;
             Display = display ?? sum.ToString("C");            

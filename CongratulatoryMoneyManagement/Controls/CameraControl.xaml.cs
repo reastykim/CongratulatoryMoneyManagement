@@ -46,6 +46,10 @@ namespace CongratulatoryMoneyManagement.Controls
 
         public static readonly DependencyProperty ResetPhotoButtonStyleProperty =
             DependencyProperty.Register("ResetPhotoButtonStyle", typeof(Style), typeof(CameraControl), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty PhotoUriProperty =
+            DependencyProperty.Register("PhotoUri", typeof(Uri), typeof(CameraControl), new PropertyMetadata(null));
+
         
 
         // Rotation metadata to apply to the preview stream and recorded videos (MF_MT_VIDEO_ROTATION)
@@ -81,17 +85,9 @@ namespace CongratulatoryMoneyManagement.Controls
 
         public Uri PhotoUri
         {
-            get { return photoUri; }
-            private set
-            {
-                if (photoUri != value)
-                {
-                    photoUri = value;
-                    RaisePropertyChanged();
-                }
-            }
+            get { return (Uri)GetValue(PhotoUriProperty); }
+            set { SetValue(PhotoUriProperty, value); }
         }
-        private Uri photoUri;
 
         public BitmapImage Photo
         {

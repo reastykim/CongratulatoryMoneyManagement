@@ -12,12 +12,12 @@ namespace CongratulatoryMoneyManagement.Models
         /// <summary>
         /// 금액
         /// </summary>
-        public decimal Sum
+        public double Sum
         {
             get => sum;
             set => Set(ref sum, value);
         }
-        private decimal sum;
+        private double sum;
 
         /// <summary>
         /// 주신 분

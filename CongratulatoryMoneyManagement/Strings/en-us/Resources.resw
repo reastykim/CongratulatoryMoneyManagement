@@ -255,4 +255,16 @@ And this app was originally created for developer own wedding.</value>
   <data name="MoneyOption_SmallChange" xml:space="preserve">
     <value>10</value>
   </data>
+  <data name="Take_Guest.Text" xml:space="preserve">
+    <value>Guest</value>
+  </data>
+  <data name="Take_ReturnPresent.Text" xml:space="preserve">
+    <value>Return Present</value>
+  </data>
+  <data name="Take_ReturnPresent_Fare.Content" xml:space="preserve">
+    <value>Fare</value>
+  </data>
+  <data name="Take_ReturnPresent_MealTickets.Content" xml:space="preserve">
+    <value>Meal Tickets</value>
+  </data>
 </root>
