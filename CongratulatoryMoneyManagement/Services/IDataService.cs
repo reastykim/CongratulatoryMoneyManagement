@@ -6,15 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CongratulatoryMoneyManagement.Services.DataService
+namespace CongratulatoryMoneyManagement.Services
 {
     public interface IDataService
     {
         IReadOnlyList<MoneyOption> AllMoneyOptions();
 
         void SaveCongratulatoryMoney(CongratulatoryMoney item);
-
-        IReadOnlyList<CongratulatoryMoney> AllCongratulatoryMoney();
 
         // Will be remove
         ObservableCollection<SampleOrder> GetGridSampleData();

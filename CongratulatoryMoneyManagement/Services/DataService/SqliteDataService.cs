@@ -2,44 +2,142 @@
 using CongratulatoryMoneyManagement.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
+using CongratulatoryMoneyManagement.Data;
+using Microsoft.EntityFrameworkCore;
+using Windows.Globalization;
+using Windows.System.UserProfile;
 
 namespace CongratulatoryMoneyManagement.Services.DataService
 {
-    public class SimpleDataService : IDataService
+    public class SqliteDataService : IDataService
     {
-        private List<CongratulatoryMoney> congratulatoryMoneyList = new List<CongratulatoryMoney>();
-        public SimpleDataService()
+        public SqliteDataService()
         {
+            Initialize();
+        }
 
+        private void Initialize()
+        {
+            CreateMoneyOptionsTableIfNotExists();
+            CreateReturnPresentsTableIfNotExists();
+            CreateCongratulatoryMoneyTableIfNotExists();
+
+            using (var db = new CongratulatoryMoneyContext())
+            {
+                db.Database.Migrate();
+            }
+
+            var allMoneyOptions = AllMoneyOptions();
+            if (allMoneyOptions.Count == 0)
+            {
+                switch (GlobalizationPreferences.Languages[0].ToUpper())
+                {
+                    case "EN":
+                        AddDefaultUSMoneyOptions();
+                        break;
+                    case "KO":
+                        AddDefaultKoreaMoneyOptions();
+                        break;
+                }
+            }
+        }
+
+        private int CreateMoneyOptionsTableIfNotExists()
+        {
+            using (var db = new CongratulatoryMoneyContext())
+            {
+                //db.Database.ExecuteSqlCommand("DROP TABLE 'MoneyOptions'");
+                var result = db.Database.ExecuteSqlCommand("CREATE TABLE IF NOT EXISTS 'MoneyOptions' ('Id' INTEGER PRIMARY KEY ASC, 'Display' TEXT, 'Sum' INTEGER, 'IsSelected' INTEGER)");
+
+                result = db.SaveChanges();
+                return result;
+            }
+        }
+
+        private int CreateReturnPresentsTableIfNotExists()
+        {
+            using (var db = new CongratulatoryMoneyContext())
+            {
+                //db.Database.ExecuteSqlCommand("DROP TABLE 'ReturnPresents'");
+                var result = db.Database.ExecuteSqlCommand("CREATE TABLE IF NOT EXISTS 'ReturnPresents' ('Id' INTEGER PRIMARY KEY ASC, 'Type' INTEGER, 'Quantity' INTEGER)");
+
+                result = db.SaveChanges();
+                return result;
+            }
+        }
+
+        private int CreateCongratulatoryMoneyTableIfNotExists()
+        {
+            using (var db = new CongratulatoryMoneyContext())
+            {
+                //db.Database.ExecuteSqlCommand("DROP TABLE 'CongratulatoryMoney'");
+                var result = db.Database.ExecuteSqlCommand(
+                    "CREATE TABLE IF NOT EXISTS 'CongratulatoryMoney' ('Id' INTEGER PRIMARY KEY ASC, 'Sum' INTEGER, 'GuestName' TEXT, 'EnvelopeImageUri' TEXT, 'ReturnPresentId' INTEGER NOT NULL," +
+                    "FOREIGN KEY(ReturnPresentId) REFERENCES ReturnPresents(Id))");
+
+                result = db.SaveChanges();
+                return result;
+            }
+        }
+
+        private void AddDefaultKoreaMoneyOptions()
+        {
+            using (var db = new CongratulatoryMoneyContext())
+            {
+                db.MoneyOptions.Add(new MoneyOption(0, "MoneyOption_Input".GetLocalized(), true));
+                db.MoneyOptions.Add(new MoneyOption(30000));
+                db.MoneyOptions.Add(new MoneyOption(50000));
+                db.MoneyOptions.Add(new MoneyOption(70000));
+                db.MoneyOptions.Add(new MoneyOption(100000));
+                db.MoneyOptions.Add(new MoneyOption(150000));
+                db.MoneyOptions.Add(new MoneyOption(200000));
+                db.SaveChanges();
+            }
+        }
+
+        private void AddDefaultUSMoneyOptions()
+        {
+            using (var db = new CongratulatoryMoneyContext())
+            {
+                db.MoneyOptions.Add(new MoneyOption(0, "MoneyOption_Input".GetLocalized(), true));
+                db.MoneyOptions.Add(new MoneyOption(30000));
+                db.MoneyOptions.Add(new MoneyOption(50000));
+                db.MoneyOptions.Add(new MoneyOption(70000));
+                db.MoneyOptions.Add(new MoneyOption(100000));
+                db.MoneyOptions.Add(new MoneyOption(150000));
+                db.MoneyOptions.Add(new MoneyOption(200000));
+                db.SaveChanges();
+            }
         }
 
         public IReadOnlyList<MoneyOption> AllMoneyOptions()
         {
-            return new List<MoneyOption>
+            using (var db = new CongratulatoryMoneyContext())
             {
-                new MoneyOption(0, "MoneyOption_Input".GetLocalized(), true),
-                new MoneyOption(30000),
-                new MoneyOption(50000),
-                new MoneyOption(70000),
-                new MoneyOption(100000),
-                new MoneyOption(150000),
-                new MoneyOption(200000),
-            };
+                return db.MoneyOptions.ToList();
+            }
         }
 
         public void SaveCongratulatoryMoney(CongratulatoryMoney item)
         {
-            congratulatoryMoneyList.Add(item);
+            using (var db = new CongratulatoryMoneyContext())
+            {
+                db.CongratulatoryMoney.Add(item);
+                db.SaveChanges();
+            }
         }
 
         public IReadOnlyList<CongratulatoryMoney> AllCongratulatoryMoney()
         {
-            return congratulatoryMoneyList;
+            using (var db = new CongratulatoryMoneyContext())
+            {
+                return db.CongratulatoryMoney.ToList();
+            }
         }
 
         private IEnumerable<SampleOrder> AllOrders()

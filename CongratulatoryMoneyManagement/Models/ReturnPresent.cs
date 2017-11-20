@@ -1,6 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +29,10 @@ namespace CongratulatoryMoneyManagement.Models
     /// </summary>
     public class ReturnPresent : ObservableObject
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
         /// <summary>
         /// 답례품 종류
         /// </summary>

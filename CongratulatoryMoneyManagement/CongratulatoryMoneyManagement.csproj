@@ -12,7 +12,7 @@
     <DefaultLanguage>ko-kr</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -92,6 +92,12 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
+      <Version>2.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
+      <Version>2.0.1</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.1</Version>
     </PackageReference>
@@ -134,6 +140,7 @@
     <Compile Include="Converters\DebugConverter.cs" />
     <Compile Include="Converters\EqualityConverter.cs" />
     <Compile Include="Converters\NullToCollapsedConverter.cs" />
+    <Compile Include="Data\CongratulatoryMoneyContext.cs" />
     <Compile Include="EventHandlers\CameraControlEventArgs.cs" />
     <Compile Include="Helpers\CameraOrientationExtensions.cs" />
     <Compile Include="Converters\EnumToBooleanConverter.cs" />
@@ -150,6 +157,7 @@
     <Compile Include="Services\BackgroundTaskService.cs" />
     <Compile Include="Services\DataService\IDataService.cs" />
     <Compile Include="Services\DataService\SimpleDataService.cs" />
+    <Compile Include="Services\DataService\SqliteDataService.cs" />
     <Compile Include="Services\NavigationServiceEx.cs" />
     <Compile Include="Services\OnBackgroundEnteringEventArgs.cs" />
     <Compile Include="Services\SuspendAndResumeService.cs" />

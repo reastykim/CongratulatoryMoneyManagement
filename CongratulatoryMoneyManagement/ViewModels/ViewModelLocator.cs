@@ -15,7 +15,7 @@ namespace CongratulatoryMoneyManagement.ViewModels
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            SimpleIoc.Default.Register<IDataService, SimpleDataService>();
+            SimpleIoc.Default.Register<IDataService, SqliteDataService>(true);
 
             SimpleIoc.Default.Register(() => new NavigationServiceEx());
             Register<PivotViewModel, PivotPage>();

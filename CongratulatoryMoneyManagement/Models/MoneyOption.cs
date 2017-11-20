@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CongratulatoryMoneyManagement.Helpers;
 using GalaSoft.MvvmLight;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CongratulatoryMoneyManagement.Models
 {
@@ -15,6 +17,10 @@ namespace CongratulatoryMoneyManagement.Models
     public class MoneyOption : ObservableObject, ISelectable
     {
         public static double SmallChange => double.Parse("MoneyOption_SmallChange".GetLocalized());
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         public string Display
         {
@@ -36,7 +42,8 @@ namespace CongratulatoryMoneyManagement.Models
             set => Set(ref isSelected, value);
         }
         private bool isSelected;
-        
+
+        public MoneyOption() { }
         public MoneyOption(double sum, string display = null, bool isSelected = false)
         {
             Sum = sum;

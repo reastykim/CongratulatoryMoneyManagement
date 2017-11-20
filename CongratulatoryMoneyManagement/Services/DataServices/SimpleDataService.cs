@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
-namespace CongratulatoryMoneyManagement.Services.DataService
+namespace CongratulatoryMoneyManagement.Services.DataServices
 {
     public class SimpleDataService : IDataService
     {
@@ -35,11 +35,6 @@ namespace CongratulatoryMoneyManagement.Services.DataService
         public void SaveCongratulatoryMoney(CongratulatoryMoney item)
         {
             congratulatoryMoneyList.Add(item);
-        }
-
-        public IReadOnlyList<CongratulatoryMoney> AllCongratulatoryMoney()
-        {
-            return congratulatoryMoneyList;
         }
 
         private IEnumerable<SampleOrder> AllOrders()

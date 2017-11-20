@@ -1,6 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +11,10 @@ namespace CongratulatoryMoneyManagement.Models
 {
     public class CongratulatoryMoney : ObservableObject
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
         /// <summary>
         /// 금액
         /// </summary>
@@ -24,10 +30,10 @@ namespace CongratulatoryMoneyManagement.Models
         /// </summary>
         public string GuestName
         {
-            get => name;
-            set => Set(ref name, value);
+            get => guestName;
+            set => Set(ref guestName, value);
         }
-        private string name;
+        private string guestName;
 
         /// <summary>
         /// 봉투 사진 경로
@@ -42,7 +48,7 @@ namespace CongratulatoryMoneyManagement.Models
         /// <summary>
         /// 답례품
         /// </summary>
-        public ReturnPresent ReturnPresent
+        public virtual ReturnPresent ReturnPresent
         {
             get => returnPresent;
             set => Set(ref returnPresent, value);
