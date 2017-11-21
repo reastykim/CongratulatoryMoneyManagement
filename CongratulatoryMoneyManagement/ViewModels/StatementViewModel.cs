@@ -7,11 +7,23 @@ using CongratulatoryMoneyManagement.Services;
 using GalaSoft.MvvmLight;
 using CongratulatoryMoneyManagement.Services.DataService;
 using System.Collections.Generic;
+using CongratulatoryMoneyManagement.Views;
 
 namespace CongratulatoryMoneyManagement.ViewModels
 {
-    public class StatementViewModel : ViewModelBase
+    public class StatementViewModel : ViewModelBase, IPivotItemActivate
     {
+        #region Properties
+
+        public IReadOnlyList<CongratulatoryMoney> Source
+        {
+            get { return source; }
+            private set { Set(ref source, value); }
+        }
+        private IReadOnlyList<CongratulatoryMoney> source;
+
+        #endregion
+
         #region Fields
 
         private IDataService dataService;
@@ -27,12 +39,23 @@ namespace CongratulatoryMoneyManagement.ViewModels
 
         #endregion
 
-        public IReadOnlyList<CongratulatoryMoney> Source
+        #region Implemented IPivotItemActivate Interface
+
+        public void OnPivotItemActived()
         {
-            get
-            {
-                return dataService.AllCongratulatoryMoney();
-            }
+            UpdateAllConCongratulatoryMoney();
+        }
+
+        public void OnPivotItemDeactived()
+        {
+
+        }
+
+        #endregion
+
+        private void UpdateAllConCongratulatoryMoney()
+        {
+            Source = dataService.AllCongratulatoryMoney();
         }
     }
 }

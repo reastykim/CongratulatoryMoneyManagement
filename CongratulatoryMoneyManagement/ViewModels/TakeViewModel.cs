@@ -8,13 +8,14 @@ using System.Windows.Input;
 using CongratulatoryMoneyManagement.Models;
 using System.Collections.Generic;
 using CongratulatoryMoneyManagement.Services.DataService;
+using CongratulatoryMoneyManagement.Views;
 
 namespace CongratulatoryMoneyManagement.ViewModels
 {
-    public class TakeViewModel : ViewModelBase
+    public class TakeViewModel : ViewModelBase, IPivotItemActivate
     {
         #region Properties
-
+        
         public IReadOnlyList<MoneyOption> MoneyOptions { get; private set; }
 
         public MoneyOption SelectedMoneyOption
@@ -168,6 +169,20 @@ namespace CongratulatoryMoneyManagement.ViewModels
         }
 
         #endregion
+
+        #endregion
+
+        #region Implemented IPivotItemActivate Interface
+
+        public void OnPivotItemActived()
+        {
+
+        }
+
+        public void OnPivotItemDeactived()
+        {
+
+        }
 
         #endregion
     }

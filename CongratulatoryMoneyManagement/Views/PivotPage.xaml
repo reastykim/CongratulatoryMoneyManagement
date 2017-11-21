@@ -4,33 +4,38 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:behaviors="using:CongratulatoryMoneyManagement.Behaviors"
     DataContext="{Binding PivotViewModel, Source={StaticResource Locator}}"
     xmlns:model="using:CongratulatoryMoneyManagement.Models"
     xmlns:views="using:CongratulatoryMoneyManagement.Views"
-    mc:Ignorable="d">
+    mc:Ignorable="d" AllowDrop="True">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot x:Uid="PivotPage">
+            <i:Interaction.Behaviors>
+                <behaviors:SetActivePivotItemBehavior />
+            </i:Interaction.Behaviors>
+            
             <PivotItem x:Uid="PivotItem_Take">
-                <Frame>
-                    <views:TakePage/>
-                </Frame>
+                <views:TakePage/>
             </PivotItem>
             <PivotItem x:Uid="PivotItem_Spend">
-                <Frame>
-                    <views:SpendPage/>
-                </Frame>
+                <views:SpendPage/>
             </PivotItem>
             <PivotItem x:Uid="PivotItem_Statement">
-                <Frame>
-                    <views:StatementPage/>
-                </Frame>
+                <views:StatementPage/>
             </PivotItem>
             <PivotItem x:Uid="PivotItem_Settings">
-                <Frame>
-                    <views:SettingsPage/>
-                </Frame>
+                <views:SettingsPage/>
             </PivotItem>
         </Pivot>
     </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar IsOpen="False">
+            <AppBarButton Icon="Save" Label="Save"/>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
