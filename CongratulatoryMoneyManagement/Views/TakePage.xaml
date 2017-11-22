@@ -116,6 +116,13 @@
                                         <models:ReturnPresentType>Fare</models:ReturnPresentType>
                                     </RadioButton.CommandParameter>
                                 </RadioButton>
+                                <RadioButton x:Uid="Take_ReturnPresent_Present" GroupName="ReturnPresent" Content="선물"
+                                             IsChecked="{x:Bind ViewModel.SelectedReturnPresentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Present, Mode=OneWay}"
+                                             Command="{x:Bind ViewModel.SelectReturnPresentTypeCommand}">
+                                    <RadioButton.CommandParameter>
+                                        <models:ReturnPresentType>Present</models:ReturnPresentType>
+                                    </RadioButton.CommandParameter>
+                                </RadioButton>
                             </VariableSizedWrapGrid>
                             
                             <telerikInput:RadNumericBox ValueFormat="{}{0:N0}" Minimum="0" Maximum="10"

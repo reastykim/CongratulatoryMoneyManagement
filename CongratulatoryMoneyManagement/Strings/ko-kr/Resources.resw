@@ -212,6 +212,9 @@
   <data name="Take_ReturnPresent_MealTickets.Content" xml:space="preserve">
     <value>식권</value>
   </data>
+  <data name="Take_ReturnPresent_Present.Content" xml:space="preserve">
+    <value>선물</value>
+  </data>
   <data name="Take_TakeEnvelopePhoto.Text" xml:space="preserve">
     <value>봉투 사진</value>
   </data>

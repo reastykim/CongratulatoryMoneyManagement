@@ -21,7 +21,11 @@ namespace CongratulatoryMoneyManagement.Models
         /// <summary>
         /// 차비
         /// </summary>
-        Fare
+        Fare,
+        /// <summary>
+        /// 선물
+        /// </summary>
+        Present
     }
 
     /// <summary>
