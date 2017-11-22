@@ -79,6 +79,13 @@ namespace CongratulatoryMoneyManagement.ViewModels
         }
         private uint returnPresentQuantity = 1;
 
+        public bool ShowBottomAppBar
+        {
+            get => showBottomAppBar;
+            set => Set(ref showBottomAppBar, value);
+        }
+        private bool showBottomAppBar;
+
         #endregion
 
         #region Fields
@@ -131,7 +138,7 @@ namespace CongratulatoryMoneyManagement.ViewModels
         #endregion
 
 
-        #region Page Commands
+        #region AppBar Commands
 
         public RelayCommand SaveCommand
         {
@@ -176,12 +183,12 @@ namespace CongratulatoryMoneyManagement.ViewModels
 
         public void OnPivotItemActived()
         {
-
+            ShowBottomAppBar = true;
         }
 
         public void OnPivotItemDeactived()
         {
-
+            ShowBottomAppBar = false;
         }
 
         #endregion

@@ -21,6 +21,7 @@
         <eConverter:StringFormatConverter x:Key="StringFormatConverter"/>
         <converters:EqualityConverter x:Key="EqualityConverter"/>
         <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="models:ReturnPresentType"/>
+        <eConverter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed"/>
         <converters:DebugConverter x:Key="DebugConverter"/>
     </Page.Resources>
 
@@ -138,4 +139,11 @@
             </StackPanel>
         </Grid>
     </Grid>
+    
+    <Page.BottomAppBar>
+        <CommandBar Visibility="{Binding ShowBottomAppBar, Converter={StaticResource BoolToVisibilityConverter}}">
+            <AppBarButton x:Uid="Take_Save" Icon="Save" Label="Save" Command="{Binding SaveCommand}"/>
+            <AppBarButton x:Uid="Take_Reset" Icon="Refresh" Label="Reset" Command="{Binding ResetCommand}"/>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
