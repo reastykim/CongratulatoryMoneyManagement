@@ -153,7 +153,7 @@ namespace CongratulatoryMoneyManagement.Controls
 
                     var cameraId = device?.Id ?? _cameraDevices.First().Id;
 
-                    await _mediaCapture.InitializeAsync(new MediaCaptureInitializationSettings { VideoDeviceId = cameraId });
+                    await _mediaCapture.InitializeAsync(new MediaCaptureInitializationSettings { VideoDeviceId = cameraId, StreamingCaptureMode = StreamingCaptureMode.Video });
 
                     if (Panel == Panel.Back)
                     {
