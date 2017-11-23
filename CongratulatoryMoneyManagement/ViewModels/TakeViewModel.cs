@@ -9,6 +9,7 @@ using CongratulatoryMoneyManagement.Models;
 using System.Collections.Generic;
 using CongratulatoryMoneyManagement.Services.DataService;
 using CongratulatoryMoneyManagement.Views;
+using CongratulatoryMoneyManagement.Controls;
 
 namespace CongratulatoryMoneyManagement.ViewModels
 {
@@ -136,16 +137,15 @@ namespace CongratulatoryMoneyManagement.ViewModels
         }
 
         #endregion
-
-
+        
         #region AppBar Commands
 
-        public RelayCommand SaveCommand
+        public RelayCommand<ICameraController> SaveCommand
         {
-            get => saveCommand ?? (saveCommand = new RelayCommand(ExecuteSave, CanExecuteSave));
+            get => saveCommand ?? (saveCommand = new RelayCommand<ICameraController>(ExecuteSave, CanExecuteSave));
         }
-        private RelayCommand saveCommand;
-        private void ExecuteSave()
+        private RelayCommand<ICameraController> saveCommand;
+        private void ExecuteSave(ICameraController cameraController)
         {
             var newItem = new CongratulatoryMoney();
             newItem.GuestName = GuestName;
@@ -155,24 +155,26 @@ namespace CongratulatoryMoneyManagement.ViewModels
             newItem.ReturnPresent.Quantity = ReturnPresentQuantity;
 
             dataService.SaveCongratulatoryMoney(newItem);
-            ResetCommand.Execute(null);
+            ResetCommand.Execute(cameraController);
         }
-        private bool CanExecuteSave()
+        private bool CanExecuteSave(ICameraController cameraController)
         {
             return Sum > 0;// && String.IsNullOrWhiteSpace(GuestName) != true;
         }
 
-        public RelayCommand ResetCommand
+        public RelayCommand<ICameraController> ResetCommand
         {
-            get => resetCommand ?? (resetCommand = new RelayCommand(ExecuteReset));
+            get => resetCommand ?? (resetCommand = new RelayCommand<ICameraController>(ExecuteReset));
         }
-        private RelayCommand resetCommand;
-        private void ExecuteReset()
+        private RelayCommand<ICameraController> resetCommand;
+        private void ExecuteReset(ICameraController cameraController)
         {
             SelectMoneyOptionCommand.Execute(MoneyOptions.FirstOrDefault(MO => MO.Sum == 0d));
             GuestName = String.Empty;
             SelectedReturnPresentType = ReturnPresentType.MealTickets;
             ReturnPresentQuantity = 1;
+
+            cameraController?.Reset();
         }
 
         #endregion

@@ -27,7 +27,7 @@
 
     <i:Interaction.Behaviors>
         <ic:EventTriggerBehavior EventName="Loaded">
-            <ic:InvokeCommandAction Command="{Binding ResetCommand}"/>
+            <ic:InvokeCommandAction Command="{Binding ResetCommand}" CommandParameter="{x:Bind camera}"/>
         </ic:EventTriggerBehavior>
     </i:Interaction.Behaviors>
     
@@ -52,7 +52,7 @@
             <TextBlock x:Uid="Take_TakeEnvelopePhoto" Grid.Row="0" Grid.Column="0" Text="봉투 사진" Margin="20,15"
                        Style="{StaticResource SubheaderTextBlockStyle}"/>
             <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" Margin="20,0,20,50" CornerRadius="10">
-                <controls:CameraControl x:Uid="CameraPage_CameraControl" PhotoUri="{Binding PhotoUri, Mode=TwoWay}"/>    
+                <controls:CameraControl x:Name="camera" x:Uid="CameraPage_CameraControl" PhotoUri="{Binding PhotoUri, Mode=TwoWay}"/>    
             </Border>
 
             <TextBlock x:Uid="Take_CongratulatoryMoneyInfo" Grid.Row="0" Grid.Column="1" Text="축의금 내용" Margin="20,15"
@@ -131,19 +131,14 @@
                         </StackPanel>
                     </Border>
                 </StackPanel>
-
-                <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="{StaticResource MediumLeftTopRightBottomMargin}">
-                    <Button Content="저장" Margin="{StaticResource MediumLeftRightMargin}" Command="{Binding SaveCommand}"/>
-                    <Button Content="초기화" Margin="{StaticResource MediumLeftRightMargin}" Command="{Binding ResetCommand}"/>
-                </StackPanel>
             </StackPanel>
         </Grid>
     </Grid>
     
     <Page.BottomAppBar>
         <CommandBar Visibility="{Binding ShowBottomAppBar, Converter={StaticResource BoolToVisibilityConverter}}">
-            <AppBarButton x:Uid="Take_Save" Icon="Save" Label="Save" Command="{Binding SaveCommand}"/>
-            <AppBarButton x:Uid="Take_Reset" Icon="Refresh" Label="Reset" Command="{Binding ResetCommand}"/>
+            <AppBarButton x:Name="btnSave" x:Uid="Take_Save" Icon="Save" Label="Save" Command="{Binding SaveCommand}" CommandParameter="{x:Bind camera}" />
+            <AppBarButton x:Name="btnReset" x:Uid="Take_Reset" Icon="Refresh" Label="Reset" Command="{Binding ResetCommand}" CommandParameter="{x:Bind camera}"/>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

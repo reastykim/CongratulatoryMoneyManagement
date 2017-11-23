@@ -25,7 +25,13 @@ using System.Runtime.CompilerServices;
 
 namespace CongratulatoryMoneyManagement.Controls
 {
-    public sealed partial class CameraControl : INotifyPropertyChanged
+    public interface ICameraController
+    {
+        void Capture();
+        void Reset();
+    }
+
+    public sealed partial class CameraControl : ICameraController, INotifyPropertyChanged
     {
         public event EventHandler<CameraControlEventArgs> PhotoTaken;
 
@@ -49,8 +55,6 @@ namespace CongratulatoryMoneyManagement.Controls
 
         public static readonly DependencyProperty PhotoUriProperty =
             DependencyProperty.Register("PhotoUri", typeof(Uri), typeof(CameraControl), new PropertyMetadata(null));
-
-        
 
         // Rotation metadata to apply to the preview stream and recorded videos (MF_MT_VIDEO_ROTATION)
         // Reference: http://msdn.microsoft.com/en-us/library/windows/apps/xaml/hh868174.aspx
@@ -120,7 +124,6 @@ namespace CongratulatoryMoneyManagement.Controls
             get { return (Style)GetValue(ResetPhotoButtonStyleProperty); }
             set { SetValue(ResetPhotoButtonStyleProperty, value); }
         }
-        
 
         public CameraControl()
         {
@@ -233,6 +236,21 @@ namespace CongratulatoryMoneyManagement.Controls
             Panel = (Panel == Panel.Front) ? Panel.Back : Panel.Front;
         }
 
+        public async void Capture()
+        {
+            PhotoUri = await TakePhoto();
+            if (PhotoUri != null)
+            {
+                Photo = new BitmapImage(PhotoUri);
+            }
+        }
+
+        public void Reset()
+        {
+            PhotoUri = null;
+            Photo = null;
+        }
+
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
             try
@@ -250,19 +268,14 @@ namespace CongratulatoryMoneyManagement.Controls
             await CleanupCameraAsync();
         }
 
-        private async void CaptureButton_Click(object sender, RoutedEventArgs e)
+        private void CaptureButton_Click(object sender, RoutedEventArgs e)
         {
-            PhotoUri = await TakePhoto();
-            if (PhotoUri != null)
-            {
-                Photo = new BitmapImage(PhotoUri);
-            }
+            Capture();
         }
 
         private void ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            PhotoUri = null;
-            Photo = null;
+            Reset();
         }
 
         private void SwitchButton_Click(object sender, RoutedEventArgs e)
