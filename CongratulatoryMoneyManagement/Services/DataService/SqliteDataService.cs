@@ -21,7 +21,7 @@ namespace CongratulatoryMoneyManagement.Services.DataService
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             CreateMoneyOptionsTableIfNotExists();
             CreateReturnPresentsTableIfNotExists();
@@ -32,7 +32,7 @@ namespace CongratulatoryMoneyManagement.Services.DataService
                 db.Database.Migrate();
             }
 
-            var allMoneyOptions = AllMoneyOptions();
+            var allMoneyOptions = await AllMoneyOptionsAsync();
             if (allMoneyOptions.Count == 0)
             {
                 switch (GlobalizationPreferences.Languages[0].ToUpper())
@@ -115,28 +115,28 @@ namespace CongratulatoryMoneyManagement.Services.DataService
             }
         }
 
-        public IReadOnlyList<MoneyOption> AllMoneyOptions()
+        public Task<IReadOnlyList<MoneyOption>> AllMoneyOptionsAsync()
         {
             using (var db = new CongratulatoryMoneyContext())
             {
-                return db.MoneyOptions.ToList();
+                return db.MoneyOptions.ToListAsync().ContinueWith(t => (IReadOnlyList <MoneyOption>)t.Result);
             }
         }
 
-        public void SaveCongratulatoryMoney(CongratulatoryMoney item)
+        public Task SaveCongratulatoryMoneyAsync(CongratulatoryMoney item)
         {
             using (var db = new CongratulatoryMoneyContext())
             {
                 db.CongratulatoryMoney.Add(item);
-                db.SaveChanges();
+                return db.SaveChangesAsync();
             }
         }
 
-        public IReadOnlyList<CongratulatoryMoney> AllCongratulatoryMoney()
+        public Task<IReadOnlyList<CongratulatoryMoney>> AllCongratulatoryMoneyAsync()
         {
             using (var db = new CongratulatoryMoneyContext())
             {
-                return db.CongratulatoryMoney.ToList();
+                return db.CongratulatoryMoney.ToListAsync().ContinueWith(t => (IReadOnlyList<CongratulatoryMoney>)t.Result);
             }
         }
 

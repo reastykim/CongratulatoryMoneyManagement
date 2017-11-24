@@ -53,9 +53,9 @@ namespace CongratulatoryMoneyManagement.ViewModels
 
         #endregion
 
-        private void UpdateAllConCongratulatoryMoney()
+        private async void UpdateAllConCongratulatoryMoney()
         {
-            Source = dataService.AllCongratulatoryMoney();
+            Source = await dataService.AllCongratulatoryMoneyAsync();
         }
     }
 }

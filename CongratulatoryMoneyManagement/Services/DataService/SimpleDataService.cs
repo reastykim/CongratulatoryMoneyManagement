@@ -18,9 +18,9 @@ namespace CongratulatoryMoneyManagement.Services.DataService
 
         }
 
-        public IReadOnlyList<MoneyOption> AllMoneyOptions()
+        public Task<IReadOnlyList<MoneyOption>> AllMoneyOptionsAsync()
         {
-            return new List<MoneyOption>
+            var moneyOptions = new List<MoneyOption>
             {
                 new MoneyOption(0, "MoneyOption_Input".GetLocalized(), true),
                 new MoneyOption(30000),
@@ -30,16 +30,18 @@ namespace CongratulatoryMoneyManagement.Services.DataService
                 new MoneyOption(150000),
                 new MoneyOption(200000),
             };
+
+            return Task.FromResult<IReadOnlyList<MoneyOption>>(moneyOptions);
         }
 
-        public void SaveCongratulatoryMoney(CongratulatoryMoney item)
+        public Task SaveCongratulatoryMoneyAsync(CongratulatoryMoney item)
         {
-            congratulatoryMoneyList.Add(item);
+            return Task.Run(() => congratulatoryMoneyList.Add(item));
         }
 
-        public IReadOnlyList<CongratulatoryMoney> AllCongratulatoryMoney()
+        public Task<IReadOnlyList<CongratulatoryMoney>> AllCongratulatoryMoneyAsync()
         {
-            return congratulatoryMoneyList;
+            return Task.FromResult<IReadOnlyList<CongratulatoryMoney>>(congratulatoryMoneyList);
         }
 
         private IEnumerable<SampleOrder> AllOrders()

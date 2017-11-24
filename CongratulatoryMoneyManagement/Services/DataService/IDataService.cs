@@ -10,11 +10,11 @@ namespace CongratulatoryMoneyManagement.Services.DataService
 {
     public interface IDataService
     {
-        IReadOnlyList<MoneyOption> AllMoneyOptions();
+        Task<IReadOnlyList<MoneyOption>> AllMoneyOptionsAsync();
 
-        void SaveCongratulatoryMoney(CongratulatoryMoney item);
+        Task SaveCongratulatoryMoneyAsync(CongratulatoryMoney item);
 
-        IReadOnlyList<CongratulatoryMoney> AllCongratulatoryMoney();
+        Task<IReadOnlyList<CongratulatoryMoney>> AllCongratulatoryMoneyAsync();
 
         // Will be remove
         ObservableCollection<SampleOrder> GetGridSampleData();

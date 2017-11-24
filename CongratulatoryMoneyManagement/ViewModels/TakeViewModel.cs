@@ -104,9 +104,9 @@ namespace CongratulatoryMoneyManagement.ViewModels
             Initialize();            
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
-            MoneyOptions = dataService.AllMoneyOptions();
+            MoneyOptions = await dataService.AllMoneyOptionsAsync();
         }
 
         #endregion
@@ -145,7 +145,7 @@ namespace CongratulatoryMoneyManagement.ViewModels
             get => saveCommand ?? (saveCommand = new RelayCommand<ICameraController>(ExecuteSave, CanExecuteSave));
         }
         private RelayCommand<ICameraController> saveCommand;
-        private void ExecuteSave(ICameraController cameraController)
+        private async void ExecuteSave(ICameraController cameraController)
         {
             var newItem = new CongratulatoryMoney();
             newItem.GuestName = GuestName;
@@ -154,7 +154,7 @@ namespace CongratulatoryMoneyManagement.ViewModels
             newItem.ReturnPresent.Type = selectedReturnPresentType;
             newItem.ReturnPresent.Quantity = ReturnPresentQuantity;
 
-            dataService.SaveCongratulatoryMoney(newItem);
+            await dataService.SaveCongratulatoryMoneyAsync(newItem);
             ResetCommand.Execute(cameraController);
         }
         private bool CanExecuteSave(ICameraController cameraController)
