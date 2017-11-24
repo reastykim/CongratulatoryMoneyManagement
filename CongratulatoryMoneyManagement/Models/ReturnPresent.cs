@@ -19,13 +19,13 @@ namespace CongratulatoryMoneyManagement.Models
         /// </summary>
         MealTickets,
         /// <summary>
-        /// 차비
-        /// </summary>
-        Fare,
-        /// <summary>
         /// 선물
         /// </summary>
-        Present
+        Present,
+        /// <summary>
+        /// 차비
+        /// </summary>
+        Fare
     }
 
     /// <summary>

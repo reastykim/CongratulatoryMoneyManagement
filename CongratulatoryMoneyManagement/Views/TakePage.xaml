@@ -45,93 +45,95 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
             <TextBlock x:Uid="Take_TakeEnvelopePhoto" Grid.Row="0" Grid.Column="0" Text="봉투 사진" Margin="20,15"
                        Style="{StaticResource SubheaderTextBlockStyle}"/>
-            <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" Margin="20,0,20,50" CornerRadius="10">
+            <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" Margin="10" CornerRadius="10">
                 <controls:CameraControl x:Name="camera" x:Uid="CameraPage_CameraControl" PhotoUri="{Binding PhotoUri, Mode=TwoWay}"/>    
             </Border>
 
             <TextBlock x:Uid="Take_CongratulatoryMoneyInfo" Grid.Row="0" Grid.Column="1" Text="축의금 내용" Margin="20,15"
                        Style="{StaticResource SubheaderTextBlockStyle}"/>
-            <StackPanel Grid.Row="1" Grid.Column="1" Margin="12,0,12,50">                
-                <StackPanel Grid.Row="0">
-                    <TextBlock Text="금액" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource  SubtitleTextBlockStyle}"/>
-                    <Border BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" CornerRadius="10" Padding="{StaticResource MediumLeftTopRightBottomMargin}">
-                        <StackPanel>
-                            <ItemsControl x:Name="itemsControlMoneyOptions" ItemsSource="{Binding MoneyOptions}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <VariableSizedWrapGrid Orientation="Horizontal"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <RadioButton GroupName="MoneyOption" Content="{Binding Display}"
+            <ScrollViewer Grid.Row="1" Grid.Column="1" Padding="0,0,10,0">
+                <StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="금액" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource  SubtitleTextBlockStyle}"/>
+                        <Border BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" Padding="{StaticResource MediumLeftTopRightBottomMargin}" CornerRadius="10">
+                            <StackPanel>
+                                <ItemsControl x:Name="itemsControlMoneyOptions" ItemsSource="{Binding MoneyOptions}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <VariableSizedWrapGrid Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <RadioButton GroupName="MoneyOption" Content="{Binding Display}"
                                                      IsChecked="{Binding IsSelected, Mode=TwoWay}"
                                                      Command="{Binding DataContext.SelectMoneyOptionCommand, ElementName=itemsControlMoneyOptions}" CommandParameter="{Binding}"/>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>                                
-                            </ItemsControl>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
 
-                            <telerikInput:RadNumericBox x:Name="nmBoxSum" ValueFormat="{}{0,0:C}" Minimum="0" Maximum="{x:Bind sys:Double.MaxValue}" SmallChange="{x:Bind models:MoneyOption.SmallChange}"
+                                <telerikInput:RadNumericBox x:Name="nmBoxSum" ValueFormat="{}{0,0:C}" Minimum="0" Maximum="{x:Bind sys:Double.MaxValue}" SmallChange="{x:Bind models:MoneyOption.SmallChange}"
                                                         Value="{Binding Sum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                <telerikInput:RadNumericBox.IsEnabled>
-                                    <Binding Path="SelectedMoneyOption.Sum" Converter="{StaticResource EqualityConverter}">
-                                        <Binding.ConverterParameter>
-                                            <x:Double>0</x:Double>
-                                        </Binding.ConverterParameter>
-                                    </Binding>
-                                </telerikInput:RadNumericBox.IsEnabled>
-                            </telerikInput:RadNumericBox>
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
+                                    <telerikInput:RadNumericBox.IsEnabled>
+                                        <Binding Path="SelectedMoneyOption.Sum" Converter="{StaticResource EqualityConverter}">
+                                            <Binding.ConverterParameter>
+                                                <x:Double>0</x:Double>
+                                            </Binding.ConverterParameter>
+                                        </Binding>
+                                    </telerikInput:RadNumericBox.IsEnabled>
+                                </telerikInput:RadNumericBox>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="1" Margin="0,15,0,0">
-                    <TextBlock x:Uid="Take_Guest" Text="손님" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource  SubtitleTextBlockStyle}"/>
-                    <Border BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" Padding="{StaticResource MediumLeftTopRightBottomMargin}" CornerRadius="10">
-                        <TextBox x:Name="txtBoxGuestName" Text="{Binding GuestName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="{StaticResource TextBoxPadding}"/>
-                    </Border>
-                </StackPanel>
+                    <StackPanel Margin="0,15,0,0">
+                        <TextBlock x:Uid="Take_Guest" Text="손님" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource  SubtitleTextBlockStyle}"/>
+                        <Border BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" Padding="{StaticResource MediumLeftTopRightBottomMargin}" CornerRadius="10">
+                            <TextBox x:Name="txtBoxGuestName" Text="{Binding GuestName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="{StaticResource TextBoxPadding}"/>
+                        </Border>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="2" Margin="0,15,0,0">
-                    <TextBlock x:Uid="Take_ReturnPresent" Text="답례품" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource  SubtitleTextBlockStyle}"/>
-                    <Border BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" CornerRadius="10" Padding="{StaticResource MediumLeftTopRightBottomMargin}">
-                        <StackPanel>
-                            <VariableSizedWrapGrid Orientation="Horizontal">
-                                <RadioButton x:Uid="Take_ReturnPresent_MealTickets" GroupName="ReturnPresent" Content="식권"
+                    <StackPanel Margin="0,15,0,0">
+                        <TextBlock x:Uid="Take_ReturnPresent" Text="답례품" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource  SubtitleTextBlockStyle}"/>
+                        <Border BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" Padding="{StaticResource MediumLeftTopRightBottomMargin}" CornerRadius="10">
+                            <StackPanel>
+                                <VariableSizedWrapGrid Orientation="Horizontal">
+                                    <RadioButton x:Uid="Take_ReturnPresent_MealTickets" GroupName="ReturnPresent" Content="식권"
                                              IsChecked="{x:Bind ViewModel.SelectedReturnPresentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=MealTickets, Mode=OneWay}"
                                              Command="{x:Bind ViewModel.SelectReturnPresentTypeCommand}">
-                                    <RadioButton.CommandParameter>
-                                        <models:ReturnPresentType>MealTickets</models:ReturnPresentType>
-                                    </RadioButton.CommandParameter>
-                                </RadioButton>
-                                <RadioButton x:Uid="Take_ReturnPresent_Fare" GroupName="ReturnPresent" Content="교통비"
-                                             IsChecked="{x:Bind ViewModel.SelectedReturnPresentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Fare, Mode=OneWay}"
-                                             Command="{x:Bind ViewModel.SelectReturnPresentTypeCommand}">
-                                    <RadioButton.CommandParameter>
-                                        <models:ReturnPresentType>Fare</models:ReturnPresentType>
-                                    </RadioButton.CommandParameter>
-                                </RadioButton>
-                                <RadioButton x:Uid="Take_ReturnPresent_Present" GroupName="ReturnPresent" Content="선물"
+                                        <RadioButton.CommandParameter>
+                                            <models:ReturnPresentType>MealTickets</models:ReturnPresentType>
+                                        </RadioButton.CommandParameter>
+                                    </RadioButton>
+                                    <RadioButton x:Uid="Take_ReturnPresent_Present" GroupName="ReturnPresent" Content="선물"
                                              IsChecked="{x:Bind ViewModel.SelectedReturnPresentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Present, Mode=OneWay}"
                                              Command="{x:Bind ViewModel.SelectReturnPresentTypeCommand}">
-                                    <RadioButton.CommandParameter>
-                                        <models:ReturnPresentType>Present</models:ReturnPresentType>
-                                    </RadioButton.CommandParameter>
-                                </RadioButton>
-                            </VariableSizedWrapGrid>
-                            
-                            <telerikInput:RadNumericBox ValueFormat="{}{0:N0}" Minimum="0" Maximum="10"
+                                        <RadioButton.CommandParameter>
+                                            <models:ReturnPresentType>Present</models:ReturnPresentType>
+                                        </RadioButton.CommandParameter>
+                                    </RadioButton>
+                                    <RadioButton x:Uid="Take_ReturnPresent_Fare" GroupName="ReturnPresent" Content="교통비"
+                                             IsChecked="{x:Bind ViewModel.SelectedReturnPresentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Fare, Mode=OneWay}"
+                                             Command="{x:Bind ViewModel.SelectReturnPresentTypeCommand}">
+                                        <RadioButton.CommandParameter>
+                                            <models:ReturnPresentType>Fare</models:ReturnPresentType>
+                                        </RadioButton.CommandParameter>
+                                    </RadioButton>
+                                </VariableSizedWrapGrid>
+
+                                <telerikInput:RadNumericBox ValueFormat="{}{0:N0}" Minimum="0" Maximum="10"
                                                         Value="{Binding ReturnPresentQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
-                    </Border>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Grid>
     

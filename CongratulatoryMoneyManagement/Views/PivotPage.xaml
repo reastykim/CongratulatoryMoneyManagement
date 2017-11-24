@@ -15,20 +15,28 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot x:Name="pivot" x:Uid="PivotPage">
             <i:Interaction.Behaviors>
-                <behaviors:SetActivePivotItemBehavior />
+                <behaviors:SetActivePivotItemBehavior ContentDepth="2"/>
             </i:Interaction.Behaviors>
             
             <PivotItem x:Uid="PivotItem_Take">
-                <views:TakePage/>
+                <Frame>
+                    <views:TakePage/>
+                </Frame>
             </PivotItem>
             <PivotItem x:Uid="PivotItem_Spend">
-                <views:SpendPage/>
+                <Frame>
+                    <views:SpendPage/>
+                </Frame>
             </PivotItem>
             <PivotItem x:Uid="PivotItem_Statement">
-                <views:StatementPage/>
+                <Frame>
+                    <views:StatementPage/>
+                </Frame>
             </PivotItem>
             <PivotItem x:Uid="PivotItem_Settings">
-                <views:SettingsPage/>
+                <Frame>
+                    <views:SettingsPage/>
+                </Frame>
             </PivotItem>
         </Pivot>
     </Grid>

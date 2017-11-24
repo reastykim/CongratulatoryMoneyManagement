@@ -13,6 +13,12 @@ namespace CongratulatoryMoneyManagement.Behaviors
 {
     public class SetActivePivotItemBehavior : Behavior<Pivot>
     {
+        #region Properties
+
+        public int ContentDepth { get; set; } = 1;
+
+        #endregion
+
         #region Overrides of Behavior
 
         protected override void OnAttached()
@@ -34,18 +40,29 @@ namespace CongratulatoryMoneyManagement.Behaviors
         private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var pivotItem = e.RemovedItems.FirstOrDefault() as PivotItem;
-            var pivotItemContent = pivotItem?.Content as FrameworkElement;
-            if (pivotItemContent?.DataContext is IPivotItemActivate pivotItemDeactivate)
+            var content = GetContentItem(pivotItem);
+            if (content?.DataContext is IPivotItemActivate pivotItemDeactivate)
             {
                 pivotItemDeactivate.OnPivotItemDeactived();
             }
 
             pivotItem = e.AddedItems.FirstOrDefault() as PivotItem;
-            pivotItemContent = pivotItem?.Content as FrameworkElement;
-            if (pivotItemContent?.DataContext is IPivotItemActivate pivotItemActivate)
+            content = GetContentItem(pivotItem);
+            if (content?.DataContext is IPivotItemActivate pivotItemActivate)
             {
                 pivotItemActivate.OnPivotItemActived();
             }
+        }
+
+        private FrameworkElement GetContentItem(PivotItem pivotItem)
+        {
+            dynamic dControl = pivotItem;
+            for (int depth = 1; depth <= ContentDepth; depth++)
+            {
+                dControl = dControl?.Content;
+            }
+
+            return dControl as FrameworkElement;
         }
 
         #endregion

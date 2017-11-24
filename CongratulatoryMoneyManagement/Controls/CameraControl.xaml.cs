@@ -161,8 +161,8 @@ namespace CongratulatoryMoneyManagement.Controls
                     if (Panel == Panel.Back)
                     {
                         // TODO : will be removed
-                        _mediaCapture.SetRecordRotation(VideoRotation.Clockwise90Degrees);
-                        _mediaCapture.SetPreviewRotation(VideoRotation.Clockwise90Degrees);
+                        //_mediaCapture.SetRecordRotation(VideoRotation.Clockwise90Degrees);
+                        //_mediaCapture.SetPreviewRotation(VideoRotation.Clockwise90Degrees);
                         _mirroringPreview = false;
                     }
                     else
@@ -344,15 +344,15 @@ namespace CongratulatoryMoneyManagement.Controls
             {
                 var decoder = await BitmapDecoder.CreateAsync(inputStream);
 
-                var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("photo.jpeg", CreationCollisionOption.GenerateUniqueName);
+                var file = await ApplicationData.Current.LocalFolder.CreateFileAsync($"{DateTime.Now.ToString("HHmmss")}.jpeg", CreationCollisionOption.GenerateUniqueName);
 
                 using (var outputStream = await file.OpenAsync(FileAccessMode.ReadWrite))
                 {
                     var encoder = await BitmapEncoder.CreateForTranscodingAsync(outputStream, decoder);
 
-                    var properties = new BitmapPropertySet { { "System.Photo.Orientation", new BitmapTypedValue(photoOrientation, PropertyType.UInt16) } };
+                    //var properties = new BitmapPropertySet { { "System.Photo.Orientation", new BitmapTypedValue(photoOrientation, PropertyType.UInt16) } };
 
-                    await encoder.BitmapProperties.SetPropertiesAsync(properties);
+                   // await encoder.BitmapProperties.SetPropertiesAsync(properties);
                     await encoder.FlushAsync();
                 }
 
