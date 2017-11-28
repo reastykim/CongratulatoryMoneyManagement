@@ -51,7 +51,7 @@ namespace CongratulatoryMoneyManagement.Services.DataService
         {
             using (var db = new CongratulatoryMoneyContext())
             {
-                //db.Database.ExecuteSqlCommand("DROP TABLE 'MoneyOptions'");
+                //db.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS 'MoneyOptions'");
                 var result = db.Database.ExecuteSqlCommand("CREATE TABLE IF NOT EXISTS 'MoneyOptions' ('Id' INTEGER PRIMARY KEY ASC, 'Display' TEXT, 'Sum' INTEGER, 'IsSelected' INTEGER)");
 
                 result = db.SaveChanges();
@@ -63,7 +63,7 @@ namespace CongratulatoryMoneyManagement.Services.DataService
         {
             using (var db = new CongratulatoryMoneyContext())
             {
-                //db.Database.ExecuteSqlCommand("DROP TABLE 'ReturnPresents'");
+                //db.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS 'ReturnPresents'");
                 var result = db.Database.ExecuteSqlCommand("CREATE TABLE IF NOT EXISTS 'ReturnPresents' ('Id' INTEGER PRIMARY KEY ASC, 'Type' INTEGER, 'Quantity' INTEGER)");
 
                 result = db.SaveChanges();
@@ -75,9 +75,9 @@ namespace CongratulatoryMoneyManagement.Services.DataService
         {
             using (var db = new CongratulatoryMoneyContext())
             {
-                //db.Database.ExecuteSqlCommand("DROP TABLE 'CongratulatoryMoney'");
+                //db.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS 'CongratulatoryMoney'");
                 var result = db.Database.ExecuteSqlCommand(
-                    "CREATE TABLE IF NOT EXISTS 'CongratulatoryMoney' ('Id' INTEGER PRIMARY KEY ASC, 'Sum' INTEGER, 'GuestName' TEXT, 'EnvelopeImageUri' TEXT, 'ReturnPresentId' INTEGER NOT NULL," +
+                    "CREATE TABLE IF NOT EXISTS 'CongratulatoryMoney' ('Id' INTEGER PRIMARY KEY ASC, 'Sum' INTEGER, 'GuestName' TEXT, 'RecognizedText' TEXT, 'EnvelopeImageUri' TEXT, 'ReturnPresentId' INTEGER NOT NULL," +
                     "FOREIGN KEY(ReturnPresentId) REFERENCES ReturnPresents(Id))");
 
                 result = db.SaveChanges();

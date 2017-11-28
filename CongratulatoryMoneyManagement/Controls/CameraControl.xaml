@@ -81,7 +81,7 @@
     <Grid>
         <Grid x:Name="gridTake" Visibility="{x:Bind Photo, Mode=OneWay, Converter={StaticResource NullToCollapsedConverter}, ConverterParameter=Inverse}">
             <CaptureElement Name="PreviewControl" Stretch="UniformToFill"/>
-            <Button x:Uid="CameraControl_CameraButton" IsEnabled="{x:Bind IsInitialized, Mode=OneWay}" Style="{x:Bind CameraButtonStyle}"
+            <Button x:Uid="CameraControl_CameraButton" IsEnabled="{x:Bind IsIdle, Mode=OneWay}" Style="{x:Bind CameraButtonStyle}"
                 Click="CaptureButton_Click"/>
             <Button x:Uid="CameraControl_SwitchCameraButton" Visibility="{x:Bind CanSwitch, Mode=OneWay}" Style="{x:Bind SwitchCameraButtonStyle}"
                 Click="SwitchButton_Click"/>
@@ -89,7 +89,7 @@
 
         <Grid x:Name="gridView" Visibility="{x:Bind Photo, Mode=OneWay, Converter={StaticResource NullToCollapsedConverter}}">
             <Image Grid.Row="0" Stretch="UniformToFill" Source="{x:Bind Photo, Mode=OneWay}" HorizontalAlignment="Center"/>
-            <Button x:Uid="CameraControl_CameraButton" IsEnabled="{x:Bind IsInitialized, Mode=OneWay}" Style="{x:Bind ResetPhotoButtonStyle}"
+            <Button x:Uid="CameraControl_CameraButton" IsEnabled="{x:Bind IsIdle, Mode=OneWay}" Style="{x:Bind ResetPhotoButtonStyle}"
                 Click="ResetButton_Click"/>
         </Grid>
         

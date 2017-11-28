@@ -35,6 +35,13 @@ namespace CongratulatoryMoneyManagement.Models
         }
         private string guestName;
 
+        public string RecognizedText
+        {
+            get => recognizedText;
+            set => Set(ref recognizedText, value);
+        }
+        private string recognizedText;
+
         /// <summary>
         /// 봉투 사진 경로
         /// </summary>

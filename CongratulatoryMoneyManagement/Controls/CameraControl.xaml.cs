@@ -22,6 +22,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Windows.Media.Ocr;
 
 namespace CongratulatoryMoneyManagement.Controls
 {
@@ -34,16 +35,17 @@ namespace CongratulatoryMoneyManagement.Controls
     public sealed partial class CameraControl : ICameraController, INotifyPropertyChanged
     {
         public event EventHandler<CameraControlEventArgs> PhotoTaken;
+        public event EventHandler Resetted;
 
         public static readonly DependencyProperty CanSwitchProperty =
             DependencyProperty.Register("CanSwitch", typeof(bool), typeof(CameraControl), new PropertyMetadata(false));
 
         public static readonly DependencyProperty PanelProperty =
             DependencyProperty.Register("Panel", typeof(Panel), typeof(CameraControl), new PropertyMetadata(Panel.Front, OnPanelChanged));
-
-        public static readonly DependencyProperty IsInitializedProperty =
-            DependencyProperty.Register("IsInitialized", typeof(bool), typeof(CameraControl), new PropertyMetadata(false));
         
+        public static readonly DependencyProperty IsIdleProperty =
+            DependencyProperty.Register("IsIdle", typeof(bool), typeof(CameraControl), new PropertyMetadata(false));
+
         public static readonly DependencyProperty CameraButtonStyleProperty =
             DependencyProperty.Register("CameraButtonStyle", typeof(Style), typeof(CameraControl), new PropertyMetadata(null));
 
@@ -52,9 +54,6 @@ namespace CongratulatoryMoneyManagement.Controls
 
         public static readonly DependencyProperty ResetPhotoButtonStyleProperty =
             DependencyProperty.Register("ResetPhotoButtonStyle", typeof(Style), typeof(CameraControl), new PropertyMetadata(null));
-
-        public static readonly DependencyProperty PhotoUriProperty =
-            DependencyProperty.Register("PhotoUri", typeof(Uri), typeof(CameraControl), new PropertyMetadata(null));
 
         // Rotation metadata to apply to the preview stream and recorded videos (MF_MT_VIDEO_ROTATION)
         // Reference: http://msdn.microsoft.com/en-us/library/windows/apps/xaml/hh868174.aspx
@@ -67,7 +66,6 @@ namespace CongratulatoryMoneyManagement.Controls
         private SimpleOrientation _deviceOrientation = SimpleOrientation.NotRotated;
         private DisplayOrientations _displayOrientation = DisplayOrientations.Portrait;
         private DeviceInformationCollection _cameraDevices;
-        private bool _capturing;
 
         public bool CanSwitch
         {
@@ -81,19 +79,13 @@ namespace CongratulatoryMoneyManagement.Controls
             set { SetValue(PanelProperty, value); }
         }
 
-        public bool IsInitialized
+        public bool IsIdle
         {
-            get { return (bool)GetValue(IsInitializedProperty); }
-            private set { SetValue(IsInitializedProperty, value); }
+            get { return (bool)GetValue(IsIdleProperty); }
+            private set { SetValue(IsIdleProperty, value); }
         }
 
-        public Uri PhotoUri
-        {
-            get { return (Uri)GetValue(PhotoUriProperty); }
-            set { SetValue(PhotoUriProperty, value); }
-        }
-
-        public BitmapImage Photo
+        public BitmapSource Photo
         {
             get { return photo; }
             private set
@@ -105,7 +97,7 @@ namespace CongratulatoryMoneyManagement.Controls
                 }
             }
         }
-        private BitmapImage photo;
+        private BitmapSource photo;
 
         public Style CameraButtonStyle
         {
@@ -170,7 +162,7 @@ namespace CongratulatoryMoneyManagement.Controls
                         _mirroringPreview = true;
                     }
 
-                    IsInitialized = true;
+                    IsIdle = true;
                     CanSwitch = _cameraDevices?.Count > 1;
                     RegisterOrientationEventHandlers();
                     await StartPreviewAsync();
@@ -188,7 +180,7 @@ namespace CongratulatoryMoneyManagement.Controls
 
         public async Task CleanupCameraAsync()
         {
-            if (IsInitialized)
+            if (IsIdle)
             {
                 if (_isPreviewing)
                 {
@@ -196,7 +188,7 @@ namespace CongratulatoryMoneyManagement.Controls
                 }
 
                 UnregisterOrientationEventHandlers();
-                IsInitialized = false;
+                IsIdle = false;
             }
 
             if (_mediaCapture != null)
@@ -207,14 +199,14 @@ namespace CongratulatoryMoneyManagement.Controls
             }
         }
 
-        public async Task<Uri> TakePhoto()
+        public async Task<BitmapSource> TakePhoto()
         {
-            if (_capturing)
+            if (IsIdle != true)
             {
                 return null;
             }
 
-            _capturing = true;
+            IsIdle = false;
 
             using (var stream = new InMemoryRandomAccessStream())
             {
@@ -223,11 +215,14 @@ namespace CongratulatoryMoneyManagement.Controls
                 var photoOrientation = _displayInformation
                     .ToSimpleOrientation(_deviceOrientation, _mirroringPreview)
                     .ToPhotoOrientation(_mirroringPreview);
+                
+                var photoUri = await ReencodeAndSavePhotoAsync(stream.CloneStream(), photoOrientation);
+                var recognizeResult = await RecognizeAsync(stream.CloneStream());
 
-                var photoUri = await ReencodeAndSavePhotoAsync(stream, photoOrientation);
-                PhotoTaken?.Invoke(this, new CameraControlEventArgs(photoUri));
-                _capturing = false;
-                return photoUri;
+                PhotoTaken?.Invoke(this, new CameraControlEventArgs(photoUri, recognizeResult.Item2));
+                IsIdle = true;
+                
+                return recognizeResult.Item1;
             }
         }
 
@@ -238,17 +233,13 @@ namespace CongratulatoryMoneyManagement.Controls
 
         public async void Capture()
         {
-            PhotoUri = await TakePhoto();
-            if (PhotoUri != null)
-            {
-                Photo = new BitmapImage(PhotoUri);
-            }
+            Photo = await TakePhoto();
         }
 
         public void Reset()
         {
-            PhotoUri = null;
             Photo = null;
+            Resetted?.Invoke(this, EventArgs.Empty);
         }
 
         private async void OnLoaded(object sender, RoutedEventArgs e)
@@ -360,6 +351,22 @@ namespace CongratulatoryMoneyManagement.Controls
             }
         }
 
+        private async Task<Tuple<BitmapSource, OcrResult>> RecognizeAsync(IRandomAccessStream stream)
+        {
+            using (var inputStream = stream)
+            {
+                var decoder = await BitmapDecoder.CreateAsync(inputStream);
+                var bitmap = await decoder.GetSoftwareBitmapAsync(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied);
+                var imgSource = new WriteableBitmap(bitmap.PixelWidth, bitmap.PixelHeight);
+                bitmap.CopyToBuffer(imgSource.PixelBuffer);
+
+                var ocrEngine = OcrEngine.TryCreateFromUserProfileLanguages();
+                var ocrResult = await ocrEngine.RecognizeAsync(bitmap);
+
+                return new Tuple<BitmapSource, OcrResult>(imgSource, ocrResult);
+            }
+        }
+
         private void RegisterOrientationEventHandlers()
         {
             if (_orientationSensor != null)
@@ -400,7 +407,7 @@ namespace CongratulatoryMoneyManagement.Controls
         {
             var ctrl = (CameraControl)d;
 
-            if (ctrl.IsInitialized)
+            if (ctrl.IsIdle)
             {
                 ctrl.CleanAndInitialize();
             }

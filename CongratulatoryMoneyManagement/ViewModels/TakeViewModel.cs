@@ -40,6 +40,13 @@ namespace CongratulatoryMoneyManagement.ViewModels
         }
         private Uri photoUri;
 
+        public string RecognizedText
+        {
+            get { return recognizedText; }
+            set { Set(ref recognizedText, value); }
+        }
+        private string recognizedText;
+
         public double Sum
         {
             get { return sum; }
@@ -136,8 +143,30 @@ namespace CongratulatoryMoneyManagement.ViewModels
             SelectedReturnPresentType = returnPresentType;
         }
 
+        public RelayCommand<CameraControlEventArgs> OnCameraPhotoTakenCommand
+        {
+            get => onCameraPhotoTakenCommand ?? (onCameraPhotoTakenCommand = new RelayCommand<CameraControlEventArgs>(ExecuteOnCameraPhotoTaken));
+        }
+        private RelayCommand<CameraControlEventArgs> onCameraPhotoTakenCommand;
+        private void ExecuteOnCameraPhotoTaken(CameraControlEventArgs args)
+        {
+            PhotoUri = args.Photo;
+            RecognizedText = args.OcrResult.Text;
+        }
+
+        public RelayCommand OnCameraResettedCommand
+        {
+            get => onCameraResettedCommand ?? (onCameraResettedCommand = new RelayCommand(ExecuteOnCameraResetted));
+        }
+        private RelayCommand onCameraResettedCommand;
+        private void ExecuteOnCameraResetted()
+        {
+            PhotoUri = null;
+            RecognizedText = null;
+        }
+
         #endregion
-        
+
         #region AppBar Commands
 
         public RelayCommand<ICameraController> SaveCommand
@@ -149,6 +178,7 @@ namespace CongratulatoryMoneyManagement.ViewModels
         {
             var newItem = new CongratulatoryMoney();
             newItem.GuestName = GuestName;
+            newItem.RecognizedText = RecognizedText;
             newItem.Sum = Sum;
             newItem.EnvelopeImageUri = PhotoUri?.AbsolutePath;
             newItem.ReturnPresent.Type = selectedReturnPresentType;
