@@ -16,7 +16,6 @@ namespace CongratulatoryMoneyManagement.Services.DataService
 
         Task<IReadOnlyList<CongratulatoryMoney>> AllCongratulatoryMoneyAsync();
 
-        // Will be remove
-        ObservableCollection<SampleOrder> GetGridSampleData();
+        Task SaveSpendingAsync(Spending item);
     }
 }

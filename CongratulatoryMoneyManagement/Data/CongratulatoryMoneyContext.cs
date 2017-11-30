@@ -16,6 +16,8 @@ namespace CongratulatoryMoneyManagement.Data
 
         public DbSet<ReturnPresent> ReturnPresents { get; set; }
 
+        public DbSet<Spending> Spendings { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=congratulatoryMoney.db");

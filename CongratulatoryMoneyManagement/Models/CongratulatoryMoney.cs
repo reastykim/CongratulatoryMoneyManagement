@@ -43,6 +43,16 @@ namespace CongratulatoryMoneyManagement.Models
         private string recognizedText;
 
         /// <summary>
+        /// 생성 날짜/시간
+        /// </summary>
+        public DateTime Created
+        {
+            get => created;
+            set => Set(ref created, value);
+        }
+        private DateTime created;
+
+        /// <summary>
         /// 봉투 사진 경로
         /// </summary>
         public string EnvelopeImageUri
@@ -61,5 +71,10 @@ namespace CongratulatoryMoneyManagement.Models
             set => Set(ref returnPresent, value);
         }
         private ReturnPresent returnPresent = new ReturnPresent();
+
+        public CongratulatoryMoney()
+        {
+            Created = DateTime.Now;
+        }
     }
 }

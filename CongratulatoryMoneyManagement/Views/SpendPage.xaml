@@ -4,28 +4,75 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:sys="using:System"
+    xmlns:eConverter="using:Microsoft.Toolkit.Uwp.UI.Converters"
+    xmlns:converters="using:CongratulatoryMoneyManagement.Converters"
+    xmlns:telerikInput="using:Telerik.UI.Xaml.Controls.Input"
+    xmlns:models="using:CongratulatoryMoneyManagement.Models"
     Style="{StaticResource PageStyle}"
     DataContext="{Binding SpendViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d">
-    <Grid
-        x:Name="ContentArea"
-        Margin="{StaticResource MediumLeftRightMargin}">
 
+    <Page.Resources>
+        <converters:EqualityConverter x:Key="EqualityConverter"/>
+        <eConverter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed"/>
+    </Page.Resources>
+
+    <i:Interaction.Behaviors>
+        <ic:EventTriggerBehavior EventName="Loaded">
+            <ic:InvokeCommandAction Command="{Binding ResetCommand}" />
+        </ic:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid.RowDefinitions>
             <RowDefinition x:Name="TitleRow" Height="48"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock
-            x:Name="TitlePage"
-            x:Uid="Spend_Title"
-            Style="{StaticResource PageTitleStyle}" />
+        <TextBlock x:Name="TitlePage" x:Uid="Spend_Title" Text="지출 입력" Style="{StaticResource PageTitleStyle}" />
+        <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
 
-        <Grid 
-            Grid.Row="1" 
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.-->
+            <TextBlock x:Uid="Spend_SpendingInfo" Grid.Row="0" Text="지출 내용" Margin="20,15"
+                       Style="{StaticResource SubheaderTextBlockStyle}"/>
+            <StackPanel Grid.Row="1" Grid.Column="1" Padding="0,0,10,0" Margin="20,0,20,15">
+                <Grid Margin="0,15,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" x:Uid="Spend_Details" Text="내용" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                    <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" Padding="{StaticResource MediumLeftTopRightBottomMargin}" CornerRadius="10">
+                        <TextBox x:Name="txtBoxGuestName" Padding="{StaticResource TextBoxPadding}"
+                                 Text="{Binding Details, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                    </Border>
+                    
+                    <TextBlock Grid.Row="0" Grid.Column="2" x:Uid="Spend_Sum" Text="금액" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                    <Border Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" Padding="{StaticResource MediumLeftTopRightBottomMargin}" CornerRadius="10">
+                        <telerikInput:RadNumericBox Grid.Row="1" Grid.Column="2" x:Name="nmBoxSum" ValueFormat="{}{0,0:C}" Minimum="0" Maximum="{x:Bind sys:Double.MaxValue}" SmallChange="{x:Bind models:MoneyOption.SmallChange}"
+                                                    Value="{Binding Sum, Mode=TwoWay}" InputScope="CurrencyAmount"/>
+                    </Border>
+                </Grid>
+            </StackPanel>
         </Grid>
     </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar Visibility="{Binding ShowBottomAppBar, Converter={StaticResource BoolToVisibilityConverter}}">
+            <AppBarButton x:Name="btnSave" x:Uid="Take_Save" Icon="Save" Label="Save" Command="{Binding SaveCommand}" />
+            <AppBarButton x:Name="btnReset" x:Uid="Take_Reset" Icon="Refresh" Label="Reset" Command="{Binding ResetCommand}" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

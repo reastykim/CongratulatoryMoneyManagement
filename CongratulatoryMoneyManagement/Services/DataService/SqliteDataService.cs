@@ -18,6 +18,7 @@ namespace CongratulatoryMoneyManagement.Services.DataService
     {
         public SqliteDataService()
         {
+            //DropAllTables();
             Initialize();
         }
 
@@ -26,6 +27,7 @@ namespace CongratulatoryMoneyManagement.Services.DataService
             CreateMoneyOptionsTableIfNotExists();
             CreateReturnPresentsTableIfNotExists();
             CreateCongratulatoryMoneyTableIfNotExists();
+            CreateSpendingsTableIfNotExists();
 
             using (var db = new CongratulatoryMoneyContext())
             {
@@ -51,7 +53,6 @@ namespace CongratulatoryMoneyManagement.Services.DataService
         {
             using (var db = new CongratulatoryMoneyContext())
             {
-                //db.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS 'MoneyOptions'");
                 var result = db.Database.ExecuteSqlCommand("CREATE TABLE IF NOT EXISTS 'MoneyOptions' ('Id' INTEGER PRIMARY KEY ASC, 'Display' TEXT, 'Sum' INTEGER, 'IsSelected' INTEGER)");
 
                 result = db.SaveChanges();
@@ -63,7 +64,6 @@ namespace CongratulatoryMoneyManagement.Services.DataService
         {
             using (var db = new CongratulatoryMoneyContext())
             {
-                //db.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS 'ReturnPresents'");
                 var result = db.Database.ExecuteSqlCommand("CREATE TABLE IF NOT EXISTS 'ReturnPresents' ('Id' INTEGER PRIMARY KEY ASC, 'Type' INTEGER, 'Quantity' INTEGER)");
 
                 result = db.SaveChanges();
@@ -75,13 +75,37 @@ namespace CongratulatoryMoneyManagement.Services.DataService
         {
             using (var db = new CongratulatoryMoneyContext())
             {
-                //db.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS 'CongratulatoryMoney'");
                 var result = db.Database.ExecuteSqlCommand(
-                    "CREATE TABLE IF NOT EXISTS 'CongratulatoryMoney' ('Id' INTEGER PRIMARY KEY ASC, 'Sum' INTEGER, 'GuestName' TEXT, 'RecognizedText' TEXT, 'EnvelopeImageUri' TEXT, 'ReturnPresentId' INTEGER NOT NULL," +
+                    "CREATE TABLE IF NOT EXISTS 'CongratulatoryMoney' ('Id' INTEGER PRIMARY KEY ASC, 'Sum' INTEGER, 'GuestName' TEXT, 'RecognizedText' TEXT, 'EnvelopeImageUri' TEXT, 'ReturnPresentId' INTEGER NOT NULL, 'Created' datetime, " +
                     "FOREIGN KEY(ReturnPresentId) REFERENCES ReturnPresents(Id))");
 
                 result = db.SaveChanges();
                 return result;
+            }
+        }
+
+        private int CreateSpendingsTableIfNotExists()
+        {
+            using (var db = new CongratulatoryMoneyContext())
+            {
+                var result = db.Database.ExecuteSqlCommand(
+                    "CREATE TABLE IF NOT EXISTS 'Spendings' ('Id' INTEGER PRIMARY KEY ASC, 'Details' TEXT, 'Sum' INTEGER, 'Created' datetime)");
+
+                result = db.SaveChanges();
+                return result;
+            }
+        }
+
+        private void DropAllTables()
+        {
+            using (var db = new CongratulatoryMoneyContext())
+            {
+                db.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS 'MoneyOptions'");
+                db.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS 'ReturnPresents'");
+                db.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS 'CongratulatoryMoney'");
+                db.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS 'Spendings'");
+
+                db.SaveChanges();
             }
         }
 
@@ -140,120 +164,13 @@ namespace CongratulatoryMoneyManagement.Services.DataService
             }
         }
 
-        private IEnumerable<SampleOrder> AllOrders()
+        public Task SaveSpendingAsync(Spending item)
         {
-            // The following is order summary data
-            var data = new ObservableCollection<SampleOrder>
+            using (var db = new CongratulatoryMoneyContext())
             {
-                new SampleOrder
-                {
-                    OrderId = 70,
-                    OrderDate = new DateTime(2017, 05, 24),
-                    Company = "Company F",
-                    ShipTo = "Francisco Pérez-Olaeta",
-                    OrderTotal = 2490.00,
-                    Status = "Closed",
-                    Symbol = Symbol.Globe
-                },
-                new SampleOrder
-                {
-                    OrderId = 71,
-                    OrderDate = new DateTime(2017, 05, 24),
-                    Company = "Company CC",
-                    ShipTo = "Soo Jung Lee",
-                    OrderTotal = 1760.00,
-                    Status = "Closed",
-                    Symbol = Symbol.Audio
-                },
-                new SampleOrder
-                {
-                    OrderId = 72,
-                    OrderDate = new DateTime(2017, 06, 03),
-                    Company = "Company Z",
-                    ShipTo = "Run Liu",
-                    OrderTotal = 2310.00,
-                    Status = "Closed",
-                    Symbol = Symbol.Calendar
-                },
-                new SampleOrder
-                {
-                    OrderId = 73,
-                    OrderDate = new DateTime(2017, 06, 05),
-                    Company = "Company Y",
-                    ShipTo = "John Rodman",
-                    OrderTotal = 665.00,
-                    Status = "Closed",
-                    Symbol = Symbol.Camera
-                },
-                new SampleOrder
-                {
-                    OrderId = 74,
-                    OrderDate = new DateTime(2017, 06, 07),
-                    Company = "Company H",
-                    ShipTo = "Elizabeth Andersen",
-                    OrderTotal = 560.00,
-                    Status = "Shipped",
-                    Symbol = Symbol.Clock
-                },
-                new SampleOrder
-                {
-                    OrderId = 75,
-                    OrderDate = new DateTime(2017, 06, 07),
-                    Company = "Company F",
-                    ShipTo = "Francisco Pérez-Olaeta",
-                    OrderTotal = 810.00,
-                    Status = "Shipped",
-                    Symbol = Symbol.Contact
-                },
-                new SampleOrder
-                {
-                    OrderId = 76,
-                    OrderDate = new DateTime(2017, 06, 11),
-                    Company = "Company I",
-                    ShipTo = "Sven Mortensen",
-                    OrderTotal = 196.50,
-                    Status = "Shipped",
-                    Symbol = Symbol.Favorite
-                },
-                new SampleOrder
-                {
-                    OrderId = 77,
-                    OrderDate = new DateTime(2017, 06, 14),
-                    Company = "Company BB",
-                    ShipTo = "Amritansh Raghav",
-                    OrderTotal = 270.00,
-                    Status = "New",
-                    Symbol = Symbol.Home
-                },
-                new SampleOrder
-                {
-                    OrderId = 78,
-                    OrderDate = new DateTime(2017, 06, 14),
-                    Company = "Company A",
-                    ShipTo = "Anna Bedecs",
-                    OrderTotal = 736.00,
-                    Status = "New",
-                    Symbol = Symbol.Mail
-                },
-                new SampleOrder
-                {
-                    OrderId = 79,
-                    OrderDate = new DateTime(2017, 06, 18),
-                    Company = "Company K",
-                    ShipTo = "Peter Krschne",
-                    OrderTotal = 800.00,
-                    Status = "New",
-                    Symbol = Symbol.OutlineStar
-                },
-            };
-
-            return data;
-        }
-
-        // TODO WTS: Remove this once your grid page is displaying real data
-        public ObservableCollection<SampleOrder> GetGridSampleData()
-        {
-            return new ObservableCollection<SampleOrder>(AllOrders());
+                db.Spendings.Add(item);
+                return db.SaveChangesAsync();
+            }
         }
     }
 }

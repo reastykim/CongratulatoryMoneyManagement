@@ -21,7 +21,7 @@ namespace CongratulatoryMoneyManagement.ViewModels
 
         public MoneyOption SelectedMoneyOption
         {
-            get => MoneyOptions.FirstOrDefault(MO => MO.IsSelected);
+            get => MoneyOptions?.FirstOrDefault(MO => MO.IsSelected);
             set
             {
                 foreach (var moneyOption in MoneyOptions)
@@ -189,7 +189,7 @@ namespace CongratulatoryMoneyManagement.ViewModels
         }
         private bool CanExecuteSave(ICameraController cameraController)
         {
-            return Sum > 0;// && String.IsNullOrWhiteSpace(GuestName) != true;
+            return Sum > 0;
         }
 
         public RelayCommand<ICameraController> ResetCommand

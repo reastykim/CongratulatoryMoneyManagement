@@ -66,10 +66,10 @@
 
             <TextBlock x:Uid="Take_CongratulatoryMoneyInfo" Grid.Row="0" Grid.Column="1" Text="축의금 내용" Margin="20,15"
                        Style="{StaticResource SubheaderTextBlockStyle}"/>
-            <ScrollViewer Grid.Row="1" Grid.Column="1" Padding="0,0,10,0">
+            <ScrollViewer Grid.Row="1" Grid.Column="1" Padding="0,0,10,0" Margin="20,0,20,15">
                 <StackPanel>
                     <StackPanel>
-                        <TextBlock Text="금액" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource  SubtitleTextBlockStyle}"/>
+                        <TextBlock x:Uid="Take_Sum" Text="금액" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource  SubtitleTextBlockStyle}"/>
                         <Border BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" Padding="{StaticResource MediumLeftTopRightBottomMargin}" CornerRadius="10">
                             <StackPanel>
                                 <ItemsControl x:Name="itemsControlMoneyOptions" ItemsSource="{Binding MoneyOptions}">
@@ -88,7 +88,7 @@
                                 </ItemsControl>
 
                                 <telerikInput:RadNumericBox x:Name="nmBoxSum" ValueFormat="{}{0,0:C}" Minimum="0" Maximum="{x:Bind sys:Double.MaxValue}" SmallChange="{x:Bind models:MoneyOption.SmallChange}"
-                                                        Value="{Binding Sum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                                        Value="{Binding Sum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" InputScope="CurrencyAmount">
                                     <telerikInput:RadNumericBox.IsEnabled>
                                         <Binding Path="SelectedMoneyOption.Sum" Converter="{StaticResource EqualityConverter}">
                                             <Binding.ConverterParameter>

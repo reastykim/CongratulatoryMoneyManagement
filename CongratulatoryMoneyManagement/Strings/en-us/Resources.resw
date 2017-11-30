@@ -270,4 +270,16 @@ And this app was originally created for developer own wedding.</value>
   <data name="Take_ReturnPresent_Present.Content" xml:space="preserve">
     <value>Present</value>
   </data>
+  <data name="Spend_Details.Text" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Spend_SpendingInfo.Text" xml:space="preserve">
+    <value>Spending Information</value>
+  </data>
+  <data name="Spend_Sum.Text" xml:space="preserve">
+    <value>Sum</value>
+  </data>
+  <data name="Take_Sum.Text" xml:space="preserve">
+    <value>Sum</value>
+  </data>
 </root>

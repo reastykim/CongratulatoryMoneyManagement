@@ -191,6 +191,15 @@
   <data name="Settings_Title.Text" xml:space="preserve">
     <value>설정</value>
   </data>
+  <data name="Spend_Details.Text" xml:space="preserve">
+    <value>내용</value>
+  </data>
+  <data name="Spend_SpendingInfo.Text" xml:space="preserve">
+    <value>지출 내용</value>
+  </data>
+  <data name="Spend_Sum.Text" xml:space="preserve">
+    <value>금액</value>
+  </data>
   <data name="Spend_Title.Text" xml:space="preserve">
     <value>지출 입력</value>
   </data>
@@ -214,6 +223,9 @@
   </data>
   <data name="Take_ReturnPresent_Present.Content" xml:space="preserve">
     <value>선물</value>
+  </data>
+  <data name="Take_Sum.Text" xml:space="preserve">
+    <value>금액</value>
   </data>
   <data name="Take_TakeEnvelopePhoto.Text" xml:space="preserve">
     <value>봉투 사진</value>
