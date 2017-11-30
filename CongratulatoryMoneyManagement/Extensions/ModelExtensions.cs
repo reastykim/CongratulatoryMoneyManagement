@@ -14,9 +14,10 @@ namespace CongratulatoryMoneyManagement.Extensions
             return new StatementItem
             {
                 ItemType = typeof(CongratulatoryMoney),
+                ItemTypeDisplay = "\uE944",
                 Id = congratulatoryMoney.Id,
                 Sum = congratulatoryMoney.Sum,
-                Details = $"{congratulatoryMoney.GuestName}({congratulatoryMoney.RecognizedText}",
+                Details = $"{congratulatoryMoney.GuestName}({congratulatoryMoney.RecognizedText})",
                 Created = congratulatoryMoney.Created
             };
         }
@@ -26,6 +27,7 @@ namespace CongratulatoryMoneyManagement.Extensions
             return new StatementItem
             {
                 ItemType = typeof(Spending),
+                ItemTypeDisplay = "\uE8A7",
                 Id = spending.Id,
                 Sum = -spending.Sum,
                 Details = spending.Details,

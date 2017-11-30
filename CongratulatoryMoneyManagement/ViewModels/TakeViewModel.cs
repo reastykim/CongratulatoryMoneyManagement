@@ -17,7 +17,12 @@ namespace CongratulatoryMoneyManagement.ViewModels
     {
         #region Properties
         
-        public IReadOnlyList<MoneyOption> MoneyOptions { get; private set; }
+        public IEnumerable<MoneyOption> MoneyOptions
+        {
+            get => moneyOptions;
+            private set => Set(ref moneyOptions, value);
+        }
+        private IEnumerable<MoneyOption> moneyOptions;
 
         public MoneyOption SelectedMoneyOption
         {
@@ -129,6 +134,9 @@ namespace CongratulatoryMoneyManagement.ViewModels
         private RelayCommand<MoneyOption> selectMoneyOptionCommand;
         private void ExecuteSelectMoneyOption(MoneyOption moneyOption)
         {
+            if (moneyOption == null)
+                return;
+
             SelectedMoneyOption = moneyOption;
             Sum = SelectedMoneyOption.Sum;
         }
@@ -199,7 +207,7 @@ namespace CongratulatoryMoneyManagement.ViewModels
         private RelayCommand<ICameraController> resetCommand;
         private void ExecuteReset(ICameraController cameraController)
         {
-            SelectMoneyOptionCommand.Execute(MoneyOptions.FirstOrDefault(MO => MO.Sum == 0d));
+            SelectMoneyOptionCommand.Execute(MoneyOptions?.FirstOrDefault(MO => MO.Sum == 0d));
             GuestName = String.Empty;
             SelectedReturnPresentType = ReturnPresentType.MealTickets;
             ReturnPresentQuantity = 1;

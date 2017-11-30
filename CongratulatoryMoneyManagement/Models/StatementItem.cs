@@ -9,6 +9,7 @@ namespace CongratulatoryMoneyManagement.Models
     public class StatementItem
     {
         public Type ItemType { get; set; }
+        public string ItemTypeDisplay { get; set; }
         public int Id { get; set; }
         public string Details { get; set; }
         public double Sum { get; set; }

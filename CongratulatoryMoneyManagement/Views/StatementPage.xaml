@@ -4,29 +4,47 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:CongratulatoryMoneyManagement.Converters"
+    xmlns:tg="using:Telerik.UI.Xaml.Controls.Grid"
     Style="{StaticResource PageStyle}"
     DataContext="{Binding StatementViewModel, Source={StaticResource Locator}}"
-    xmlns:tg="using:Telerik.UI.Xaml.Controls.Grid"
     mc:Ignorable="d">
-    <Grid
-        x:Name="ContentArea"
-        Margin="12,0,12,0">
 
+    <Page.Resources>
+        <converters:DebugConverter x:Key="DebugConverter"/>
+        <Style x:Key="IconTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
+    
+    <Grid x:Name="ContentArea" Margin="12,0,12,0">
         <Grid.RowDefinitions>
             <RowDefinition x:Name="TitleRow" Height="48"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock
-            x:Name="TitlePage"
-            x:Uid="Statement_Title"
-            FontSize="28" FontWeight="SemiLight" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" VerticalAlignment="Center"
-            Margin="0,0,12,7"/>
+        <TextBlock x:Name="TitlePage" x:Uid="Statement_Title" Margin="0,0,12,7" VerticalAlignment="Center"
+                   FontSize="28" FontWeight="SemiLight" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
 
-        <Grid
-            Grid.Row="1"
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <tg:RadDataGrid ColumnDataOperationsMode="Flyout" x:Name="grid" ItemsSource="{Binding Source}" />
+        <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <tg:RadDataGrid x:Name="grid" ColumnDataOperationsMode="Flyout" AutoGenerateColumns="False"
+                            ItemsSource="{Binding Source}" >
+                <tg:RadDataGrid.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Margin="20,0" HorizontalAlignment="Left"
+                                   Text="{Binding Group, Converter={StaticResource DebugConverter}}" Style="{StaticResource IconTextBlockStyle}"/>
+                    </DataTemplate>
+                </tg:RadDataGrid.GroupHeaderTemplate>
+                <tg:RadDataGrid.Columns>
+                    <tg:DataGridTextColumn Header="Type" PropertyName="ItemTypeDisplay" CellContentStyle="{StaticResource IconTextBlockStyle}"/>
+                    <tg:DataGridTextColumn Header="Details" PropertyName="Details" CanUserGroup="False"/>
+                    <tg:DataGridNumericalColumn Header="Sum" PropertyName="Sum"  CanUserGroup="False" CellContentFormat="{}{0:C0}"/>
+                    <tg:DataGridDateColumn Header="Created" PropertyName="Created"  CanUserGroup="False"/>
+                </tg:RadDataGrid.Columns>
+            </tg:RadDataGrid>
         </Grid>
     </Grid>
 </Page>

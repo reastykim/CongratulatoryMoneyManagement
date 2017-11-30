@@ -10,14 +10,12 @@ namespace CongratulatoryMoneyManagement.Services.DataService
 {
     public interface IDataService
     {
-        Task<IReadOnlyList<MoneyOption>> AllMoneyOptionsAsync();
+        Task<IEnumerable<MoneyOption>> AllMoneyOptionsAsync();
 
         Task<int> SaveCongratulatoryMoneyAsync(CongratulatoryMoney item);
 
-        Task<IReadOnlyList<CongratulatoryMoney>> AllCongratulatoryMoneyAsync();
-
         Task<int> SaveSpendingAsync(Spending item);
 
-        Task<IReadOnlyList<StatementItem>> GetAllStatementAsync();
+        Task<IEnumerable<StatementItem>> GetAllStatementAsync();
     }
 }

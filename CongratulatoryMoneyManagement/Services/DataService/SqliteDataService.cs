@@ -36,7 +36,7 @@ namespace CongratulatoryMoneyManagement.Services.DataService
             }
 
             var allMoneyOptions = await AllMoneyOptionsAsync();
-            if (allMoneyOptions.Count == 0)
+            if (allMoneyOptions.Count() == 0)
             {
                 switch (GlobalizationPreferences.Languages[0].ToUpper())
                 {
@@ -140,18 +140,12 @@ namespace CongratulatoryMoneyManagement.Services.DataService
             }
         }
 
-        public Task<IReadOnlyList<MoneyOption>> AllMoneyOptionsAsync()
+        public async Task<IEnumerable<MoneyOption>> AllMoneyOptionsAsync()
         {
-            var tcs = new TaskCompletionSource<IReadOnlyList<MoneyOption>>();
-            Task.Factory.StartNew(() =>
+            using (var db = new CongratulatoryMoneyContext())
             {
-                using (var db = new CongratulatoryMoneyContext())
-                {
-                    return db.MoneyOptions.ToList().AsReadOnly();
-                }
-            });
-
-            return tcs.Task;
+                return await db.MoneyOptions.ToListAsync();
+            }
         }
 
         public Task<int> SaveCongratulatoryMoneyAsync(CongratulatoryMoney item)
@@ -163,20 +157,6 @@ namespace CongratulatoryMoneyManagement.Services.DataService
             }
         }
 
-        public Task<IReadOnlyList<CongratulatoryMoney>> AllCongratulatoryMoneyAsync()
-        {
-            var tcs = new TaskCompletionSource<IReadOnlyList<CongratulatoryMoney>>();
-            Task.Factory.StartNew(() =>
-            {
-                using (var db = new CongratulatoryMoneyContext())
-                {
-                    return db.CongratulatoryMoney.ToList().AsReadOnly();
-                }
-            });
-
-            return tcs.Task;
-        }
-
         public Task<int> SaveSpendingAsync(Spending item)
         {
             using (var db = new CongratulatoryMoneyContext())
@@ -186,9 +166,9 @@ namespace CongratulatoryMoneyManagement.Services.DataService
             }
         }
 
-        public Task<IReadOnlyList<StatementItem>> GetAllStatementAsync()
+        public Task<IEnumerable<StatementItem>> GetAllStatementAsync()
         {
-            var tcs = new TaskCompletionSource<IReadOnlyList<StatementItem>>();
+            var tcs = new TaskCompletionSource<IEnumerable<StatementItem>>();
             Task.Factory.StartNew(() =>
             {
                 using (var db = new CongratulatoryMoneyContext())
@@ -197,7 +177,7 @@ namespace CongratulatoryMoneyManagement.Services.DataService
                                         .Union(db.Spendings.Select(S => S.AsStatementItem()))
                                         .OrderByDescending(SI => SI.Created);
 
-                    tcs.SetResult(statementItems.ToList().AsReadOnly());
+                    tcs.SetResult(statementItems.ToList());
                 }
             });
 
