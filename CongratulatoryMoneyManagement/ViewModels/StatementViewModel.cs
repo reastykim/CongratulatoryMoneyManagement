@@ -15,12 +15,12 @@ namespace CongratulatoryMoneyManagement.ViewModels
     {
         #region Properties
 
-        public IReadOnlyList<CongratulatoryMoney> Source
+        public IReadOnlyList<StatementItem> Source
         {
             get { return source; }
             private set { Set(ref source, value); }
         }
-        private IReadOnlyList<CongratulatoryMoney> source;
+        private IReadOnlyList<StatementItem> source;
 
         #endregion
 
@@ -55,7 +55,7 @@ namespace CongratulatoryMoneyManagement.ViewModels
 
         private async void UpdateAllConCongratulatoryMoney()
         {
-            Source = await dataService.AllCongratulatoryMoneyAsync();
+            Source = await dataService.GetAllStatementAsync();
         }
     }
 }

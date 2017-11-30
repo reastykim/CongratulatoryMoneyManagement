@@ -19,7 +19,7 @@ namespace CongratulatoryMoneyManagement
 
         public App()
         {
-            //Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "en-us";
+            Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "ko-kr";
             InitializeComponent();
 
             EnteredBackground += App_EnteredBackground;

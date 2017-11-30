@@ -12,10 +12,12 @@ namespace CongratulatoryMoneyManagement.Services.DataService
     {
         Task<IReadOnlyList<MoneyOption>> AllMoneyOptionsAsync();
 
-        Task SaveCongratulatoryMoneyAsync(CongratulatoryMoney item);
+        Task<int> SaveCongratulatoryMoneyAsync(CongratulatoryMoney item);
 
         Task<IReadOnlyList<CongratulatoryMoney>> AllCongratulatoryMoneyAsync();
 
-        Task SaveSpendingAsync(Spending item);
+        Task<int> SaveSpendingAsync(Spending item);
+
+        Task<IReadOnlyList<StatementItem>> GetAllStatementAsync();
     }
 }

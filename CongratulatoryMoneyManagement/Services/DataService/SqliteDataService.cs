@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 using CongratulatoryMoneyManagement.Data;
+using CongratulatoryMoneyManagement.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Windows.Globalization;
 using Windows.System.UserProfile;
@@ -141,13 +142,19 @@ namespace CongratulatoryMoneyManagement.Services.DataService
 
         public Task<IReadOnlyList<MoneyOption>> AllMoneyOptionsAsync()
         {
-            using (var db = new CongratulatoryMoneyContext())
+            var tcs = new TaskCompletionSource<IReadOnlyList<MoneyOption>>();
+            Task.Factory.StartNew(() =>
             {
-                return db.MoneyOptions.ToListAsync().ContinueWith(t => (IReadOnlyList <MoneyOption>)t.Result);
-            }
+                using (var db = new CongratulatoryMoneyContext())
+                {
+                    return db.MoneyOptions.ToList().AsReadOnly();
+                }
+            });
+
+            return tcs.Task;
         }
 
-        public Task SaveCongratulatoryMoneyAsync(CongratulatoryMoney item)
+        public Task<int> SaveCongratulatoryMoneyAsync(CongratulatoryMoney item)
         {
             using (var db = new CongratulatoryMoneyContext())
             {
@@ -158,19 +165,43 @@ namespace CongratulatoryMoneyManagement.Services.DataService
 
         public Task<IReadOnlyList<CongratulatoryMoney>> AllCongratulatoryMoneyAsync()
         {
-            using (var db = new CongratulatoryMoneyContext())
+            var tcs = new TaskCompletionSource<IReadOnlyList<CongratulatoryMoney>>();
+            Task.Factory.StartNew(() =>
             {
-                return db.CongratulatoryMoney.ToListAsync().ContinueWith(t => (IReadOnlyList<CongratulatoryMoney>)t.Result);
-            }
+                using (var db = new CongratulatoryMoneyContext())
+                {
+                    return db.CongratulatoryMoney.ToList().AsReadOnly();
+                }
+            });
+
+            return tcs.Task;
         }
 
-        public Task SaveSpendingAsync(Spending item)
+        public Task<int> SaveSpendingAsync(Spending item)
         {
             using (var db = new CongratulatoryMoneyContext())
             {
                 db.Spendings.Add(item);
                 return db.SaveChangesAsync();
             }
+        }
+
+        public Task<IReadOnlyList<StatementItem>> GetAllStatementAsync()
+        {
+            var tcs = new TaskCompletionSource<IReadOnlyList<StatementItem>>();
+            Task.Factory.StartNew(() =>
+            {
+                using (var db = new CongratulatoryMoneyContext())
+                {
+                    var statementItems = db.CongratulatoryMoney.Select(CM => CM.AsStatementItem())
+                                        .Union(db.Spendings.Select(S => S.AsStatementItem()))
+                                        .OrderByDescending(SI => SI.Created);
+
+                    tcs.SetResult(statementItems.ToList().AsReadOnly());
+                }
+            });
+
+            return tcs.Task;
         }
     }
 }
