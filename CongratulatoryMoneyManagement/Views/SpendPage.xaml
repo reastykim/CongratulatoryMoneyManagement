@@ -41,11 +41,10 @@
 
             <TextBlock x:Uid="Spend_SpendingInfo" Grid.Row="0" Text="지출 내용" Margin="20,15"
                        Style="{StaticResource SubheaderTextBlockStyle}"/>
-            <StackPanel Grid.Row="1" Grid.Column="1" Padding="0,0,10,0" Margin="20,0,20,15">
+            <StackPanel Grid.Row="1" Grid.Column="1" Padding="0,0,10,0" Margin="15,0,15,15">
                 <Grid Margin="0,15,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
-                        <ColumnDefinition Width="10"/>
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -53,18 +52,83 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" x:Uid="Spend_Details" Text="내용" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource SubtitleTextBlockStyle}"/>
-                    <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" Padding="{StaticResource MediumLeftTopRightBottomMargin}" CornerRadius="10">
-                        <TextBox x:Name="txtBoxGuestName" Padding="{StaticResource TextBoxPadding}"
-                                 Text="{Binding Details, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                    <Border Grid.Column="0" Style="{StaticResource CardHeaderBorderStyle}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}">
+                                <TextBlock x:Uid="Spend_Details" Text="내용" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                            </Grid>
+                            <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="10">
+                                <TextBox x:Name="txtBoxGuestName" Padding="{StaticResource TextBoxPadding}"
+                                         Text="{Binding Details, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            </Grid>
+                        </Grid>
                     </Border>
-                    
-                    <TextBlock Grid.Row="0" Grid.Column="2" x:Uid="Spend_Sum" Text="금액" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource SubtitleTextBlockStyle}"/>
-                    <Border Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" Padding="{StaticResource MediumLeftTopRightBottomMargin}" CornerRadius="10">
-                        <telerikInput:RadNumericBox Grid.Row="1" Grid.Column="2" x:Name="nmBoxSum" ValueFormat="{}{0,0:C}" Minimum="0" Maximum="{x:Bind sys:Double.MaxValue}" SmallChange="{x:Bind models:MoneyOption.SmallChange}"
+
+                    <Border Grid.Column="1" Style="{StaticResource CardHeaderBorderStyle}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}">
+                                <TextBlock x:Uid="Spend_Sum" Text="금액" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                            </Grid>
+                            <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="10">
+                                <telerikInput:RadNumericBox Grid.Row="1" Grid.Column="2" x:Name="nmBoxSum" ValueFormat="{}{0,0:C}" Minimum="0" Maximum="{x:Bind sys:Double.MaxValue}" SmallChange="{x:Bind models:MoneyOption.SmallChange}"
                                                     Value="{Binding Sum, Mode=TwoWay}" InputScope="CurrencyAmount"/>
+                            </Grid>
+                        </Grid>
                     </Border>
                 </Grid>
+
+                <!--<Border Background="{ThemeResource SystemControlHighlightAccentBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltAccentBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltAltHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltBaseHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltBaseLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltBaseMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltBaseMediumHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltAltMediumHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltBaseMediumLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltListAccentHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltListAccentMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltChromeWhiteBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltTransparentBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightBaseHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightBaseLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightBaseMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightBaseMediumHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightBaseMediumLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightChromeAltLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightChromeHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightListAccentHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightListAccentLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightListAccentMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightListMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightListLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightChromeWhiteBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightTransparentBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHyperlinkTextBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHyperlinkBaseHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHyperlinkBaseMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHyperlinkBaseMediumHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageBackgroundMediumAltMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageBackgroundBaseLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageBackgroundBaseMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageBackgroundListLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageBackgroundTransparentBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageTextBaseHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageTextBaseMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageTextChromeBlackMediumLowBrush}" Height="30"/>-->
             </StackPanel>
         </Grid>
     </Grid>
