@@ -40,16 +40,12 @@
         <TextBlock x:Name="TitlePage" x:Uid="Take_Title"
                    Text="축의금 입력" Style="{StaticResource PageTitleStyle}" />
         <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition />
-            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource CardHeaderBorderStyle}">
+            <Border Grid.Column="0" Style="{StaticResource CardHeaderBorderStyle}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -57,10 +53,10 @@
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}">
-                        <TextBlock x:Uid="Take_TakeEnvelopePhoto" Text="봉투 사진" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                        <TextBlock x:Uid="Take_TakeEnvelopePhoto" Text="봉투 사진" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource CardHeaderTextBlockStyle}"/>
                     </Grid>
                     <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="10">
-                        <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAccentBrush}" Margin="10" CornerRadius="10">
+                        <Border BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAltListAccentHighBrush}" Margin="10" CornerRadius="10">
                             <controls:CameraControl x:Name="camera" x:Uid="CameraPage_CameraControl">
                                 <i:Interaction.Behaviors>
                                     <ic:EventTriggerBehavior EventName="PhotoTaken">
@@ -76,137 +72,123 @@
                 </Grid>
             </Border>
 
-            <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource CardHeaderBorderStyle}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
+            <ScrollViewer Grid.Column="1" Padding="0,0,10,0" Margin="20,0,20,15">
+                <StackPanel>
+                    <Border Style="{StaticResource CardHeaderBorderStyle}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}">
-                        <TextBlock x:Uid="Take_CongratulatoryMoneyInfo"  Text="축의금 내용" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource SubtitleTextBlockStyle}"/>
-                    </Grid>
-                    <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="10">
-                        <ScrollViewer Grid.Row="1" Grid.Column="1" Padding="0,0,10,0" Margin="20,0,20,15">
-                            <StackPanel>
-                                <Border Style="{StaticResource CardHeaderBorderStyle}">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition />
-                                        </Grid.RowDefinitions>
-
-                                        <Grid Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}">
-                                            <TextBlock x:Uid="Take_Sum" Text="금액" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource SubtitleTextBlockStyle}"/>
-                                        </Grid>
-                                        <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="10">
-                                            <StackPanel>
-                                                <ItemsControl x:Name="itemsControlMoneyOptions" ItemsSource="{Binding MoneyOptions}">
-                                                    <ItemsControl.ItemsPanel>
-                                                        <ItemsPanelTemplate>
-                                                            <VariableSizedWrapGrid Orientation="Horizontal"/>
-                                                        </ItemsPanelTemplate>
-                                                    </ItemsControl.ItemsPanel>
-                                                    <ItemsControl.ItemTemplate>
-                                                        <DataTemplate>
-                                                            <RadioButton GroupName="MoneyOption" Content="{Binding Display}"
+                            <Grid Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}">
+                                <TextBlock x:Uid="Take_Sum" Text="금액" Style="{StaticResource CardHeaderTextBlockStyle}"/>
+                            </Grid>
+                            <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="10">
+                                <StackPanel>
+                                    <ItemsControl x:Name="itemsControlMoneyOptions" ItemsSource="{Binding MoneyOptions}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VariableSizedWrapGrid Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <RadioButton GroupName="MoneyOption" Content="{Binding Display}"
                                                                          IsChecked="{Binding IsSelected, Mode=TwoWay}"
                                                                          Command="{Binding DataContext.SelectMoneyOptionCommand, ElementName=itemsControlMoneyOptions}" CommandParameter="{Binding}"/>
-                                                        </DataTemplate>
-                                                    </ItemsControl.ItemTemplate>
-                                                </ItemsControl>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
 
-                                                <telerikInput:RadNumericBox x:Name="nmBoxSum" ValueFormat="{}{0,0:C}" Minimum="0" Maximum="{x:Bind sys:Double.MaxValue}" SmallChange="{x:Bind models:MoneyOption.SmallChange}"
+                                    <telerikInput:RadNumericBox x:Name="nmBoxSum" ValueFormat="{}{0,0:C}" Minimum="0" Maximum="{x:Bind sys:Double.MaxValue}" SmallChange="{x:Bind models:MoneyOption.SmallChange}"
                                                                             Value="{Binding Sum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" InputScope="CurrencyAmount">
-                                                    <telerikInput:RadNumericBox.IsEnabled>
-                                                        <Binding Path="SelectedMoneyOption.Sum" Converter="{StaticResource EqualityConverter}">
-                                                            <Binding.ConverterParameter>
-                                                                <x:Double>0</x:Double>
-                                                            </Binding.ConverterParameter>
-                                                        </Binding>
-                                                    </telerikInput:RadNumericBox.IsEnabled>
-                                                </telerikInput:RadNumericBox>
-                                            </StackPanel>
-                                        </Grid>
-                                    </Grid>
-                                </Border>
+                                        <telerikInput:RadNumericBox.IsEnabled>
+                                            <Binding Path="SelectedMoneyOption.Sum" Converter="{StaticResource EqualityConverter}">
+                                                <Binding.ConverterParameter>
+                                                    <x:Double>0</x:Double>
+                                                </Binding.ConverterParameter>
+                                            </Binding>
+                                        </telerikInput:RadNumericBox.IsEnabled>
+                                    </telerikInput:RadNumericBox>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
 
-                                <Border Style="{StaticResource CardHeaderBorderStyle}">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition />
-                                        </Grid.RowDefinitions>
+                    <Border Style="{StaticResource CardHeaderBorderStyle}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
 
-                                        <Grid Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}">
-                                            <TextBlock x:Uid="Take_Guest" Text="손님" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource SubtitleTextBlockStyle}"/>
-                                        </Grid>
-                                        <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="10">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition />
-                                                <ColumnDefinition Width="10"/>
-                                                <ColumnDefinition />
-                                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}">
+                                <TextBlock x:Uid="Take_Guest" Text="손님" Style="{StaticResource CardHeaderTextBlockStyle}"/>
+                            </Grid>
+                            <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
 
-                                            <TextBox Grid.Column="0" x:Name="txtBoxGuestName" Padding="{StaticResource TextBoxPadding}"
+                                <TextBox Grid.Column="0" x:Uid="Take_GuestName" x:Name="txtBoxGuestName" Padding="{StaticResource TextBoxPadding}" PlaceholderText="손님 이름을 입력하세요."
                                                      Text="{Binding GuestName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                            <TextBox Grid.Column="2" x:Name="txtBoxRecognizedText" Padding="{StaticResource TextBoxPadding}" IsReadOnly="True"
+                                <TextBox Grid.Column="2" x:Uid="Take_RecognizedText" x:Name="txtBoxRecognizedText" Padding="{StaticResource TextBoxPadding}" IsReadOnly="True" PlaceholderText="인식된 글자"
                                                      Text="{Binding RecognizedText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                        </Grid>
-                                    </Grid>
-                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Border>
 
-                                <Border Style="{StaticResource CardHeaderBorderStyle}">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition />
-                                        </Grid.RowDefinitions>
+                    <Border Style="{StaticResource CardHeaderBorderStyle}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
 
-                                        <Grid Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}">
-                                            <TextBlock x:Uid="Take_ReturnPresent" Text="답례품" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource SubtitleTextBlockStyle}"/>
-                                        </Grid>
-                                        <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="10">
-                                            <StackPanel>
-                                                <VariableSizedWrapGrid Orientation="Horizontal">
-                                                    <RadioButton x:Uid="Take_ReturnPresent_MealTickets" GroupName="ReturnPresent" Content="식권"
+                            <Grid Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}">
+                                <TextBlock x:Uid="Take_ReturnPresent" Text="답례품" Style="{StaticResource CardHeaderTextBlockStyle}"/>
+                            </Grid>
+                            <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="10">
+                                <StackPanel>
+                                    <VariableSizedWrapGrid Orientation="Horizontal">
+                                        <RadioButton x:Uid="Take_ReturnPresent_MealTickets" GroupName="ReturnPresent" Content="식권"
                                                          IsChecked="{x:Bind ViewModel.SelectedReturnPresentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=MealTickets, Mode=OneWay}"
                                                          Command="{x:Bind ViewModel.SelectReturnPresentTypeCommand}">
-                                                        <RadioButton.CommandParameter>
-                                                            <models:ReturnPresentType>MealTickets</models:ReturnPresentType>
-                                                        </RadioButton.CommandParameter>
-                                                    </RadioButton>
-                                                    <RadioButton x:Uid="Take_ReturnPresent_Present" GroupName="ReturnPresent" Content="선물"
+                                            <RadioButton.CommandParameter>
+                                                <models:ReturnPresentType>MealTickets</models:ReturnPresentType>
+                                            </RadioButton.CommandParameter>
+                                        </RadioButton>
+                                        <RadioButton x:Uid="Take_ReturnPresent_Present" GroupName="ReturnPresent" Content="선물"
                                                          IsChecked="{x:Bind ViewModel.SelectedReturnPresentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Present, Mode=OneWay}"
                                                          Command="{x:Bind ViewModel.SelectReturnPresentTypeCommand}">
-                                                        <RadioButton.CommandParameter>
-                                                            <models:ReturnPresentType>Present</models:ReturnPresentType>
-                                                        </RadioButton.CommandParameter>
-                                                    </RadioButton>
-                                                    <RadioButton x:Uid="Take_ReturnPresent_Fare" GroupName="ReturnPresent" Content="교통비"
+                                            <RadioButton.CommandParameter>
+                                                <models:ReturnPresentType>Present</models:ReturnPresentType>
+                                            </RadioButton.CommandParameter>
+                                        </RadioButton>
+                                        <RadioButton x:Uid="Take_ReturnPresent_Fare" GroupName="ReturnPresent" Content="교통비"
                                                          IsChecked="{x:Bind ViewModel.SelectedReturnPresentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Fare, Mode=OneWay}"
                                                          Command="{x:Bind ViewModel.SelectReturnPresentTypeCommand}">
-                                                        <RadioButton.CommandParameter>
-                                                            <models:ReturnPresentType>Fare</models:ReturnPresentType>
-                                                        </RadioButton.CommandParameter>
-                                                    </RadioButton>
-                                                </VariableSizedWrapGrid>
+                                            <RadioButton.CommandParameter>
+                                                <models:ReturnPresentType>Fare</models:ReturnPresentType>
+                                            </RadioButton.CommandParameter>
+                                        </RadioButton>
+                                    </VariableSizedWrapGrid>
 
-                                                <telerikInput:RadNumericBox ValueFormat="{}{0:N0}" Minimum="0" Maximum="10"
+                                    <telerikInput:RadNumericBox ValueFormat="{}{0:N0}" Minimum="0" Maximum="10"
                                                                     Value="{Binding ReturnPresentQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                            </StackPanel>
-                                        </Grid>
-                                    </Grid>
-                                </Border>
-                                
-                                <!--<StackPanel Margin="0,15,0,0">
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                    <!--<StackPanel Margin="0,15,0,0">
                                     
                                 </StackPanel>-->
-                            </StackPanel>
-                        </ScrollViewer>
-                    </Grid>
-                </Grid>
-            </Border>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Grid>
     

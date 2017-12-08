@@ -23,10 +23,10 @@
         <Setter Property="FontSize" Value="{StaticResource SemiLargeFontSize}"/>
     </Style>
 
-    <!--<Style x:Key="SubtitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource SubtitleTextBlockStyle}">
+    <Style x:Key="CardHeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextStyle}">
         <Setter Property="FontWeight" Value="Normal" />
-        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Margin" Value="{StaticResource SmallAllMargin}" />
         <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings" />
-    </Style>-->
+    </Style>
 
 </ResourceDictionary>

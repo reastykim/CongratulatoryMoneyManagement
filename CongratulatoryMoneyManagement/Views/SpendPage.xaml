@@ -34,13 +34,6 @@
 
         <TextBlock x:Name="TitlePage" x:Uid="Spend_Title" Text="지출 입력" Style="{StaticResource PageTitleStyle}" />
         <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition />
-            </Grid.RowDefinitions>
-
-            <TextBlock x:Uid="Spend_SpendingInfo" Grid.Row="0" Text="지출 내용" Margin="20,15"
-                       Style="{StaticResource SubheaderTextBlockStyle}"/>
             <StackPanel Grid.Row="1" Grid.Column="1" Padding="0,0,10,0" Margin="15,0,15,15">
                 <Grid Margin="0,15,0,0">
                     <Grid.ColumnDefinitions>
@@ -60,7 +53,7 @@
                             </Grid.RowDefinitions>
 
                             <Grid Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}">
-                                <TextBlock x:Uid="Spend_Details" Text="내용" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                                <TextBlock x:Uid="Spend_Details" Text="내용" Style="{StaticResource CardHeaderTextBlockStyle}"/>
                             </Grid>
                             <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="10">
                                 <TextBox x:Name="txtBoxGuestName" Padding="{StaticResource TextBoxPadding}"
@@ -77,7 +70,7 @@
                             </Grid.RowDefinitions>
 
                             <Grid Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}">
-                                <TextBlock x:Uid="Spend_Sum" Text="금액" Margin="{StaticResource SmallAllMargin}" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                                <TextBlock x:Uid="Spend_Sum" Text="금액" Style="{StaticResource CardHeaderTextBlockStyle}"/>
                             </Grid>
                             <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="10">
                                 <telerikInput:RadNumericBox Grid.Row="1" Grid.Column="2" x:Name="nmBoxSum" ValueFormat="{}{0,0:C}" Minimum="0" Maximum="{x:Bind sys:Double.MaxValue}" SmallChange="{x:Bind models:MoneyOption.SmallChange}"

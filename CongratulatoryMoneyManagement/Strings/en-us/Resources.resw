@@ -209,7 +209,7 @@
   </data>
   <data name="Settings_AboutDescription.Text" xml:space="preserve">
     <value>This app is an application for managing 'congratulatory money'.
-And this app was originally created for developer own wedding.</value>
+And this app was created for developer own wedding.</value>
     <comment>About this application description for Settings</comment>
   </data>
   <data name="Settings_PrivacyTermsLink.Content" xml:space="preserve">
@@ -241,7 +241,7 @@ And this app was originally created for developer own wedding.</value>
   </data>
   <data name="AppDescription" xml:space="preserve">
     <value>This app is an application for managing 'congratulatory money'.
-And this app was originally created for developer own wedding.</value>
+And this app was created for developer own wedding.</value>
   </data>
   <data name="Take_CongratulatoryMoneyInfo.Text" xml:space="preserve">
     <value>Congratulatory Money Information</value>
@@ -273,13 +273,16 @@ And this app was originally created for developer own wedding.</value>
   <data name="Spend_Details.Text" xml:space="preserve">
     <value>Details</value>
   </data>
-  <data name="Spend_SpendingInfo.Text" xml:space="preserve">
-    <value>Spending Information</value>
-  </data>
   <data name="Spend_Sum.Text" xml:space="preserve">
     <value>Sum</value>
   </data>
   <data name="Take_Sum.Text" xml:space="preserve">
     <value>Sum</value>
+  </data>
+  <data name="Take_GuestName.PlaceholderText" xml:space="preserve">
+    <value>Input a guest name.</value>
+  </data>
+  <data name="Take_RecognizedText.PlaceholderText" xml:space="preserve">
+    <value>Recognized Text</value>
   </data>
 </root>
