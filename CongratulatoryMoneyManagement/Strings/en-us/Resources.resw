@@ -246,7 +246,7 @@ And this app was created for developer own wedding.</value>
   <data name="Take_CongratulatoryMoneyInfo.Text" xml:space="preserve">
     <value>Congratulatory Money Information</value>
   </data>
-  <data name="Take_TakeEnvelopePhoto.Text" xml:space="preserve">
+  <data name="Take_TakeEnvelopePhoto.HeaderText" xml:space="preserve">
     <value>Envelope Photo</value>
   </data>
   <data name="MoneyOption_Input" xml:space="preserve">
@@ -255,10 +255,10 @@ And this app was created for developer own wedding.</value>
   <data name="MoneyOption_SmallChange" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="Take_Guest.Text" xml:space="preserve">
+  <data name="Take_Guest.HeaderText" xml:space="preserve">
     <value>Guest</value>
   </data>
-  <data name="Take_ReturnPresent.Text" xml:space="preserve">
+  <data name="Take_ReturnPresent.HeaderText" xml:space="preserve">
     <value>Return Present</value>
   </data>
   <data name="Take_ReturnPresent_Fare.Content" xml:space="preserve">
@@ -270,13 +270,13 @@ And this app was created for developer own wedding.</value>
   <data name="Take_ReturnPresent_Present.Content" xml:space="preserve">
     <value>Present</value>
   </data>
-  <data name="Spend_Details.Text" xml:space="preserve">
+  <data name="Spend_Details.HeaderText" xml:space="preserve">
     <value>Details</value>
   </data>
-  <data name="Spend_Sum.Text" xml:space="preserve">
+  <data name="Spend_Sum.HeaderText" xml:space="preserve">
     <value>Sum</value>
   </data>
-  <data name="Take_Sum.Text" xml:space="preserve">
+  <data name="Take_Sum.HeaderText" xml:space="preserve">
     <value>Sum</value>
   </data>
   <data name="Take_GuestName.PlaceholderText" xml:space="preserve">

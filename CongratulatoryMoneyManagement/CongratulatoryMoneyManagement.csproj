@@ -141,8 +141,10 @@
     <Compile Include="Controls\CameraControl.xaml.cs">
       <DependentUpon>CameraControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CardBox.cs" />
     <Compile Include="Converters\DebugConverter.cs" />
     <Compile Include="Converters\EqualityConverter.cs" />
+    <Compile Include="Converters\GridGroupToSummeryConverter.cs" />
     <Compile Include="Converters\NullToCollapsedConverter.cs" />
     <Compile Include="Data\CongratulatoryMoneyContext.cs" />
     <Compile Include="EventHandlers\CameraControlEventArgs.cs" />
@@ -237,6 +239,10 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\PivotPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -267,9 +273,7 @@
     <Compile Include="Helpers\ResourceExtensions.cs" />
     <Compile Include="Helpers\Singleton.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Themes\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

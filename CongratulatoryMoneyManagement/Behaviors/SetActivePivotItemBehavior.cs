@@ -2,6 +2,7 @@
 using Microsoft.Xaml.Interactivity;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +45,7 @@ namespace CongratulatoryMoneyManagement.Behaviors
             if (content?.DataContext is IPivotItemActivate pivotItemDeactivate)
             {
                 pivotItemDeactivate.OnPivotItemDeactived();
+                Debug.WriteLine($"OnPivotItemDeactived, [{content.GetType()}]");
             }
 
             pivotItem = e.AddedItems.FirstOrDefault() as PivotItem;
@@ -51,6 +53,7 @@ namespace CongratulatoryMoneyManagement.Behaviors
             if (content?.DataContext is IPivotItemActivate pivotItemActivate)
             {
                 pivotItemActivate.OnPivotItemActived();
+                Debug.WriteLine($"OnPivotItemActived, [{content.GetType()}]");
             }
         }
 

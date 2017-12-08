@@ -9,6 +9,7 @@
     xmlns:sys="using:System"
     xmlns:eConverter="using:Microsoft.Toolkit.Uwp.UI.Converters"
     xmlns:converters="using:CongratulatoryMoneyManagement.Converters"
+    xmlns:controls="using:CongratulatoryMoneyManagement.Controls"
     xmlns:telerikInput="using:Telerik.UI.Xaml.Controls.Input"
     xmlns:models="using:CongratulatoryMoneyManagement.Models"
     Style="{StaticResource PageStyle}"
@@ -45,42 +46,18 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <Border Grid.Column="0" Style="{StaticResource CardHeaderBorderStyle}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
+                    <controls:CardBox Grid.Column="0" x:Uid="Spend_Details" HeaderText="내용">
+                        <TextBox Padding="{StaticResource TextBoxPadding}"
+                                 Text="{Binding Details, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                    </controls:CardBox>
 
-                            <Grid Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}">
-                                <TextBlock x:Uid="Spend_Details" Text="내용" Style="{StaticResource CardHeaderTextBlockStyle}"/>
-                            </Grid>
-                            <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="10">
-                                <TextBox x:Name="txtBoxGuestName" Padding="{StaticResource TextBoxPadding}"
-                                         Text="{Binding Details, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                            </Grid>
-                        </Grid>
-                    </Border>
-
-                    <Border Grid.Column="1" Style="{StaticResource CardHeaderBorderStyle}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-
-                            <Grid Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}">
-                                <TextBlock x:Uid="Spend_Sum" Text="금액" Style="{StaticResource CardHeaderTextBlockStyle}"/>
-                            </Grid>
-                            <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="10">
-                                <telerikInput:RadNumericBox Grid.Row="1" Grid.Column="2" x:Name="nmBoxSum" ValueFormat="{}{0,0:C}" Minimum="0" Maximum="{x:Bind sys:Double.MaxValue}" SmallChange="{x:Bind models:MoneyOption.SmallChange}"
+                    <controls:CardBox Grid.Column="1" x:Uid="Spend_Sum" HeaderText="금액">
+                        <telerikInput:RadNumericBox Grid.Row="1" Grid.Column="2" x:Name="nmBoxSum" ValueFormat="{}{0,0:C}" Minimum="0" Maximum="{x:Bind sys:Double.MaxValue}" SmallChange="{x:Bind models:MoneyOption.SmallChange}"
                                                     Value="{Binding Sum, Mode=TwoWay}" InputScope="CurrencyAmount"/>
-                            </Grid>
-                        </Grid>
-                    </Border>
+                    </controls:CardBox>
                 </Grid>
 
-                <!--<Border Background="{ThemeResource SystemControlHighlightAccentBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAccentBrush}" Height="30"/>
                 <Border Background="{ThemeResource SystemControlHighlightAltAccentBrush}" Height="30"/>
                 <Border Background="{ThemeResource SystemControlHighlightAltAltHighBrush}" Height="30"/>
                 <Border Background="{ThemeResource SystemControlHighlightAltBaseHighBrush}" Height="30"/>
@@ -121,7 +98,7 @@
                 <Border Background="{ThemeResource SystemControlPageBackgroundTransparentBrush}" Height="30"/>
                 <Border Background="{ThemeResource SystemControlPageTextBaseHighBrush}" Height="30"/>
                 <Border Background="{ThemeResource SystemControlPageTextBaseMediumBrush}" Height="30"/>
-                <Border Background="{ThemeResource SystemControlPageTextChromeBlackMediumLowBrush}" Height="30"/>-->
+                <Border Background="{ThemeResource SystemControlPageTextChromeBlackMediumLowBrush}" Height="30"/>
             </StackPanel>
         </Grid>
     </Grid>

@@ -1,0 +1,33 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CongratulatoryMoneyManagement"
+    xmlns:controls="using:CongratulatoryMoneyManagement.Controls">
+
+    <Style TargetType="controls:CardBox" >
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:CardBox">
+                    <Border Style="{StaticResource CardHeaderBorderStyle}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}">
+                                <TextBlock Text="{TemplateBinding HeaderText}" Style="{StaticResource CardHeaderTextBlockStyle}"/>
+                            </Grid>
+                            <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="10">
+                                <ContentControl HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                Content="{TemplateBinding Content}" />
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -11,7 +11,7 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-        <converters:DebugConverter x:Key="DebugConverter"/>
+        <converters:GridGroupToSummeryConverter x:Key="GridGroupToSummeryConverter" StringFormat="{}{0:C0}"/>
         <Style x:Key="IconTextBlockStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
             <Setter Property="FontSize" Value="30"/>
@@ -31,11 +31,15 @@
 
         <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <tg:RadDataGrid x:Name="grid" ColumnDataOperationsMode="Flyout" AutoGenerateColumns="False"
-                            ItemsSource="{Binding Source}" >
+                            ItemsSource="{Binding Source}" AlternationStep="2" IsBusyIndicatorEnabled="True" SelectionMode="Single" SelectionUnit="Row" >
                 <tg:RadDataGrid.GroupHeaderTemplate>
                     <DataTemplate>
-                        <TextBlock Margin="20,0" HorizontalAlignment="Left"
-                                   Text="{Binding Group, Converter={StaticResource DebugConverter}}" Style="{StaticResource IconTextBlockStyle}"/>
+                        <Grid>
+                            <TextBlock Margin="20,0" HorizontalAlignment="Left"
+                                   Text="{Binding Group}" Style="{StaticResource IconTextBlockStyle}"/>
+                            <TextBlock Margin="20,0" HorizontalAlignment="Right"
+                                   Text="{Binding Converter={StaticResource GridGroupToSummeryConverter}}" />
+                        </Grid>
                     </DataTemplate>
                 </tg:RadDataGrid.GroupHeaderTemplate>
                 <tg:RadDataGrid.Columns>
