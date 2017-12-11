@@ -200,8 +200,23 @@
   <data name="Spend_Title.Text" xml:space="preserve">
     <value>지출 입력</value>
   </data>
+  <data name="Statement_Grid_Created.Header" xml:space="preserve">
+    <value>시간</value>
+  </data>
+  <data name="Statement_Grid_Details.Header" xml:space="preserve">
+    <value>내용</value>
+  </data>
+  <data name="Statement_Grid_Sum.Header" xml:space="preserve">
+    <value>금액</value>
+  </data>
+  <data name="Statement_Grid_Type.Header" xml:space="preserve">
+    <value>종류</value>
+  </data>
   <data name="Statement_Title.Text" xml:space="preserve">
     <value>내역 목록</value>
+  </data>
+  <data name="Summery" xml:space="preserve">
+    <value>합계</value>
   </data>
   <data name="Take_CongratulatoryMoneyInfo.Text" xml:space="preserve">
     <value>축의금 내용</value>

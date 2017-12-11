@@ -285,4 +285,19 @@ And this app was created for developer own wedding.</value>
   <data name="Take_RecognizedText.PlaceholderText" xml:space="preserve">
     <value>Recognized Text</value>
   </data>
+  <data name="Statement_Grid_Created.Header" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="Statement_Grid_Details.Header" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Statement_Grid_Sum.Header" xml:space="preserve">
+    <value>Sum</value>
+  </data>
+  <data name="Statement_Grid_Type.Header" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Summery" xml:space="preserve">
+    <value>Summery</value>
+  </data>
 </root>

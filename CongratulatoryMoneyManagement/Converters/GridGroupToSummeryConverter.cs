@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Telerik.UI.Xaml.Controls.Grid;
 using Windows.UI.Xaml.Data;
+using CongratulatoryMoneyManagement.Helpers;
 
 namespace CongratulatoryMoneyManagement.Converters
 {
@@ -23,7 +24,7 @@ namespace CongratulatoryMoneyManagement.Converters
             if (context == null)
                 return null;
 
-            return String.Format(StringFormat, context.Group.ChildItems.OfType<StatementItem>().Sum(SI => SI.Sum));
+            return String.Format($"{"Summery".GetLocalized()} : {StringFormat}", context.Group.ChildItems.OfType<StatementItem>().Sum(SI => SI.Sum));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -31,5 +32,4 @@ namespace CongratulatoryMoneyManagement.Converters
             throw new NotImplementedException();
         }
     }
-
 }
