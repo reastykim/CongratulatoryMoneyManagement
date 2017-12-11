@@ -217,7 +217,7 @@ And this app was created for developer own wedding.</value>
     <comment>Privacy Statement link content for Settings</comment>
   </data>
   <data name="Settings_PrivacyTermsLink.NavigateUri" xml:space="preserve">
-    <value>http://reasty.net/CongratulatoryMoney/PrivacyTerms</value>
+    <value>http://congratulatory-money.reasty.net/</value>
     <comment>Here is your Privacy Statement url for Settings</comment>
   </data>
   <data name="Settings_Personalization.Text" xml:space="preserve">
@@ -240,8 +240,7 @@ And this app was created for developer own wedding.</value>
     <value>Congratulatory Money Management</value>
   </data>
   <data name="AppDescription" xml:space="preserve">
-    <value>This app is an application for managing 'congratulatory money'.
-And this app was created for developer own wedding.</value>
+    <value>This app is an application for managing 'congratulatory money'. And this app was created for developer own wedding.</value>
   </data>
   <data name="Take_CongratulatoryMoneyInfo.Text" xml:space="preserve">
     <value>Congratulatory Money Information</value>

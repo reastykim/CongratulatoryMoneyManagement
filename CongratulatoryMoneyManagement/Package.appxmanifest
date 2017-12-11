@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:genTemplate="http://schemas.microsoft.com/appx/developer/windowsTemplateStudio" IgnorableNamespaces="uap mp genTemplate">
-  <Identity Name="F94BCC43-2E5D-4689-9965-8079046C81A1" Publisher="CN=reasty" Version="1.0.0.0" />
-  <mp:PhoneIdentity PhoneProductId="F94BCC43-2E5D-4689-9965-8079046C81A1" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="18384ReastyByeong-cheolKi.328453BF46039" Publisher="CN=09F6798A-032A-4FB2-8A8E-5316F535A463" Version="1.0.0.0" />
+  <mp:PhoneIdentity PhoneProductId="05c6f511-3b98-41d9-bc6e-7d49a6c7e499" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>ms-resource:AppName</DisplayName>
-    <PublisherDisplayName>Reasty Kim</PublisherDisplayName>
+    <PublisherDisplayName>Reasty Byeong-cheol Kim</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
