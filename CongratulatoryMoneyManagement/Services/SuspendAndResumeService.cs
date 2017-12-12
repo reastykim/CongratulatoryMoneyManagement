@@ -53,7 +53,7 @@ namespace CongratulatoryMoneyManagement.Services
             if (saveState?.Target != null)
             {
                 var navigationService = ServiceLocator.Current.GetInstance<NavigationServiceEx>();
-                navigationService.Navigate(saveState.Target.FullName, saveState.SuspensionState);
+                await navigationService.NavigateAsync(saveState.Target.FullName, saveState.SuspensionState);
             }
         }
     }

@@ -24,13 +24,11 @@ namespace CongratulatoryMoneyManagement.Activation
             _navElement = navElement.FullName;
         }
 
-        protected override async Task HandleInternalAsync(LaunchActivatedEventArgs args)
+        protected override Task HandleInternalAsync(LaunchActivatedEventArgs args)
         {
             // When the navigation stack isn't restored, navigate to the first page and configure
             // the new page by passing required information in the navigation parameter
-            NavigationService.Navigate(_navElement, args.Arguments);
-
-            await Task.CompletedTask;
+            return NavigationService.NavigateAsync(_navElement, args.Arguments);
         }
 
         protected override bool CanHandleInternal(LaunchActivatedEventArgs args)

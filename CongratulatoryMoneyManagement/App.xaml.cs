@@ -5,17 +5,19 @@ using CongratulatoryMoneyManagement.Services;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
+using CongratulatoryMoneyManagement.Views;
 
 namespace CongratulatoryMoneyManagement
 {
     public sealed partial class App : Application
     {
-        private Lazy<ActivationService> _activationService;
-
         private ActivationService ActivationService
         {
-            get { return _activationService.Value; }
+            get { return activationService.Value; }
         }
+        private Lazy<ActivationService> activationService;
+
+        private NavigationRootPage rootPage;
 
         public App()
         {
@@ -24,7 +26,7 @@ namespace CongratulatoryMoneyManagement
             EnteredBackground += App_EnteredBackground;
 
             // Deferred execution until used. Check https://msdn.microsoft.com/library/dd642331(v=vs.110).aspx for further info on Lazy<T> class.
-            _activationService = new Lazy<ActivationService>(CreateActivationService);
+            activationService = new Lazy<ActivationService>(CreateActivationService);
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
@@ -42,7 +44,8 @@ namespace CongratulatoryMoneyManagement
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, typeof(ViewModels.PivotViewModel));
+            rootPage = new NavigationRootPage();
+            return new ActivationService(this, typeof(ViewModels.TakeViewModel), rootPage, rootPage.AppFrame);
         }
 
         private async void App_EnteredBackground(object sender, EnteredBackgroundEventArgs e)

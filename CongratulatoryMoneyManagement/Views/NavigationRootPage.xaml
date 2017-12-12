@@ -1,0 +1,53 @@
+﻿<Page
+    x:Class="CongratulatoryMoneyManagement.Views.NavigationRootPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:appmodel="using:Windows.ApplicationModel"
+    xmlns:local="using:CongratulatoryMoneyManagement.Views"
+    mc:Ignorable="d"
+    DataContext="{Binding NavigationRootViewModel, Source={StaticResource Locator}}"
+    >
+
+    <i:Interaction.Behaviors>
+        <ic:EventTriggerBehavior EventName="Loaded">
+            <ic:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </ic:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+
+    <Grid x:Name="NavRootGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Rectangle x:Name="BorderRect" x:Load="False" Fill="{StaticResource NavigationViewDefaultPaneBackground}" HorizontalAlignment="Left" Height="1000" Width="48"/>
+
+        <NavigationView IsSettingsVisible="True" x:Name="navview" AlwaysShowHeader="False">
+            
+            <i:Interaction.Behaviors>
+                <ic:EventTriggerBehavior EventName="ItemInvoked">
+                    <ic:InvokeCommandAction Command="{Binding NavViewItemInvokedCommand}" />
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+
+            <NavigationView.MenuItems>
+                <NavigationViewItem x:Uid="NavMenuItem_Take">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE720;" ></FontIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="NavMenuItem_Spend">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE720;" ></FontIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="NavMenuItem_Statement">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE720;" ></FontIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+            <Frame x:Name="appNavFrame" Navigated="AppNavFrame_Navigated">
+            </Frame>
+        </NavigationView>
+    </Grid>
+</Page>

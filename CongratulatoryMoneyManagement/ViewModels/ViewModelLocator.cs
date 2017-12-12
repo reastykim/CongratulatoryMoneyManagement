@@ -18,7 +18,7 @@ namespace CongratulatoryMoneyManagement.ViewModels
             SimpleIoc.Default.Register<IDataService, SqliteDataService>(true);
 
             SimpleIoc.Default.Register(() => new NavigationServiceEx());
-            Register<PivotViewModel, PivotPage>();
+            Register<NavigationRootViewModel, NavigationRootPage>();
             Register<TakeViewModel, TakePage>();
             Register<SpendViewModel, SpendPage>();
             Register<StatementViewModel, StatementPage>();
@@ -33,7 +33,7 @@ namespace CongratulatoryMoneyManagement.ViewModels
 
         public TakeViewModel TakeViewModel => ServiceLocator.Current.GetInstance<TakeViewModel>();
 
-        public PivotViewModel PivotViewModel => ServiceLocator.Current.GetInstance<PivotViewModel>();
+        public NavigationRootViewModel NavigationRootViewModel => ServiceLocator.Current.GetInstance<NavigationRootViewModel>();
 
         public NavigationServiceEx NavigationService => ServiceLocator.Current.GetInstance<NavigationServiceEx>();
 

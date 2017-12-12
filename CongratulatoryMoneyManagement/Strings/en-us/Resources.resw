@@ -299,4 +299,16 @@ And this app was created for developer own wedding.</value>
   <data name="Summery" xml:space="preserve">
     <value>Summery</value>
   </data>
+  <data name="NavMenuItem_Settings.Content" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="NavMenuItem_Spend.Content" xml:space="preserve">
+    <value>Spend</value>
+  </data>
+  <data name="NavMenuItem_Statement.Content" xml:space="preserve">
+    <value>Statement</value>
+  </data>
+  <data name="NavMenuItem_Take.Content" xml:space="preserve">
+    <value>Take</value>
+  </data>
 </root>

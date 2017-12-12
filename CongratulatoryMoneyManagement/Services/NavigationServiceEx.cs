@@ -8,6 +8,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using System.Threading.Tasks;
+using Microsoft.Toolkit.Uwp.Helpers;
 
 namespace CongratulatoryMoneyManagement.Services
 {
@@ -42,15 +44,25 @@ namespace CongratulatoryMoneyManagement.Services
             }
         }
 
+        private bool _isNavigating;
+
         public bool CanGoBack => Frame.CanGoBack;
 
-        public bool CanGoForward => Frame.CanGoForward;
+        public async Task GoBackAsync()
+        {
+            if (Frame.CanGoBack)
+            {
+                _isNavigating = true;
 
-        public void GoBack() => Frame.GoBack();
+                Page navigatedPage = await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                {
+                    Frame.GoBack();
+                    return Frame.Content as Page;
+                });
+            }
+        }
 
-        public void GoForward() => Frame.GoForward();
-
-        public bool Navigate(string pageKey, object parameter = null, NavigationTransitionInfo infoOverride = null)
+        public async Task<bool> NavigateAsync(string pageKey, object parameter = null, NavigationTransitionInfo infoOverride = null)
         {
             lock (_pages)
             {
@@ -58,10 +70,44 @@ namespace CongratulatoryMoneyManagement.Services
                 {
                     throw new ArgumentException(string.Format("ExceptionNavigationServiceExPageNotFound".GetLocalized(), pageKey), nameof(pageKey));
                 }
-
-                var navigationResult = Frame.Navigate(_pages[pageKey], parameter, infoOverride);
-                return navigationResult;
             }
+
+            // Early out if already in the middle of a Navigation
+            if (_isNavigating)
+            {
+                return false;
+            }
+
+            _isNavigating = true;
+
+            return await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            {
+                return Frame.Navigate(_pages[pageKey], parameter, infoOverride);
+            });
+        }
+
+        public async Task<bool> NavigateAsync(Type pageType, object parameter = null, NavigationTransitionInfo infoOverride = null)
+        {
+            lock (_pages)
+            {
+                if (!_pages.ContainsValue(pageType))
+                {
+                    throw new ArgumentException(string.Format("ExceptionNavigationServiceExPageNotFound".GetLocalized(), pageType.FullName), nameof(pageType.FullName));
+                }
+            }
+
+            // Early out if already in the middle of a Navigation
+            if (_isNavigating)
+            {
+                return false;
+            }
+
+            _isNavigating = true;
+
+            return await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            {
+                return Frame.Navigate(pageType, parameter, infoOverride);
+            });
         }
 
         public void Configure(string key, Type pageType)
@@ -117,6 +163,10 @@ namespace CongratulatoryMoneyManagement.Services
 
         private void Frame_NavigationFailed(object sender, NavigationFailedEventArgs e) => NavigationFailed?.Invoke(sender, e);
 
-        private void Frame_Navigated(object sender, NavigationEventArgs e) => Navigated?.Invoke(sender, e);
+        private void Frame_Navigated(object sender, NavigationEventArgs e)
+        {
+            _isNavigating = false;
+            Navigated?.Invoke(sender, e);
+        }
     }
 }

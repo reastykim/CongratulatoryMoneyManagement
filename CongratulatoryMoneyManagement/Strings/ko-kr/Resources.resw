@@ -147,6 +147,18 @@
   <data name="MoneyOption_SmallChange" xml:space="preserve">
     <value>10000</value>
   </data>
+  <data name="NavMenuItem_Settings.Content" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="NavMenuItem_Spend.Content" xml:space="preserve">
+    <value>지출</value>
+  </data>
+  <data name="NavMenuItem_Statement.Content" xml:space="preserve">
+    <value>내역</value>
+  </data>
+  <data name="NavMenuItem_Take.Content" xml:space="preserve">
+    <value>입력</value>
+  </data>
   <data name="PivotItem_Settings.Header" xml:space="preserve">
     <value>설정</value>
   </data>
