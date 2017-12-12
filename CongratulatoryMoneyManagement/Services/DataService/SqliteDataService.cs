@@ -19,21 +19,12 @@ namespace CongratulatoryMoneyManagement.Services.DataService
     {
         public SqliteDataService()
         {
-            //DropAllTables();
             Initialize();
         }
 
         private async void Initialize()
         {
-            CreateMoneyOptionsTableIfNotExists();
-            CreateReturnPresentsTableIfNotExists();
-            CreateCongratulatoryMoneyTableIfNotExists();
-            CreateSpendingsTableIfNotExists();
-
-            using (var db = new CongratulatoryMoneyContext())
-            {
-                db.Database.Migrate();
-            }
+            CongratulatoryMoneyContext.CheckMigrations();
 
             var allMoneyOptions = await AllMoneyOptionsAsync();
             if (allMoneyOptions.Count() == 0)
