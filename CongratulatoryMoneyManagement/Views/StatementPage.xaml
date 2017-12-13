@@ -4,6 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:converters="using:CongratulatoryMoneyManagement.Converters"
     xmlns:tg="using:Telerik.UI.Xaml.Controls.Grid"
     Style="{StaticResource PageStyle}"
@@ -19,6 +21,15 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
     </Page.Resources>
+
+    <i:Interaction.Behaviors>
+        <ic:EventTriggerBehavior EventName="Loaded">
+            <ic:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </ic:EventTriggerBehavior>
+        <ic:EventTriggerBehavior EventName="Unloaded">
+            <ic:InvokeCommandAction Command="{Binding UnloadedCommand}" />
+        </ic:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
     
     <Grid x:Name="ContentArea" Margin="12,0,12,0">
         <Grid.RowDefinitions>

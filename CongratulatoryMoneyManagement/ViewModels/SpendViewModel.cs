@@ -8,7 +8,7 @@ using CongratulatoryMoneyManagement.Models;
 
 namespace CongratulatoryMoneyManagement.ViewModels
 {
-    public class SpendViewModel : ViewModelBase, IPivotItemActivate
+    public class SpendViewModel : ViewModelBase
     {
         #region Properties
 
@@ -64,6 +64,26 @@ namespace CongratulatoryMoneyManagement.ViewModels
 
         #region Commands
 
+        public RelayCommand LoadedCommand
+        {
+            get => loadedCommand ?? (loadedCommand = new RelayCommand(ExecuteLoaded));
+        }
+        private RelayCommand loadedCommand;
+        private void ExecuteLoaded()
+        {
+            ShowBottomAppBar = true;
+        }
+
+        public RelayCommand UnloadedCommand
+        {
+            get => unloadedCommand ?? (unloadedCommand = new RelayCommand(ExecuteUnloaded));
+        }
+        private RelayCommand unloadedCommand;
+        private void ExecuteUnloaded()
+        {
+            ShowBottomAppBar = false;
+        }
+
         #region AppBar Commands
 
         public RelayCommand SaveCommand
@@ -97,20 +117,6 @@ namespace CongratulatoryMoneyManagement.ViewModels
         }
 
         #endregion
-
-        #endregion
-
-        #region Implemented IPivotItemActivate Interface
-
-        public void OnPivotItemActived()
-        {
-            ShowBottomAppBar = true;
-        }
-
-        public void OnPivotItemDeactived()
-        {
-            ShowBottomAppBar = false;
-        }
 
         #endregion
     }

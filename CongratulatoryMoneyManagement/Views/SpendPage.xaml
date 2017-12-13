@@ -20,10 +20,14 @@
         <converters:EqualityConverter x:Key="EqualityConverter"/>
         <eConverter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed"/>
     </Page.Resources>
-
+    
     <i:Interaction.Behaviors>
         <ic:EventTriggerBehavior EventName="Loaded">
-            <ic:InvokeCommandAction Command="{Binding ResetCommand}" />
+            <ic:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+            <ic:InvokeCommandAction Command="{Binding ResetCommand}"/>
+        </ic:EventTriggerBehavior>
+        <ic:EventTriggerBehavior EventName="Unloaded">
+            <ic:InvokeCommandAction Command="{Binding UnloadedCommand}" />
         </ic:EventTriggerBehavior>
     </i:Interaction.Behaviors>
 

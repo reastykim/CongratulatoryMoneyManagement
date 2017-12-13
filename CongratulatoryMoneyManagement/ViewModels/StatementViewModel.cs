@@ -8,10 +8,11 @@ using GalaSoft.MvvmLight;
 using CongratulatoryMoneyManagement.Services.DataService;
 using System.Collections.Generic;
 using CongratulatoryMoneyManagement.Views;
+using GalaSoft.MvvmLight.Command;
 
 namespace CongratulatoryMoneyManagement.ViewModels
 {
-    public class StatementViewModel : ViewModelBase, IPivotItemActivate
+    public class StatementViewModel : ViewModelBase
     {
         #region Properties
 
@@ -39,20 +40,30 @@ namespace CongratulatoryMoneyManagement.ViewModels
 
         #endregion
 
-        #region Implemented IPivotItemActivate Interface
+        #region Commands
 
-        public void OnPivotItemActived()
+        public RelayCommand LoadedCommand
+        {
+            get => loadedCommand ?? (loadedCommand = new RelayCommand(ExecuteLoaded));
+        }
+        private RelayCommand loadedCommand;
+        private void ExecuteLoaded()
         {
             UpdateAllConCongratulatoryMoney();
         }
 
-        public void OnPivotItemDeactived()
+        public RelayCommand UnloadedCommand
+        {
+            get => unloadedCommand ?? (unloadedCommand = new RelayCommand(ExecuteUnloaded));
+        }
+        private RelayCommand unloadedCommand;
+        private void ExecuteUnloaded()
         {
 
         }
 
         #endregion
-
+        
         private async void UpdateAllConCongratulatoryMoney()
         {
             Source = await dataService.GetAllStatementAsync();

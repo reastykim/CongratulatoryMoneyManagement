@@ -27,7 +27,11 @@
 
     <i:Interaction.Behaviors>
         <ic:EventTriggerBehavior EventName="Loaded">
+            <ic:InvokeCommandAction Command="{Binding LoadedCommand}" CommandParameter="{x:Bind camera}"/>
             <ic:InvokeCommandAction Command="{Binding ResetCommand}" CommandParameter="{x:Bind camera}"/>
+        </ic:EventTriggerBehavior>
+        <ic:EventTriggerBehavior EventName="Unloaded">
+            <ic:InvokeCommandAction Command="{Binding UnloadedCommand}" />
         </ic:EventTriggerBehavior>
     </i:Interaction.Behaviors>
     

@@ -13,7 +13,7 @@ using CongratulatoryMoneyManagement.Controls;
 
 namespace CongratulatoryMoneyManagement.ViewModels
 {
-    public class TakeViewModel : ViewModelBase, IPivotItemActivate
+    public class TakeViewModel : ViewModelBase
     {
         #region Properties
         
@@ -125,6 +125,26 @@ namespace CongratulatoryMoneyManagement.ViewModels
 
         #region Commands
 
+        public RelayCommand LoadedCommand
+        {
+            get => loadedCommand ?? (loadedCommand = new RelayCommand(ExecuteLoaded));
+        }
+        private RelayCommand loadedCommand;
+        private void ExecuteLoaded()
+        {
+            ShowBottomAppBar = true;
+        }
+
+        public RelayCommand UnloadedCommand
+        {
+            get => unloadedCommand ?? (unloadedCommand = new RelayCommand(ExecuteUnloaded));
+        }
+        private RelayCommand unloadedCommand;
+        private void ExecuteUnloaded()
+        {
+            ShowBottomAppBar = false;
+        }
+
         #region Select Commands
 
         public RelayCommand<MoneyOption> SelectMoneyOptionCommand
@@ -216,20 +236,6 @@ namespace CongratulatoryMoneyManagement.ViewModels
         }
 
         #endregion
-
-        #endregion
-
-        #region Implemented IPivotItemActivate Interface
-
-        public void OnPivotItemActived()
-        {
-            ShowBottomAppBar = true;
-        }
-
-        public void OnPivotItemDeactived()
-        {
-            ShowBottomAppBar = false;
-        }
 
         #endregion
     }

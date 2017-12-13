@@ -208,7 +208,7 @@
     <value>금액</value>
   </data>
   <data name="Spend_Title.Text" xml:space="preserve">
-    <value>지출 입력</value>
+    <value>지출</value>
   </data>
   <data name="Statement_Grid_Created.Header" xml:space="preserve">
     <value>시간</value>
@@ -223,7 +223,7 @@
     <value>종류</value>
   </data>
   <data name="Statement_Title.Text" xml:space="preserve">
-    <value>내역 목록</value>
+    <value>내역</value>
   </data>
   <data name="Summery" xml:space="preserve">
     <value>합계</value>
@@ -259,6 +259,6 @@
     <value>봉투 사진</value>
   </data>
   <data name="Take_Title.Text" xml:space="preserve">
-    <value>축의금 입력</value>
+    <value>입력</value>
   </data>
 </root>

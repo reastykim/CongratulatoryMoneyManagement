@@ -16,6 +16,9 @@
         <ic:EventTriggerBehavior EventName="Loaded">
             <ic:InvokeCommandAction Command="{Binding LoadedCommand}" />
         </ic:EventTriggerBehavior>
+        <ic:EventTriggerBehavior EventName="Unloaded">
+            <ic:InvokeCommandAction Command="{Binding UnloadedCommand}" />
+        </ic:EventTriggerBehavior>
     </i:Interaction.Behaviors>
 
     <Grid x:Name="NavRootGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -32,17 +35,17 @@
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Uid="NavMenuItem_Take">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE720;" ></FontIcon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE944;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItem x:Uid="NavMenuItem_Spend">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE720;" ></FontIcon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8A7;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItem x:Uid="NavMenuItem_Statement">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE720;" ></FontIcon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF168;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>
