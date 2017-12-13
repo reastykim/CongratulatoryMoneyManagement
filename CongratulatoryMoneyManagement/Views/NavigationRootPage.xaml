@@ -8,9 +8,14 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:appmodel="using:Windows.ApplicationModel"
     xmlns:local="using:CongratulatoryMoneyManagement.Views"
+    xmlns:converters="using:CongratulatoryMoneyManagement.Converters"
     mc:Ignorable="d"
     DataContext="{Binding NavigationRootViewModel, Source={StaticResource Locator}}"
-    >
+    Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <converters:DebugConverter x:Key="DebugConverter"/>
+    </Page.Resources>
 
     <i:Interaction.Behaviors>
         <ic:EventTriggerBehavior EventName="Loaded">
@@ -24,32 +29,55 @@
     <Grid x:Name="NavRootGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Rectangle x:Name="BorderRect" x:Load="False" Fill="{StaticResource NavigationViewDefaultPaneBackground}" HorizontalAlignment="Left" Height="1000" Width="48"/>
 
-        <NavigationView IsSettingsVisible="True" x:Name="navview" AlwaysShowHeader="False">
+        <NavigationView x:Name="navview" IsSettingsVisible="True">
             
             <i:Interaction.Behaviors>
-                <ic:EventTriggerBehavior EventName="ItemInvoked">
-                    <ic:InvokeCommandAction Command="{Binding NavViewItemInvokedCommand}" />
+                <ic:EventTriggerBehavior EventName="SelectionChanged">
+                    <ic:InvokeCommandAction Command="{Binding NavViewSelectionChangedCommand}" />
                 </ic:EventTriggerBehavior>
             </i:Interaction.Behaviors>
 
+            <NavigationView.HeaderTemplate>
+                <DataTemplate>
+                    <Grid Margin="24,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock VerticalAlignment="Center" Style="{StaticResource TitleTextBlockStyle}"
+                                   Text="{Binding ElementName=navview, Path=SelectedItem.Content}"/>
+                        <!--<CommandBar Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" DefaultLabelPosition="Right"
+                            Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+                            <AppBarButton Label="Refresh" Icon="Refresh"/>
+                            <AppBarButton Label="Import" Icon="Import"/>
+                        </CommandBar>-->
+                    </Grid>
+                </DataTemplate>
+            </NavigationView.HeaderTemplate>
+
             <NavigationView.MenuItems>
-                <NavigationViewItem x:Uid="NavMenuItem_Take">
+                <NavigationViewItem x:Uid="NavMenuItem_Take" Tag="Take" IsSelected="True">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE944;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="NavMenuItem_Spend">
+                <NavigationViewItem x:Uid="NavMenuItem_Spend" Tag="Spend">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8A7;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="NavMenuItem_Statement">
+                <NavigationViewItem x:Uid="NavMenuItem_Statement" Tag="Statement">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF168;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>
             <Frame x:Name="appNavFrame" Navigated="AppNavFrame_Navigated">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition/>
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
             </Frame>
         </NavigationView>
     </Grid>

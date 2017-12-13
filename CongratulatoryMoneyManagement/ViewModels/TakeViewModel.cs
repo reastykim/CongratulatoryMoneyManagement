@@ -29,6 +29,9 @@ namespace CongratulatoryMoneyManagement.ViewModels
             get => MoneyOptions?.FirstOrDefault(MO => MO.IsSelected);
             set
             {
+                if (value == null)
+                    return;
+
                 foreach (var moneyOption in MoneyOptions)
                 {
                     var isSelected = moneyOption == value;
@@ -227,7 +230,12 @@ namespace CongratulatoryMoneyManagement.ViewModels
         private RelayCommand<ICameraController> resetCommand;
         private void ExecuteReset(ICameraController cameraController)
         {
-            SelectMoneyOptionCommand.Execute(MoneyOptions?.FirstOrDefault(MO => MO.Sum == 0d));
+            SelectedMoneyOption = MoneyOptions?.FirstOrDefault(MO => MO.Sum == 0d);
+            if (SelectedMoneyOption != null)
+            {
+                Sum = SelectedMoneyOption.Sum;
+            }
+
             GuestName = String.Empty;
             SelectedReturnPresentType = ReturnPresentType.MealTickets;
             ReturnPresentQuantity = 1;

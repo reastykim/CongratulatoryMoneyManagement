@@ -1,10 +1,12 @@
 ﻿using CongratulatoryMoneyManagement.Helpers;
+using CongratulatoryMoneyManagement.Models;
 using CongratulatoryMoneyManagement.Services;
 using CongratulatoryMoneyManagement.Views;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,22 +17,30 @@ namespace CongratulatoryMoneyManagement.ViewModels
 {
     public class NavigationRootViewModel : ViewModelBase
     {
+        #region Properties
+
+
+        #endregion
+
         #region Fields
 
         private NavigationServiceEx navigationService;
 
         #endregion
 
-        #region Constructors
+        #region Constructors & Initialize
 
         public NavigationRootViewModel(NavigationServiceEx navigationService)
         {
             this.navigationService = navigationService;
+            Initialize();
+        }
+        private void Initialize()
+        {
+
         }
 
         #endregion
-
-
 
         #region Commands
 
@@ -41,50 +51,32 @@ namespace CongratulatoryMoneyManagement.ViewModels
         private RelayCommand loadedCommand;
         private void ExecuteLoaded()
         {
-            // Only do an inital navigate the first time the page loads
-            // when we switch out of compactoverloadmode this will fire but we don't want to navigate because
-            // there is already a page loaded
-            //if (!hasLoadedPreviously)
-            //{
-            //    var pageKey = navigationService.GetNameOfRegisteredPage(typeof(TakePage));
-            //    navigationService.Navigate(pageKey);
-            //    hasLoadedPreviously = true;
-            //}
 
-            //ViewModeService.Instance.Register(navview, appNavFrame);
-
-            //if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Xbox")
-            //{
-            //    ViewModeService.Instance.CollapseNavigationViewToBurger();
-            //    TitleBarHelper.Instance.TitleVisibility = Visibility.Collapsed;
-            //}
         }
 
-        public RelayCommand<NavigationViewItemInvokedEventArgs> NavViewItemInvokedCommand
+        public RelayCommand<NavigationViewSelectionChangedEventArgs> NavViewSelectionChangedCommand
         {
-            get => navViewItemInvokedCommand ?? (navViewItemInvokedCommand = new RelayCommand<NavigationViewItemInvokedEventArgs>(ExecuteNavViewItemInvoked));
+            get => navViewSelectionChangedCommand ?? (navViewSelectionChangedCommand = new RelayCommand<NavigationViewSelectionChangedEventArgs>(ExecuteNavViewSelectionChanged));
         }
-        private RelayCommand<NavigationViewItemInvokedEventArgs> navViewItemInvokedCommand;
-        private async void ExecuteNavViewItemInvoked(NavigationViewItemInvokedEventArgs args)
+        private RelayCommand<NavigationViewSelectionChangedEventArgs> navViewSelectionChangedCommand;
+        private async void ExecuteNavViewSelectionChanged(NavigationViewSelectionChangedEventArgs args)
         {
-            if (args.IsSettingsInvoked)
+            if (args.IsSettingsSelected)
             {
                 await navigationService.NavigateAsync(typeof(SettingsPage));
                 return;
             }
 
-            switch (args.InvokedItem as string)
+            var selectedItem = args.SelectedItem as NavigationViewItem;
+            switch (selectedItem.Tag as string)
             {
                 case "Take":
-                case "입력":
                     await navigationService.NavigateAsync(typeof(TakePage));
                     break;
                 case "Spend":
-                case "지출":
                     await navigationService.NavigateAsync(typeof(SpendPage));
                     break;
                 case "Statement":
-                case "내역":
                     await navigationService.NavigateAsync(typeof(StatementPage));
                     break;
             }

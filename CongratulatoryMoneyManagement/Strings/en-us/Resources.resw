@@ -133,30 +133,6 @@
     <value>The page '{0}' is unknown by the NavigationService</value>
     <comment>The page is unknown or not registered in navigation service</comment>
   </data>
-  <data name="Take_Title.Text" xml:space="preserve">
-    <value>Take</value>
-    <comment>Page title for Take</comment>
-  </data>
-  <data name="PivotItem_Take.Header" xml:space="preserve">
-    <value>Take</value>
-    <comment>Pivot item header for Take</comment>
-  </data>
-  <data name="Spend_Title.Text" xml:space="preserve">
-    <value>Spend</value>
-    <comment>Page title for Spend</comment>
-  </data>
-  <data name="PivotItem_Spend.Header" xml:space="preserve">
-    <value>Spend</value>
-    <comment>Pivot item header for Spend</comment>
-  </data>
-  <data name="Statement_Title.Text" xml:space="preserve">
-    <value>Statement</value>
-    <comment>Page title for Statement</comment>
-  </data>
-  <data name="PivotItem_Statement.Header" xml:space="preserve">
-    <value>Statement</value>
-    <comment>Pivot item header for Statement</comment>
-  </data>
   <data name="Camera_Exception_UnauthorizedAccess" xml:space="preserve">
     <value>The app was denied access to the camera.</value>
   </data>
@@ -182,10 +158,6 @@
   <data name="ExceptionSettingsStorageExtensionsFileNameIsNullOrEmpty" xml:space="preserve">
     <value>File name is null or empty. Specify a valid file name</value>
     <comment>File name is null or empty to save file in settings storage extensions</comment>
-  </data>
-  <data name="Settings_Title.Text" xml:space="preserve">
-    <value>Settings</value>
-    <comment>Page title for Settings</comment>
   </data>
   <data name="Settings_Theme.Text" xml:space="preserve">
     <value>Choose Theme</value>
@@ -231,10 +203,6 @@ And this app was created for developer own wedding.</value>
   <data name="ExceptionEnumToBooleanConverterParameterMustBeAnEnumName" xml:space="preserve">
     <value>parameter must be an Enum name!</value>
     <comment>Parameter must be an Enum name in enum to boolean converter</comment>
-  </data>
-  <data name="PivotItem_Settings.Header" xml:space="preserve">
-    <value>Settings</value>
-    <comment>Pivot item header for Settings</comment>
   </data>
   <data name="AppName" xml:space="preserve">
     <value>Congratulatory Money Management</value>

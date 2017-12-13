@@ -45,7 +45,7 @@ namespace CongratulatoryMoneyManagement
         private ActivationService CreateActivationService()
         {
             rootPage = new NavigationRootPage();
-            return new ActivationService(this, typeof(ViewModels.TakeViewModel), rootPage, rootPage.AppFrame);
+            return new ActivationService(this, typeof(ViewModels.NavigationRootViewModel));
         }
 
         private async void App_EnteredBackground(object sender, EnteredBackgroundEventArgs e)

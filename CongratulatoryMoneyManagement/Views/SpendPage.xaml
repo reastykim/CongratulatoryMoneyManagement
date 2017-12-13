@@ -32,82 +32,73 @@
     </i:Interaction.Behaviors>
 
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid.RowDefinitions>
-            <RowDefinition x:Name="TitleRow" Height="48"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <StackPanel>
+            <Grid Margin="0,15,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-        <TextBlock x:Name="TitlePage" x:Uid="Spend_Title" Text="지출 입력" Style="{StaticResource PageTitleStyle}" />
-        <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <StackPanel Grid.Row="1" Grid.Column="1" Padding="0,0,10,0" Margin="15,0,15,15">
-                <Grid Margin="0,15,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <controls:CardBox Grid.Column="0" x:Uid="Spend_Details" HeaderText="내용">
-                        <TextBox Padding="{StaticResource TextBoxPadding}"
+                <controls:CardBox Grid.Column="0" x:Uid="Spend_Details" HeaderText="내용">
+                    <TextBox Padding="{StaticResource TextBoxPadding}"
                                  Text="{Binding Details, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                    </controls:CardBox>
+                </controls:CardBox>
 
-                    <controls:CardBox Grid.Column="1" x:Uid="Spend_Sum" HeaderText="금액">
-                        <telerikInput:RadNumericBox Grid.Row="1" Grid.Column="2" x:Name="nmBoxSum" ValueFormat="{}{0,0:C}" Minimum="0" Maximum="{x:Bind sys:Double.MaxValue}" SmallChange="{x:Bind models:MoneyOption.SmallChange}"
+                <controls:CardBox Grid.Column="1" x:Uid="Spend_Sum" HeaderText="금액">
+                    <telerikInput:RadNumericBox Grid.Row="1" Grid.Column="2" x:Name="nmBoxSum" ValueFormat="{}{0,0:C}" Minimum="0" Maximum="{x:Bind sys:Double.MaxValue}" SmallChange="{x:Bind models:MoneyOption.SmallChange}"
                                                     Value="{Binding Sum, Mode=TwoWay}" InputScope="CurrencyAmount"/>
-                    </controls:CardBox>
-                </Grid>
+                </controls:CardBox>
+            </Grid>
 
-                <StackPanel Visibility="Collapsed">
-                    <Border Background="{ThemeResource SystemControlHighlightAccentBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightAltAccentBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightAltAltHighBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightAltBaseHighBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightAltBaseLowBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightAltBaseMediumBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightAltBaseMediumHighBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightAltAltMediumHighBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightAltBaseMediumLowBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightAltListAccentHighBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightAltListAccentMediumBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightAltChromeWhiteBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightAltTransparentBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightBaseHighBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightBaseLowBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightBaseMediumBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightBaseMediumHighBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightBaseMediumLowBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightChromeAltLowBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightChromeHighBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightListAccentHighBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightListAccentLowBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightListAccentMediumBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightListMediumBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightListLowBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightChromeWhiteBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHighlightTransparentBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHyperlinkTextBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHyperlinkBaseHighBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHyperlinkBaseMediumBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlHyperlinkBaseMediumHighBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlPageBackgroundMediumAltMediumBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlPageBackgroundBaseLowBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlPageBackgroundBaseMediumBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlPageBackgroundListLowBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlPageBackgroundTransparentBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlPageTextBaseHighBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlPageTextBaseMediumBrush}" Height="30"/>
-                    <Border Background="{ThemeResource SystemControlPageTextChromeBlackMediumLowBrush}" Height="30"/>
-                </StackPanel>
-                
+            <StackPanel Visibility="Collapsed">
+                <Border Background="{ThemeResource SystemControlHighlightAccentBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltAccentBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltAltHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltBaseHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltBaseLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltBaseMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltBaseMediumHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltAltMediumHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltBaseMediumLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltListAccentHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltListAccentMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltChromeWhiteBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightAltTransparentBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightBaseHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightBaseLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightBaseMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightBaseMediumHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightBaseMediumLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightChromeAltLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightChromeHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightListAccentHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightListAccentLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightListAccentMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightListMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightListLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightChromeWhiteBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHighlightTransparentBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHyperlinkTextBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHyperlinkBaseHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHyperlinkBaseMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlHyperlinkBaseMediumHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageBackgroundAltMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageBackgroundMediumAltMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageBackgroundBaseLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageBackgroundBaseMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageBackgroundListLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageBackgroundTransparentBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageTextBaseHighBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageTextBaseMediumBrush}" Height="30"/>
+                <Border Background="{ThemeResource SystemControlPageTextChromeBlackMediumLowBrush}" Height="30"/>
             </StackPanel>
-        </Grid>
+        </StackPanel>
     </Grid>
 
     <Page.BottomAppBar>

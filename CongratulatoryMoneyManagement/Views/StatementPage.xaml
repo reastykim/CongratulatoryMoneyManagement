@@ -30,40 +30,30 @@
             <ic:InvokeCommandAction Command="{Binding UnloadedCommand}" />
         </ic:EventTriggerBehavior>
     </i:Interaction.Behaviors>
-    
-    <Grid x:Name="ContentArea" Margin="12,0,12,0">
+
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid.RowDefinitions>
-            <RowDefinition x:Name="TitleRow" Height="48"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
-        <TextBlock x:Name="TitlePage" x:Uid="Statement_Title" Margin="0,0,12,7" VerticalAlignment="Center"
-                   FontSize="28" FontWeight="SemiLight" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
-
-        <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <tg:RadDataGrid x:Name="grid" Grid.Row="0" ColumnDataOperationsMode="Flyout" AutoGenerateColumns="False"
+        <tg:RadDataGrid x:Name="grid" Grid.Row="0" ColumnDataOperationsMode="Flyout" AutoGenerateColumns="False"
                             ItemsSource="{Binding Source}" AlternationStep="2" IsBusyIndicatorEnabled="True" SelectionMode="Single" SelectionUnit="Row" >
-                <tg:RadDataGrid.GroupHeaderTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <TextBlock Margin="20,0" HorizontalAlignment="Left"
+            <tg:RadDataGrid.GroupHeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock Margin="20,0" HorizontalAlignment="Left"
                                    Text="{Binding Group}" Style="{StaticResource IconTextBlockStyle}"/>
-                            <TextBlock Margin="20,0" HorizontalAlignment="Right"
+                        <TextBlock Margin="20,0" HorizontalAlignment="Right"
                                    Text="{Binding Converter={StaticResource GridGroupToSummeryConverter}}" VerticalAlignment="Center"/>
-                        </Grid>
-                    </DataTemplate>
-                </tg:RadDataGrid.GroupHeaderTemplate>
-                <tg:RadDataGrid.Columns>
-                    <tg:DataGridTextColumn x:Uid="Statement_Grid_Type" Header="종류" PropertyName="ItemTypeDisplay" Width="60" SizeMode="Fixed" CellContentStyle="{StaticResource IconTextBlockStyle}"/>
-                    <tg:DataGridTextColumn x:Uid="Statement_Grid_Details" Header="내용" PropertyName="Details" SizeMode="Stretch" CanUserGroup="False" />
-                    <tg:DataGridNumericalColumn x:Uid="Statement_Grid_Sum" Header="금액" PropertyName="Sum" SizeMode="Auto" CanUserGroup="False" CellContentFormat="{}{0:C0}"/>
-                    <tg:DataGridDateColumn x:Uid="Statement_Grid_Created" Header="시간" PropertyName="Created" SizeMode="Auto" CanUserGroup="False"/>
-                </tg:RadDataGrid.Columns>
-            </tg:RadDataGrid>
-        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </tg:RadDataGrid.GroupHeaderTemplate>
+            <tg:RadDataGrid.Columns>
+                <tg:DataGridTextColumn x:Uid="Statement_Grid_Type" Header="종류" PropertyName="ItemTypeDisplay" Width="60" SizeMode="Fixed" CellContentStyle="{StaticResource IconTextBlockStyle}"/>
+                <tg:DataGridTextColumn x:Uid="Statement_Grid_Details" Header="내용" PropertyName="Details" SizeMode="Stretch" CanUserGroup="False" />
+                <tg:DataGridNumericalColumn x:Uid="Statement_Grid_Sum" Header="금액" PropertyName="Sum" SizeMode="Auto" CanUserGroup="False" CellContentFormat="{}{0:C0}"/>
+                <tg:DataGridDateColumn x:Uid="Statement_Grid_Created" Header="시간" PropertyName="Created" SizeMode="Auto" CanUserGroup="False"/>
+            </tg:RadDataGrid.Columns>
+        </tg:RadDataGrid>
     </Grid>
 </Page>

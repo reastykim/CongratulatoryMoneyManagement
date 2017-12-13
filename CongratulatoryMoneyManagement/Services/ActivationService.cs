@@ -19,18 +19,16 @@ namespace CongratulatoryMoneyManagement.Services
     {
         private readonly App _app;
         private readonly UIElement _shell;
-        private readonly Frame _frame;
         private readonly Type _defaultNavItem;
 
         private ViewModels.ViewModelLocator Locator => Application.Current.Resources["Locator"] as ViewModels.ViewModelLocator;
 
         private NavigationServiceEx NavigationService => Locator.NavigationService;
 
-        public ActivationService(App app, Type defaultNavItem, UIElement shell = null, Frame frame = null)
+        public ActivationService(App app, Type defaultNavItem, UIElement shell = null)
         {
             _app = app;
             _shell = shell ?? new Frame();
-            _frame = frame;
             _defaultNavItem = defaultNavItem;
         }
 
@@ -47,7 +45,6 @@ namespace CongratulatoryMoneyManagement.Services
                 {
                     // Create a Frame to act as the navigation context and navigate to the first page
                     Window.Current.Content = _shell;
-                    NavigationService.Frame = _frame;
                     NavigationService.NavigationFailed += (sender, e) =>
                     {
                         throw e.Exception;
