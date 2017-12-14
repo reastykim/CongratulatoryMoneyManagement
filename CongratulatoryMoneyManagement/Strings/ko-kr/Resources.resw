@@ -169,7 +169,7 @@
     <value>이 앱은</value>
   </data>
   <data name="Settings_AboutDescription.Text" xml:space="preserve">
-    <value>이 앱은 축의금 관리를 위한 어플리케이션 입니다. 그리고 이 앱은 개발자 본인의 결혼식때 사용할 목적으로 만들어 졌습니다</value>
+    <value>이 앱은 축의금 관리를 위한 어플리케이션 입니다. 그리고 이 앱은 개발자 본인의 결혼식때 사용할 목적으로 만들어 졌습니다.</value>
   </data>
   <data name="Settings_Personalization.Text" xml:space="preserve">
     <value>개인 설정</value>
