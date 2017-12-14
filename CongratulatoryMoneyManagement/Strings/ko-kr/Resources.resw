@@ -141,6 +141,9 @@
   <data name="Camera_Exception_UnauthorizedAccess" xml:space="preserve">
     <value>카메라에 접근할 수 없습니다.</value>
   </data>
+  <data name="EA" xml:space="preserve">
+    <value>개</value>
+  </data>
   <data name="MoneyOption_Input" xml:space="preserve">
     <value>직접입력</value>
   </data>
@@ -215,6 +218,24 @@
   </data>
   <data name="Statement_Items.HeaderText" xml:space="preserve">
     <value>내역</value>
+  </data>
+  <data name="Statement_Spend_Details.Text" xml:space="preserve">
+    <value>내용</value>
+  </data>
+  <data name="Statement_Spend_Sum.Text" xml:space="preserve">
+    <value>금액</value>
+  </data>
+  <data name="Statement_Take_Guest.Text" xml:space="preserve">
+    <value>손님</value>
+  </data>
+  <data name="Statement_Take_RecognizedText.Text" xml:space="preserve">
+    <value>인식된 글자</value>
+  </data>
+  <data name="Statement_Take_ReturnPresent.Text" xml:space="preserve">
+    <value>답례품</value>
+  </data>
+  <data name="Statement_Take_Sum.Text" xml:space="preserve">
+    <value>금액</value>
   </data>
   <data name="Summary" xml:space="preserve">
     <value>합계</value>

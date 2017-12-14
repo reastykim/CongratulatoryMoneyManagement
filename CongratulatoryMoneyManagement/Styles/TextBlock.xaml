@@ -22,11 +22,4 @@
     <Style x:Key="SubheaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource SubheaderTextBlockStyle}">
         <Setter Property="FontSize" Value="{StaticResource SemiLargeFontSize}"/>
     </Style>
-
-    <Style x:Key="CardHeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextStyle}">
-        <Setter Property="FontWeight" Value="Normal" />
-        <Setter Property="Margin" Value="{StaticResource SmallAllMargin}" />
-        <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings" />
-    </Style>
-
 </ResourceDictionary>

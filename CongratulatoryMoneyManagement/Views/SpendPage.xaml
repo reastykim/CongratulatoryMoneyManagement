@@ -14,11 +14,15 @@
     xmlns:models="using:CongratulatoryMoneyManagement.Models"
     Style="{StaticResource PageStyle}"
     DataContext="{Binding SpendViewModel, Source={StaticResource Locator}}"
-    mc:Ignorable="d">
+    mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="800">
 
     <Page.Resources>
         <converters:EqualityConverter x:Key="EqualityConverter"/>
         <eConverter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed"/>
+
+        <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonBackgroundBrush" Color="{ThemeResource SystemAccentColor}"/>
+        <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonPressedBackgroundBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.4"/>
+        <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonPointerOverBackgroundBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.7"/>
     </Page.Resources>
     
     <i:Interaction.Behaviors>
@@ -44,12 +48,12 @@
                 </Grid.RowDefinitions>
 
                 <controls:CardBox Grid.Column="0" x:Uid="Spend_Details" HeaderText="내용" Margin="0,0,10,10">
-                    <TextBox Padding="{StaticResource TextBoxPadding}"
+                    <TextBox Padding="{StaticResource TextBoxPadding}" 
                                  Text="{Binding Details, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                 </controls:CardBox>
 
                 <controls:CardBox Grid.Column="1" x:Uid="Spend_Sum" HeaderText="금액"  Margin="0,0,0,10">
-                    <telerikInput:RadNumericBox Grid.Row="1" Grid.Column="2" x:Name="nmBoxSum" ValueFormat="{}{0,0:C}" Minimum="0" Maximum="{x:Bind sys:Double.MaxValue}" SmallChange="{x:Bind models:MoneyOption.SmallChange}"
+                    <telerikInput:RadNumericBox Grid.Row="1" Grid.Column="2" x:Name="nmBoxSum" ValueFormat="{}{0,0:C0}" Minimum="0" Maximum="{x:Bind sys:Double.MaxValue}" SmallChange="{x:Bind models:MoneyOption.SmallChange}"
                                                     Value="{Binding Sum, Mode=TwoWay}" InputScope="CurrencyAmount"/>
                 </controls:CardBox>
             </Grid>

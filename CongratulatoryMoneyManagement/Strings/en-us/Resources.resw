@@ -291,4 +291,25 @@ And this app was created for developer own wedding.</value>
   <data name="Statement_DetailItem.HeaderText" xml:space="preserve">
     <value>Detail Item</value>
   </data>
+  <data name="EA" xml:space="preserve">
+    <value>EA</value>
+  </data>
+  <data name="Statement_Spend_Details.Text" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Statement_Spend_Sum.Text" xml:space="preserve">
+    <value>Sum</value>
+  </data>
+  <data name="Statement_Take_Guest.Text" xml:space="preserve">
+    <value>Guest</value>
+  </data>
+  <data name="Statement_Take_RecognizedText.Text" xml:space="preserve">
+    <value>RecognizedText</value>
+  </data>
+  <data name="Statement_Take_ReturnPresent.Text" xml:space="preserve">
+    <value>Return Present</value>
+  </data>
+  <data name="Statement_Take_Sum.Text" xml:space="preserve">
+    <value>Sum</value>
+  </data>
 </root>

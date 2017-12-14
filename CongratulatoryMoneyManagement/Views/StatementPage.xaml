@@ -12,14 +12,47 @@
     xmlns:models="using:CongratulatoryMoneyManagement.Models"
     xmlns:views="using:CongratulatoryMoneyManagement.Views"
     xmlns:tg="using:Telerik.UI.Xaml.Controls.Grid"
+    xmlns:primitivesCommon="using:Telerik.UI.Xaml.Controls.Primitives.Common"
+    xmlns:gridTheming="using:Telerik.UI.Xaml.Controls.Grid.Theming"
     Style="{StaticResource PageStyle}"
     DataContext="{Binding StatementViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d">
 
     <Page.Resources>
+        <x:String x:Key="UnitString">EA</x:String>
         <converters:GridGroupToSummaryConverter x:Key="GridGroupToSummaryConverter" StringFormat="{}{0:C0}"/>
         <converters:NullToCollapsedConverter x:Key="NullToCollapsedConverter"/>
+        <converters:StringToLocalizedStringConverter x:Key="StringToLocalizedStringConverter"/>
         <eConverter:StringFormatConverter x:Key="StringFormatConverter" />
+
+        <!--<SolidColorBrush x:Key="TelerikGridBackgroundBrush" Color="{StaticResource SystemAltHighColor}"/>
+        <SolidColorBrush x:Key="TelerikGridForegroundBrush" Color="{StaticResource SystemAltHighColor}"/>
+        <SolidColorBrush x:Key="TelerikGridBorderBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.7"/>
+        <SolidColorBrush x:Key="TelerikGridHeaderBackgroundBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.4"/>
+        <SolidColorBrush x:Key="TelerikGridHeaderForegroundBrush">Red</SolidColorBrush>
+        <SolidColorBrush x:Key="TelerikGridAlternateRowBackgroundBrush">Red</SolidColorBrush>
+        <SolidColorBrush x:Key="TelerikGridShadowBrush">Red</SolidColorBrush>
+        <SolidColorBrush x:Key="TelerikGridInnerShadowBrush">Red</SolidColorBrush>
+
+        <SolidColorBrush x:Key="TelerikGridServiceColumnBackgroundBrush" Color="{StaticResource SystemAltHighColor}"/>
+
+        <SolidColorBrush x:Key="TelerikGridServiceButtonBackgroundBrush" Color="Red"/>
+        <SolidColorBrush x:Key="TelerikGridServiceButtonForegroundBrush" Color="Red"/>-->
+
+        <!--<SolidColorBrush x:Key="TelerikGridServiceButtonBackgroundBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.7"/>
+        <SolidColorBrush x:Key="TelerikGridServiceButtonForegroundBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.7"/>
+        <SolidColorBrush x:Key="TelerikGridServiceButtonPointerOverBackgroundBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.7"/>
+        <SolidColorBrush x:Key="TelerikGridServiceButtonPressedBackgroundBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.7"/>
+        <SolidColorBrush x:Key="TelerikGridServiceButtonPressedForegroundBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.7"/>-->
+
+        <SolidColorBrush x:Key="TelerikGridHeaderBackgroundBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.4"/>
+        <SolidColorBrush x:Key="TelerikGridServiceColumnBackgroundBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.4"/>
+        
+        <SolidColorBrush x:Key="TelerikGridServiceColumnActiveBackgroundBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.7"/>
+        
+        <SolidColorBrush x:Key="TelerikGridSelectedBorderBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.7"/>
+        <SolidColorBrush x:Key="TelerikGridBorderBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.7"/>
+
         <Style x:Key="IconTextBlockStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
             <Setter Property="FontSize" Value="30"/>
@@ -65,7 +98,7 @@
 
                     <TextBlock Grid.Row="0" Grid.Column="0" x:Uid="Statement_Take_Guest" Text="손님" Style="{StaticResource DetailItemTextBlockStyle}"/>
                     <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding GuestName}" Style="{StaticResource DetailItemTextBoxStyle}"/>
-                    <TextBlock Grid.Row="0" Grid.Column="2" x:Uid="Statement_Take_Guest" Text="인식된 글자" Style="{StaticResource DetailItemTextBlockStyle}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" x:Uid="Statement_Take_RecognizedText" Text="인식된 글자" Style="{StaticResource DetailItemTextBlockStyle}"/>
                     <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding RecognizedText}" IsReadOnly="True" IsHitTestVisible="False" Style="{StaticResource DetailItemTextBoxStyle}"/>
 
                     <TextBlock Grid.Row="1" Grid.Column="0" x:Uid="Statement_Take_Sum" Text="금액" Style="{StaticResource DetailItemTextBlockStyle}"/>
@@ -73,7 +106,12 @@
 
                     <TextBlock Grid.Row="2" Grid.Column="0" x:Uid="Statement_Take_ReturnPresent" Text="답례품" Style="{StaticResource DetailItemTextBlockStyle}"/>
                     <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ReturnPresent.Type}" Style="{StaticResource DetailItemTextBoxStyle}"/>
-                    <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding ReturnPresent.Quantity, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0} 개'}"  Style="{StaticResource DetailItemTextBoxStyle}"/>
+
+                    <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
+                        <TextBox Text="{Binding ReturnPresent.Quantity}"  Style="{StaticResource DetailItemTextBoxStyle}"/>
+                        <TextBlock VerticalAlignment="Center"
+                                   Text="{Binding Source={StaticResource UnitString}, Converter={StaticResource StringToLocalizedStringConverter}}"/>
+                    </StackPanel>
                 </Grid>
             </Grid>
         </DataTemplate>
@@ -112,7 +150,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <controls:CardBox Grid.Row="0" x:Uid="Statement_Items" HeaderText="내역" Margin="0,0,0,10">
+        <!--<controls:CardBox Grid.Row="0" x:Uid="Statement_Items" HeaderText="내역" Margin="0,0,0,10">
             <tg:RadDataGrid x:Name="grid" ColumnDataOperationsMode="Flyout" AutoGenerateColumns="False"
                         ItemsSource="{Binding Source}" AlternationStep="2" IsBusyIndicatorEnabled="True" SelectionMode="Single" SelectionUnit="Row" >
                 <tg:RadDataGrid.GroupHeaderTemplate>
@@ -132,11 +170,30 @@
                     <tg:DataGridDateColumn x:Uid="Statement_Grid_Created" Header="시간" PropertyName="Created" SizeMode="Auto" CanUserGroup="False"/>
                 </tg:RadDataGrid.Columns>
             </tg:RadDataGrid>
-        </controls:CardBox>
+        </controls:CardBox>-->
+        <tg:RadDataGrid x:Name="grid" ColumnDataOperationsMode="Flyout" AutoGenerateColumns="False"
+                        ItemsSource="{Binding Source}" AlternationStep="2" IsBusyIndicatorEnabled="True" SelectionMode="Single" SelectionUnit="Row" BorderThickness="1">
+            <tg:RadDataGrid.GroupHeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock Margin="20,0" HorizontalAlignment="Left"
+                                   Text="{Binding Group}" Style="{StaticResource IconTextBlockStyle}"/>
+                        <TextBlock Margin="20,0" HorizontalAlignment="Right"
+                                   Text="{Binding Converter={StaticResource GridGroupToSummaryConverter}}" VerticalAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </tg:RadDataGrid.GroupHeaderTemplate>
+            <tg:RadDataGrid.Columns>
+                <tg:DataGridTextColumn x:Uid="Statement_Grid_Type" Header="종류" PropertyName="ItemTypeDisplay" Width="60" SizeMode="Fixed" CellContentStyle="{StaticResource IconTextBlockStyle}"/>
+                <tg:DataGridTextColumn x:Uid="Statement_Grid_Details" Header="내용" PropertyName="Details" SizeMode="Stretch" CanUserGroup="False" />
+                <tg:DataGridNumericalColumn x:Uid="Statement_Grid_Sum" Header="금액" PropertyName="SumForSummary" SizeMode="Auto" CanUserGroup="False" CellContentFormat="{}{0:C0}"/>
+                <tg:DataGridDateColumn x:Uid="Statement_Grid_Created" Header="시간" PropertyName="Created" SizeMode="Auto" CanUserGroup="False"/>
+            </tg:RadDataGrid.Columns>
+        </tg:RadDataGrid>
 
-        <controls:CardBox Grid.Row="1" x:Uid="Statement_DetailItem" HeaderText="상세 내역" Margin="0,0,0,10" DataContext="{Binding ElementName=grid, Path=SelectedItem}"
-                          Visibility="{Binding ElementName=grid, Path=SelectedItem, Converter={StaticResource NullToCollapsedConverter}}">
-            <ContentControl Content="{Binding}" ContentTemplateSelector="{StaticResource DetailItemTemplateSelector}"/>
+        <controls:CardBox Grid.Row="1" x:Uid="Statement_DetailItem" HeaderText="상세 내역" Margin="0,10" DataContext="{Binding ElementName=grid, Path=SelectedItem}"
+                          Visibility="{Binding ElementName=grid, Path=SelectedItem, Converter={StaticResource NullToCollapsedConverter}}"
+                          Content="{Binding}" ContentTemplateSelector="{StaticResource DetailItemTemplateSelector}">
         </controls:CardBox>
     </Grid>
 </Page>

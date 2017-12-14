@@ -3,9 +3,5 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CongratulatoryMoneyManagement.Styles">
 
-    <Style x:Key="CardHeaderBorderStyle" TargetType="Border">
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="BorderBrush" Value="{ThemeResource SystemControlHighlightAltListAccentHighBrush}"/>
-        <Setter Property="CornerRadius" Value="1"/>
-    </Style>
+    
 </ResourceDictionary>

@@ -4,7 +4,18 @@
     xmlns:local="using:CongratulatoryMoneyManagement"
     xmlns:controls="using:CongratulatoryMoneyManagement.Controls">
 
-    <Style TargetType="controls:CardBox" >
+    <Style x:Key="CardHeaderBorderStyle" TargetType="Border">
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource SystemControlHighlightAltListAccentHighBrush}"/>
+        <Setter Property="CornerRadius" Value="1"/>
+    </Style>
+    <Style x:Key="CardHeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextStyle}">
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Margin" Value="{StaticResource SmallAllMargin}" />
+        <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings" />
+    </Style>
+    
+    <Style TargetType="controls:CardBox">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
         <Setter Property="Template">
@@ -20,9 +31,9 @@
                             <Grid Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}">
                                 <TextBlock Text="{TemplateBinding HeaderText}" Style="{StaticResource CardHeaderTextBlockStyle}"/>
                             </Grid>
-                            <Grid Grid.Row="1" Margin="10">
+                            <Grid Grid.Row="1" Padding="10">
                                 <ContentControl HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                Content="{TemplateBinding Content}" />
+                                                Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" />
                             </Grid>
                         </Grid>
                     </Border>
