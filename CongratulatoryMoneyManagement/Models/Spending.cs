@@ -12,7 +12,7 @@ namespace CongratulatoryMoneyManagement.Models
     /// <summary>
     /// 지출
     /// </summary>
-    public class Spending : ObservableObject
+    public class Spending : ObservableObject, IStatementItem
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -47,6 +47,12 @@ namespace CongratulatoryMoneyManagement.Models
             set => Set(ref created, value);
         }
         private DateTime created;
+
+        [NotMapped]
+        public string ItemTypeDisplay => "\uE8A7";
+
+        [NotMapped]
+        public double SumForSummary => -Sum;
 
         public Spending()
         {

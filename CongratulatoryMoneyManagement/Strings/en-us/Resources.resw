@@ -264,8 +264,8 @@ And this app was created for developer own wedding.</value>
   <data name="Statement_Grid_Type.Header" xml:space="preserve">
     <value>Type</value>
   </data>
-  <data name="Summery" xml:space="preserve">
-    <value>Summery</value>
+  <data name="Summary" xml:space="preserve">
+    <value>Summary</value>
   </data>
   <data name="NavMenuItem_Settings.Content" xml:space="preserve">
     <value>Settings</value>
@@ -284,5 +284,11 @@ And this app was created for developer own wedding.</value>
   </data>
   <data name="SaveCommand.Label" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="Statement_Items.HeaderText" xml:space="preserve">
+    <value>Statement of items</value>
+  </data>
+  <data name="Statement_DetailItem.HeaderText" xml:space="preserve">
+    <value>Detail Item</value>
   </data>
 </root>

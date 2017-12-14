@@ -54,6 +54,9 @@ namespace CongratulatoryMoneyManagement.ViewModels
 
         }
 
+        /// <summary>
+        /// When be selected the NavigationViewItem, Navigate to each target page by Tag of the NavigationViewItem.
+        /// </summary>
         public RelayCommand<NavigationViewSelectionChangedEventArgs> NavViewSelectionChangedCommand
         {
             get => navViewSelectionChangedCommand ?? (navViewSelectionChangedCommand = new RelayCommand<NavigationViewSelectionChangedEventArgs>(ExecuteNavViewSelectionChanged));

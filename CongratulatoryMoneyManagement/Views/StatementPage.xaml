@@ -7,13 +7,14 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:converters="using:CongratulatoryMoneyManagement.Converters"
+    xmlns:controls="using:CongratulatoryMoneyManagement.Controls"
     xmlns:tg="using:Telerik.UI.Xaml.Controls.Grid"
     Style="{StaticResource PageStyle}"
     DataContext="{Binding StatementViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d">
 
     <Page.Resources>
-        <converters:GridGroupToSummeryConverter x:Key="GridGroupToSummeryConverter" StringFormat="{}{0:C0}"/>
+        <converters:GridGroupToSummaryConverter x:Key="GridGroupToSummaryConverter" StringFormat="{}{0:C0}"/>
         <Style x:Key="IconTextBlockStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
             <Setter Property="FontSize" Value="30"/>
@@ -36,24 +37,30 @@
             <RowDefinition />
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <tg:RadDataGrid x:Name="grid" Grid.Row="0" ColumnDataOperationsMode="Flyout" AutoGenerateColumns="False"
+
+        <controls:CardBox Grid.Row="0" x:Uid="Statement_Items" HeaderText="내역" Margin="0,0,0,10">
+            <tg:RadDataGrid x:Name="grid" ColumnDataOperationsMode="Flyout" AutoGenerateColumns="False"
                         ItemsSource="{Binding Source}" AlternationStep="2" IsBusyIndicatorEnabled="True" SelectionMode="Single" SelectionUnit="Row" >
-            <tg:RadDataGrid.GroupHeaderTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <TextBlock Margin="20,0" HorizontalAlignment="Left"
+                <tg:RadDataGrid.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <TextBlock Margin="20,0" HorizontalAlignment="Left"
                                    Text="{Binding Group}" Style="{StaticResource IconTextBlockStyle}"/>
-                        <TextBlock Margin="20,0" HorizontalAlignment="Right"
-                                   Text="{Binding Converter={StaticResource GridGroupToSummeryConverter}}" VerticalAlignment="Center"/>
-                    </Grid>
-                </DataTemplate>
-            </tg:RadDataGrid.GroupHeaderTemplate>
-            <tg:RadDataGrid.Columns>
-                <tg:DataGridTextColumn x:Uid="Statement_Grid_Type" Header="종류" PropertyName="ItemTypeDisplay" Width="60" SizeMode="Fixed" CellContentStyle="{StaticResource IconTextBlockStyle}"/>
-                <tg:DataGridTextColumn x:Uid="Statement_Grid_Details" Header="내용" PropertyName="Details" SizeMode="Stretch" CanUserGroup="False" />
-                <tg:DataGridNumericalColumn x:Uid="Statement_Grid_Sum" Header="금액" PropertyName="Sum" SizeMode="Auto" CanUserGroup="False" CellContentFormat="{}{0:C0}"/>
-                <tg:DataGridDateColumn x:Uid="Statement_Grid_Created" Header="시간" PropertyName="Created" SizeMode="Auto" CanUserGroup="False"/>
-            </tg:RadDataGrid.Columns>
-        </tg:RadDataGrid>
+                            <TextBlock Margin="20,0" HorizontalAlignment="Right"
+                                   Text="{Binding Converter={StaticResource GridGroupToSummaryConverter}}" VerticalAlignment="Center"/>
+                        </Grid>
+                    </DataTemplate>
+                </tg:RadDataGrid.GroupHeaderTemplate>
+                <tg:RadDataGrid.Columns>
+                    <tg:DataGridTextColumn x:Uid="Statement_Grid_Type" Header="종류" PropertyName="ItemTypeDisplay" Width="60" SizeMode="Fixed" CellContentStyle="{StaticResource IconTextBlockStyle}"/>
+                    <tg:DataGridTextColumn x:Uid="Statement_Grid_Details" Header="내용" PropertyName="Details" SizeMode="Stretch" CanUserGroup="False" />
+                    <tg:DataGridNumericalColumn x:Uid="Statement_Grid_Sum" Header="금액" PropertyName="SumForSummary" SizeMode="Auto" CanUserGroup="False" CellContentFormat="{}{0:C0}"/>
+                    <tg:DataGridDateColumn x:Uid="Statement_Grid_Created" Header="시간" PropertyName="Created" SizeMode="Auto" CanUserGroup="False"/>
+                </tg:RadDataGrid.Columns>
+            </tg:RadDataGrid>
+        </controls:CardBox>
+
+        <controls:CardBox Grid.Row="1" x:Uid="Statement_DetailItem" HeaderText="상세 항목" Margin="0,0,0,10">
+        </controls:CardBox>
     </Grid>
 </Page>

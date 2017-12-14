@@ -10,7 +10,7 @@ using CongratulatoryMoneyManagement.Helpers;
 
 namespace CongratulatoryMoneyManagement.Converters
 {
-    public class GridGroupToSummeryConverter : IValueConverter
+    public class GridGroupToSummaryConverter : IValueConverter
     {
         public string StringFormat
         {
@@ -24,7 +24,7 @@ namespace CongratulatoryMoneyManagement.Converters
             if (context == null)
                 return null;
 
-            return String.Format($"{"Summery".GetLocalized()} : {StringFormat}", context.Group.ChildItems.OfType<StatementItem>().Sum(SI => SI.Sum));
+            return String.Format($"{"Summary".GetLocalized()} : {StringFormat}", context.Group.ChildItems.OfType<IStatementItem>().Sum(SI => SI.SumForSummary));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

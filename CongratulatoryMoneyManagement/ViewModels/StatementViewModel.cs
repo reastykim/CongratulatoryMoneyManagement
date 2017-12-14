@@ -16,12 +16,12 @@ namespace CongratulatoryMoneyManagement.ViewModels
     {
         #region Properties
 
-        public IEnumerable<StatementItem> Source
+        public IEnumerable<IStatementItem> Source
         {
             get { return source; }
             private set { Set(ref source, value); }
         }
-        private IEnumerable<StatementItem> source;
+        private IEnumerable<IStatementItem> source;
 
         #endregion
 

@@ -16,6 +16,6 @@ namespace CongratulatoryMoneyManagement.Services.DataService
 
         Task<int> SaveSpendingAsync(Spending item);
 
-        Task<IEnumerable<StatementItem>> GetAllStatementAsync();
+        Task<IEnumerable<IStatementItem>> GetAllStatementAsync();
     }
 }

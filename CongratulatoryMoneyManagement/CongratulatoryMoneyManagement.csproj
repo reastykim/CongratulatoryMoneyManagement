@@ -145,11 +145,10 @@
     <Compile Include="Controls\CardBox.cs" />
     <Compile Include="Converters\DebugConverter.cs" />
     <Compile Include="Converters\EqualityConverter.cs" />
-    <Compile Include="Converters\GridGroupToSummeryConverter.cs" />
+    <Compile Include="Converters\GridGroupToSummaryConverter.cs" />
     <Compile Include="Converters\NullToCollapsedConverter.cs" />
     <Compile Include="Data\CongratulatoryMoneyContext.cs" />
     <Compile Include="EventHandlers\CameraControlEventArgs.cs" />
-    <Compile Include="Extensions\ModelExtensions.cs" />
     <Compile Include="Helpers\AsyncInitilizer.cs" />
     <Compile Include="Helpers\CameraOrientationExtensions.cs" />
     <Compile Include="Converters\EnumToBooleanConverter.cs" />
@@ -163,7 +162,7 @@
     <Compile Include="Models\ReturnPresent.cs" />
     <Compile Include="Models\SampleOrder.cs" />
     <Compile Include="Models\Spending.cs" />
-    <Compile Include="Models\StatementItem.cs" />
+    <Compile Include="Models\IStatementItem.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="Services\BackgroundTaskService.cs" />
@@ -277,7 +276,9 @@
     <Compile Include="Helpers\ResourceExtensions.cs" />
     <Compile Include="Helpers\Singleton.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />

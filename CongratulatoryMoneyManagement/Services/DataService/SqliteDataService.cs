@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 using CongratulatoryMoneyManagement.Data;
-using CongratulatoryMoneyManagement.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Windows.Globalization;
 using Windows.System.UserProfile;
@@ -157,15 +156,15 @@ namespace CongratulatoryMoneyManagement.Services.DataService
             }
         }
 
-        public Task<IEnumerable<StatementItem>> GetAllStatementAsync()
+        public Task<IEnumerable<IStatementItem>> GetAllStatementAsync()
         {
-            var tcs = new TaskCompletionSource<IEnumerable<StatementItem>>();
+            var tcs = new TaskCompletionSource<IEnumerable<IStatementItem>>();
             Task.Factory.StartNew(() =>
             {
                 using (var db = new CongratulatoryMoneyContext())
                 {
-                    var statementItems = db.CongratulatoryMoney.Select(CM => CM.AsStatementItem())
-                                        .Union(db.Spendings.Select(S => S.AsStatementItem()))
+                    var statementItems = db.CongratulatoryMoney.OfType<IStatementItem>()
+                                        .Union(db.Spendings.OfType<IStatementItem>())
                                         .OrderByDescending(SI => SI.Created);
 
                     tcs.SetResult(statementItems.ToList());

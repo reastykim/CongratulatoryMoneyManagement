@@ -20,7 +20,7 @@
                             <Grid Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}">
                                 <TextBlock Text="{TemplateBinding HeaderText}" Style="{StaticResource CardHeaderTextBlockStyle}"/>
                             </Grid>
-                            <Grid Grid.Row="1" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="10">
+                            <Grid Grid.Row="1" Margin="10">
                                 <ContentControl HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                                 Content="{TemplateBinding Content}" />
                             </Grid>

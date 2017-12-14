@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CongratulatoryMoneyManagement.Models
 {
-    public class CongratulatoryMoney : ObservableObject
+    public class CongratulatoryMoney : ObservableObject, IStatementItem
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -71,6 +71,15 @@ namespace CongratulatoryMoneyManagement.Models
             set => Set(ref returnPresent, value);
         }
         private ReturnPresent returnPresent = new ReturnPresent();
+
+        [NotMapped]
+        public string ItemTypeDisplay => "\uE944";
+
+        [NotMapped]
+        public string Details => $"{GuestName}({RecognizedText})";
+
+        [NotMapped]
+        public double SumForSummary => Sum;
 
         public CongratulatoryMoney()
         {

@@ -17,6 +17,9 @@ namespace CongratulatoryMoneyManagement.ViewModels
     {
         #region Properties
 
+        /// <summary>
+        /// Gets a value default MoneyOption list items. This will be set from database data. And this be used to Binding for RadioButtons.
+        /// </summary>
         public IEnumerable<MoneyOption> MoneyOptions
         {
             get => moneyOptions;
@@ -24,6 +27,9 @@ namespace CongratulatoryMoneyManagement.ViewModels
         }
         private IEnumerable<MoneyOption> moneyOptions;
 
+        /// <summary>
+        /// Gets or sets the selected data of radio button item.
+        /// </summary>
         public MoneyOption SelectedMoneyOption
         {
             get => MoneyOptions?.FirstOrDefault(MO => MO.IsSelected);

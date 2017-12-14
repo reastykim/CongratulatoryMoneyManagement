@@ -17,8 +17,6 @@ namespace CongratulatoryMoneyManagement
         }
         private Lazy<ActivationService> activationService;
 
-        private NavigationRootPage rootPage;
-
         public App()
         {
             InitializeComponent();
@@ -44,7 +42,6 @@ namespace CongratulatoryMoneyManagement
 
         private ActivationService CreateActivationService()
         {
-            rootPage = new NavigationRootPage();
             return new ActivationService(this, typeof(ViewModels.NavigationRootViewModel));
         }
 
