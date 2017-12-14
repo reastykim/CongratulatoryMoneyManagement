@@ -8,6 +8,9 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:converters="using:CongratulatoryMoneyManagement.Converters"
     xmlns:controls="using:CongratulatoryMoneyManagement.Controls"
+    xmlns:eConverter="using:Microsoft.Toolkit.Uwp.UI.Converters"
+    xmlns:models="using:CongratulatoryMoneyManagement.Models"
+    xmlns:views="using:CongratulatoryMoneyManagement.Views"
     xmlns:tg="using:Telerik.UI.Xaml.Controls.Grid"
     Style="{StaticResource PageStyle}"
     DataContext="{Binding StatementViewModel, Source={StaticResource Locator}}"
@@ -15,12 +18,83 @@
 
     <Page.Resources>
         <converters:GridGroupToSummaryConverter x:Key="GridGroupToSummaryConverter" StringFormat="{}{0:C0}"/>
+        <converters:NullToCollapsedConverter x:Key="NullToCollapsedConverter"/>
+        <eConverter:StringFormatConverter x:Key="StringFormatConverter" />
         <Style x:Key="IconTextBlockStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
             <Setter Property="FontSize" Value="30"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
+        <Style x:Key="DetailItemTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalTextAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+        <Style x:Key="DetailItemTextBoxStyle" TargetType="TextBox">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="IsHitTestVisible" Value="False"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        </Style>
+        
+        <DataTemplate x:Key="CongratulatoryMoneyItemTemplate" x:DataType="models:CongratulatoryMoney">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" BorderThickness="1" BorderBrush="{ThemeResource SystemControlHighlightAltListAccentHighBrush}" Margin="10" CornerRadius="10">
+                    <Image Width="300" Height="150"/>
+                </Border>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" x:Uid="Statement_Take_Guest" Text="손님" Style="{StaticResource DetailItemTextBlockStyle}"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding GuestName}" Style="{StaticResource DetailItemTextBoxStyle}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" x:Uid="Statement_Take_Guest" Text="인식된 글자" Style="{StaticResource DetailItemTextBlockStyle}"/>
+                    <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding RecognizedText}" IsReadOnly="True" IsHitTestVisible="False" Style="{StaticResource DetailItemTextBoxStyle}"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" x:Uid="Statement_Take_Sum" Text="금액" Style="{StaticResource DetailItemTextBlockStyle}"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Sum, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:C0}'}" Style="{StaticResource DetailItemTextBoxStyle}"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" x:Uid="Statement_Take_ReturnPresent" Text="답례품" Style="{StaticResource DetailItemTextBlockStyle}"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ReturnPresent.Type}" Style="{StaticResource DetailItemTextBoxStyle}"/>
+                    <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding ReturnPresent.Quantity, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0} 개'}"  Style="{StaticResource DetailItemTextBoxStyle}"/>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="SpendingItemTemplate" x:DataType="models:Spending">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" x:Uid="Statement_Spend_Details" Text="내용" Style="{StaticResource DetailItemTextBlockStyle}"/>
+                <TextBox Grid.Column="1" Text="{Binding GuestName}" Style="{StaticResource DetailItemTextBoxStyle}"/>
+                <TextBlock Grid.Column="2" x:Uid="Statement_Spend_Sum" Text="금액" Style="{StaticResource DetailItemTextBlockStyle}"/>
+                <TextBox Grid.Column="3" Text="{Binding Sum, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:C0}'}" Style="{StaticResource DetailItemTextBoxStyle}"/>
+            </Grid>
+        </DataTemplate>
+        <views:DetailItemTemplateSelector x:Key="DetailItemTemplateSelector"
+                                          CongratulatoryMoneyDataTemplate="{StaticResource CongratulatoryMoneyItemTemplate}"
+                                          SpendingDataTemplate="{StaticResource SpendingItemTemplate}"/>
     </Page.Resources>
 
     <i:Interaction.Behaviors>
@@ -60,7 +134,9 @@
             </tg:RadDataGrid>
         </controls:CardBox>
 
-        <controls:CardBox Grid.Row="1" x:Uid="Statement_DetailItem" HeaderText="상세 항목" Margin="0,0,0,10">
+        <controls:CardBox Grid.Row="1" x:Uid="Statement_DetailItem" HeaderText="상세 내역" Margin="0,0,0,10" DataContext="{Binding ElementName=grid, Path=SelectedItem}"
+                          Visibility="{Binding ElementName=grid, Path=SelectedItem, Converter={StaticResource NullToCollapsedConverter}}">
+            <ContentControl Content="{Binding}" ContentTemplateSelector="{StaticResource DetailItemTemplateSelector}"/>
         </controls:CardBox>
     </Grid>
 </Page>

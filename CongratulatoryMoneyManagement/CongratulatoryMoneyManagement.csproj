@@ -179,6 +179,7 @@
     <Compile Include="ViewModels\StatementViewModel.cs" />
     <Compile Include="ViewModels\TakeViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\DetailItemTemplateSelector.cs" />
     <Compile Include="Views\IPivotItemActivate.cs" />
     <Compile Include="Views\NavigationRootPage.xaml.cs">
       <DependentUpon>NavigationRootPage.xaml</DependentUpon>

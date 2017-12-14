@@ -15,13 +15,13 @@ namespace CongratulatoryMoneyManagement.Views
         public DataTemplate SpendPageCommandBarTemplate { get; set; }
         public DataTemplate StatementPageCommandBarTemplate { get; set; }
         public DataTemplate SettingsPageCommandBarTemplate { get; set; }
-
-        protected override DataTemplate SelectTemplateCore(object item)
+        
+        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
             var itemType = item?.GetType();
             if (item == null)
                 return null;
-            
+
             switch (itemType)
             {
                 case Type c when itemType == typeof(TakeViewModel):
@@ -35,11 +35,6 @@ namespace CongratulatoryMoneyManagement.Views
                 default:
                     return base.SelectTemplateCore(item);
             }
-        }
-
-        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
-        {
-            return SelectTemplateCore(item);
         }
     }
 }
