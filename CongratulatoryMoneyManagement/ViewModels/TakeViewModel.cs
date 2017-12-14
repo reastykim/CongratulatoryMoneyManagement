@@ -16,7 +16,7 @@ namespace CongratulatoryMoneyManagement.ViewModels
     public class TakeViewModel : ViewModelBase
     {
         #region Properties
-        
+
         public IEnumerable<MoneyOption> MoneyOptions
         {
             get => moneyOptions;
@@ -95,18 +95,12 @@ namespace CongratulatoryMoneyManagement.ViewModels
         }
         private uint returnPresentQuantity = 1;
 
-        public bool ShowBottomAppBar
-        {
-            get => showBottomAppBar;
-            set => Set(ref showBottomAppBar, value);
-        }
-        private bool showBottomAppBar;
-
         #endregion
 
         #region Fields
 
         private IDataService dataService;
+        private WeakReference<ICameraController> cameraControllerReference;
 
         #endregion
 
@@ -128,14 +122,14 @@ namespace CongratulatoryMoneyManagement.ViewModels
 
         #region Commands
 
-        public RelayCommand LoadedCommand
+        public RelayCommand<ICameraController> LoadedCommand
         {
-            get => loadedCommand ?? (loadedCommand = new RelayCommand(ExecuteLoaded));
+            get => loadedCommand ?? (loadedCommand = new RelayCommand<ICameraController>(ExecuteLoaded));
         }
-        private RelayCommand loadedCommand;
-        private void ExecuteLoaded()
+        private RelayCommand<ICameraController> loadedCommand;
+        private void ExecuteLoaded(ICameraController cameraController)
         {
-            ShowBottomAppBar = true;
+            cameraControllerReference = new WeakReference<ICameraController>(cameraController);
         }
 
         public RelayCommand UnloadedCommand
@@ -145,7 +139,7 @@ namespace CongratulatoryMoneyManagement.ViewModels
         private RelayCommand unloadedCommand;
         private void ExecuteUnloaded()
         {
-            ShowBottomAppBar = false;
+
         }
 
         #region Select Commands
@@ -200,12 +194,12 @@ namespace CongratulatoryMoneyManagement.ViewModels
 
         #region AppBar Commands
 
-        public RelayCommand<ICameraController> SaveCommand
+        public RelayCommand SaveCommand
         {
-            get => saveCommand ?? (saveCommand = new RelayCommand<ICameraController>(ExecuteSave, CanExecuteSave));
+            get => saveCommand ?? (saveCommand = new RelayCommand(ExecuteSave, CanExecuteSave));
         }
-        private RelayCommand<ICameraController> saveCommand;
-        private async void ExecuteSave(ICameraController cameraController)
+        private RelayCommand saveCommand;
+        private async void ExecuteSave()
         {
             var newItem = new CongratulatoryMoney();
             newItem.GuestName = GuestName;
@@ -216,19 +210,19 @@ namespace CongratulatoryMoneyManagement.ViewModels
             newItem.ReturnPresent.Quantity = ReturnPresentQuantity;
 
             await dataService.SaveCongratulatoryMoneyAsync(newItem);
-            ResetCommand.Execute(cameraController);
+            ResetCommand.Execute(null);
         }
-        private bool CanExecuteSave(ICameraController cameraController)
+        private bool CanExecuteSave()
         {
             return Sum > 0;
         }
 
-        public RelayCommand<ICameraController> ResetCommand
+        public RelayCommand ResetCommand
         {
-            get => resetCommand ?? (resetCommand = new RelayCommand<ICameraController>(ExecuteReset));
+            get => resetCommand ?? (resetCommand = new RelayCommand(ExecuteReset));
         }
-        private RelayCommand<ICameraController> resetCommand;
-        private void ExecuteReset(ICameraController cameraController)
+        private RelayCommand resetCommand;
+        private void ExecuteReset()
         {
             SelectedMoneyOption = MoneyOptions?.FirstOrDefault(MO => MO.Sum == 0d);
             if (SelectedMoneyOption != null)
@@ -240,7 +234,11 @@ namespace CongratulatoryMoneyManagement.ViewModels
             SelectedReturnPresentType = ReturnPresentType.MealTickets;
             ReturnPresentQuantity = 1;
 
-            cameraController?.Reset();
+            ICameraController cameraController = null;
+            if (cameraControllerReference.TryGetTarget(out cameraController))
+            {
+                cameraController.Reset();
+            }
         }
 
         #endregion

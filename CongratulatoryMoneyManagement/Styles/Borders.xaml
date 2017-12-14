@@ -6,7 +6,6 @@
     <Style x:Key="CardHeaderBorderStyle" TargetType="Border">
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="{ThemeResource SystemControlHighlightAltListAccentHighBrush}"/>
-        <Setter Property="Margin" Value="5"/>
         <Setter Property="CornerRadius" Value="3"/>
     </Style>
 </ResourceDictionary>

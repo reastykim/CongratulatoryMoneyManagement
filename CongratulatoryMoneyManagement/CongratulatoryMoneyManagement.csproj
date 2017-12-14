@@ -184,6 +184,7 @@
     <Compile Include="Views\NavigationRootPage.xaml.cs">
       <DependentUpon>NavigationRootPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PageCommandBarTemplateSelector.cs" />
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>

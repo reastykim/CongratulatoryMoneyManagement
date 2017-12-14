@@ -36,12 +36,13 @@ namespace CongratulatoryMoneyManagement.Views
 
         private bool hasLoadedPreviously;
 
+
         public NavigationRootPage()
         {
             this.InitializeComponent();
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             // Only do an inital navigate the first time the page loads
             // when we switch out of compactoverloadmode this will fire but we don't want to navigate because
@@ -50,14 +51,13 @@ namespace CongratulatoryMoneyManagement.Views
             {
                 navigationService.Frame = AppFrame;
                 navview.SelectedItem = navview.MenuItems[0];
-                //var pageKey = navigationService.GetNameOfRegisteredPage(typeof(TakePage));
-                //await navigationService.NavigateAsync(pageKey);
-                //hasLoadedPreviously = true;
+                hasLoadedPreviously = true;
             }
         }
 
         private void AppNavFrame_Navigated(object sender, NavigationEventArgs e)
         {
+            // When the navigationService be called GoBack() method, set the IsSelected for target menu.
             switch (e.SourcePageType)
             {
                 case Type c when e.SourcePageType == typeof(TakePage):

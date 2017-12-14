@@ -8,6 +8,7 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:appmodel="using:Windows.ApplicationModel"
     xmlns:local="using:CongratulatoryMoneyManagement.Views"
+    xmlns:vm="using:CongratulatoryMoneyManagement.ViewModels"
     xmlns:converters="using:CongratulatoryMoneyManagement.Converters"
     mc:Ignorable="d"
     DataContext="{Binding NavigationRootViewModel, Source={StaticResource Locator}}"
@@ -15,6 +16,38 @@
 
     <Page.Resources>
         <converters:DebugConverter x:Key="DebugConverter"/>
+        <Style x:Key="HeaderCommandBarStyle" TargetType="CommandBar">
+            <Setter Property="DefaultLabelPosition" Value="Right"/>
+            <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundAltHighBrush}"/>
+        </Style>
+
+        <DataTemplate x:Key="TakePageCommandBarTemplate" x:DataType="vm:TakeViewModel">
+            <CommandBar Style="{StaticResource HeaderCommandBarStyle}">
+                <AppBarButton x:Uid="SaveCommand" Icon="Save" Label="Save" Command="{Binding SaveCommand}" />
+                <AppBarButton x:Uid="ResetCommand" Icon="Refresh" Label="Reset" Command="{Binding ResetCommand}" />
+            </CommandBar>
+        </DataTemplate>
+        <DataTemplate x:Key="SpendPageCommandBarTemplate" x:DataType="vm:SpendViewModel">
+            <CommandBar Style="{StaticResource HeaderCommandBarStyle}">
+                <AppBarButton x:Uid="SaveCommand" Icon="Save" Label="Save" Command="{Binding SaveCommand}" />
+                <AppBarButton x:Uid="ResetCommand" Icon="Refresh" Label="Reset" Command="{Binding ResetCommand}" />
+            </CommandBar>
+        </DataTemplate>
+        <DataTemplate x:Key="StatementPageCommandBarTemplate" x:DataType="vm:StatementViewModel">
+            <CommandBar Style="{StaticResource HeaderCommandBarStyle}">
+                <!-- TODO : reserve -->
+            </CommandBar>
+        </DataTemplate>
+        <DataTemplate x:Key="SettingsPageCommandBarTemplate" x:DataType="vm:SettingsViewModel">
+            <CommandBar Style="{StaticResource HeaderCommandBarStyle}">
+                <!-- TODO : reserve -->
+            </CommandBar>
+        </DataTemplate>
+        <local:PageCommandBarTemplateSelector x:Key="PageCommandBarTemplateSelector"
+                                              TakePageCommandBarTemplate="{StaticResource TakePageCommandBarTemplate}"
+                                              SpendPageCommandBarTemplate="{StaticResource SpendPageCommandBarTemplate}"
+                                              StatementPageCommandBarTemplate="{StaticResource StatementPageCommandBarTemplate}"
+                                              SettingsPageCommandBarTemplate="{StaticResource SettingsPageCommandBarTemplate}"/>
     </Page.Resources>
 
     <i:Interaction.Behaviors>
@@ -39,18 +72,16 @@
 
             <NavigationView.HeaderTemplate>
                 <DataTemplate>
-                    <Grid Margin="24,0">
+                    <Grid Margin="{StaticResource MediumLeftRightMargin}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock VerticalAlignment="Center" Style="{StaticResource TitleTextBlockStyle}"
+                        <TextBlock Grid.Column="0" VerticalAlignment="Center" Style="{StaticResource TitleTextBlockStyle}"
                                    Text="{Binding ElementName=navview, Path=SelectedItem.Content}"/>
-                        <!--<CommandBar Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" DefaultLabelPosition="Right"
-                            Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
-                            <AppBarButton Label="Refresh" Icon="Refresh"/>
-                            <AppBarButton Label="Import" Icon="Import"/>
-                        </CommandBar>-->
+                        <ContentControl Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                        Content="{Binding ElementName=appNavFrame, Path=Content.DataContext}"
+                                        ContentTemplateSelector="{StaticResource PageCommandBarTemplateSelector}"/>
                     </Grid>
                 </DataTemplate>
             </NavigationView.HeaderTemplate>

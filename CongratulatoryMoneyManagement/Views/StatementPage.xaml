@@ -37,7 +37,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <tg:RadDataGrid x:Name="grid" Grid.Row="0" ColumnDataOperationsMode="Flyout" AutoGenerateColumns="False"
-                            ItemsSource="{Binding Source}" AlternationStep="2" IsBusyIndicatorEnabled="True" SelectionMode="Single" SelectionUnit="Row" >
+                        ItemsSource="{Binding Source}" AlternationStep="2" IsBusyIndicatorEnabled="True" SelectionMode="Single" SelectionUnit="Row" >
             <tg:RadDataGrid.GroupHeaderTemplate>
                 <DataTemplate>
                     <Grid>

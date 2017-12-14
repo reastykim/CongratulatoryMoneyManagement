@@ -279,4 +279,10 @@ And this app was created for developer own wedding.</value>
   <data name="NavMenuItem_Take.Content" xml:space="preserve">
     <value>Take</value>
   </data>
+  <data name="ResetCommand.Label" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="SaveCommand.Label" xml:space="preserve">
+    <value>Save</value>
+  </data>
 </root>

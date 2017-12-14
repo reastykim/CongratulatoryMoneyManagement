@@ -33,7 +33,7 @@
 
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <StackPanel>
-            <Grid Margin="0,15,0,0">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -43,12 +43,12 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <controls:CardBox Grid.Column="0" x:Uid="Spend_Details" HeaderText="내용">
+                <controls:CardBox Grid.Column="0" x:Uid="Spend_Details" HeaderText="내용" Margin="0,0,5,5">
                     <TextBox Padding="{StaticResource TextBoxPadding}"
                                  Text="{Binding Details, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                 </controls:CardBox>
 
-                <controls:CardBox Grid.Column="1" x:Uid="Spend_Sum" HeaderText="금액">
+                <controls:CardBox Grid.Column="1" x:Uid="Spend_Sum" HeaderText="금액"  Margin="0,0,0,5">
                     <telerikInput:RadNumericBox Grid.Row="1" Grid.Column="2" x:Name="nmBoxSum" ValueFormat="{}{0,0:C}" Minimum="0" Maximum="{x:Bind sys:Double.MaxValue}" SmallChange="{x:Bind models:MoneyOption.SmallChange}"
                                                     Value="{Binding Sum, Mode=TwoWay}" InputScope="CurrencyAmount"/>
                 </controls:CardBox>
@@ -101,10 +101,10 @@
         </StackPanel>
     </Grid>
 
-    <Page.BottomAppBar>
+    <!--<Page.BottomAppBar>
         <CommandBar Visibility="{Binding ShowBottomAppBar, Converter={StaticResource BoolToVisibilityConverter}}">
             <AppBarButton x:Name="btnSave" x:Uid="Take_Save" Icon="Save" Label="Save" Command="{Binding SaveCommand}" />
             <AppBarButton x:Name="btnReset" x:Uid="Take_Reset" Icon="Refresh" Label="Reset" Command="{Binding ResetCommand}" />
         </CommandBar>
-    </Page.BottomAppBar>
+    </Page.BottomAppBar>-->
 </Page>
