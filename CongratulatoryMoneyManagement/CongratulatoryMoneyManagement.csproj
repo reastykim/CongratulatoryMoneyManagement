@@ -161,7 +161,6 @@
     <Compile Include="Models\ISelectable.cs" />
     <Compile Include="Models\MoneyOption.cs" />
     <Compile Include="Models\ReturnPresent.cs" />
-    <Compile Include="Models\SampleOrder.cs" />
     <Compile Include="Models\Spending.cs" />
     <Compile Include="Models\IStatementItem.cs" />
     <Compile Include="Services\ActivationService.cs" />

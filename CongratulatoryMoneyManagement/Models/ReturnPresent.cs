@@ -23,7 +23,7 @@ namespace CongratulatoryMoneyManagement.Models
         /// </summary>
         Present,
         /// <summary>
-        /// 차비
+        /// 교통비
         /// </summary>
         Fare
     }
@@ -35,7 +35,7 @@ namespace CongratulatoryMoneyManagement.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int ReturnPresentId { get; set; }
 
         /// <summary>
         /// 답례품 종류

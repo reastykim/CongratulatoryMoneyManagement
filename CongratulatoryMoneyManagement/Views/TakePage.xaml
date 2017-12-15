@@ -28,6 +28,10 @@
         <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonBackgroundBrush" Color="{ThemeResource SystemAccentColor}"/>
         <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonPressedBackgroundBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.4"/>
         <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonPointerOverBackgroundBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.7"/>
+
+        <SolidColorBrush x:Key="TelerikNumericBoxBorderBrush" Color="{StaticResource SystemBaseMediumLowColor}"/>
+        <SolidColorBrush x:Key="TelerikNumericBoxPointerOverBorderBrush" Color="#666666"/>
+        <SolidColorBrush x:Key="TelerikNumericBoxFocusedBorderBrush" Color="{ThemeResource SystemAccentColor}"/>
     </Page.Resources>
 
     <i:Interaction.Behaviors>
@@ -80,8 +84,9 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
 
-                        <telerikInput:RadNumericBox x:Name="nmBoxSum" ValueFormat="{}{0,0:C0}" Minimum="0" Maximum="{x:Bind sys:Double.MaxValue}" SmallChange="{x:Bind models:MoneyOption.SmallChange}"
-                                                                            Value="{Binding Sum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" InputScope="CurrencyAmount">
+                        <telerikInput:RadNumericBox x:Name="nmBoxSum"
+                                                    ValueFormat="{}{0,0:C0}" Minimum="0" Maximum="{x:Bind sys:Double.MaxValue}" SmallChange="{x:Bind models:MoneyOption.SmallChange}"
+                                                    Value="{Binding Sum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" InputScope="CurrencyAmount">
                             <telerikInput:RadNumericBox.IsEnabled>
                                 <Binding Path="SelectedMoneyOption.Sum" Converter="{StaticResource EqualityConverter}">
                                     <Binding.ConverterParameter>

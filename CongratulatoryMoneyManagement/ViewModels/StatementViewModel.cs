@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 using CongratulatoryMoneyManagement.Models;
 using CongratulatoryMoneyManagement.Services;
@@ -22,6 +23,48 @@ namespace CongratulatoryMoneyManagement.ViewModels
             private set { Set(ref source, value); }
         }
         private IEnumerable<IStatementItem> source;
+
+        public double TotalCongratulatoryMoney
+        {
+            get { return totalCongratulatoryMoney; }
+            private set { Set(ref totalCongratulatoryMoney, value); }
+        }
+        private double totalCongratulatoryMoney;
+
+        public double TotalSpending
+        {
+            get { return totalSpending; }
+            private set { Set(ref totalSpending, value); }
+        }
+        private double totalSpending;
+
+        public double TotalSummary
+        {
+            get { return totalSummary; }
+            private set { Set(ref totalSummary, value); }
+        }
+        private double totalSummary;
+
+        public long MealTicketsCount
+        {
+            get { return mealTicketsCount; }
+            private set { Set(ref mealTicketsCount, value); }
+        }
+        private long mealTicketsCount;
+
+        public long PresentsCount
+        {
+            get { return presentsCount; }
+            private set { Set(ref presentsCount, value); }
+        }
+        private long presentsCount;
+
+        public long FaresCount
+        {
+            get { return faresCount; }
+            private set { Set(ref faresCount, value); }
+        }
+        private long faresCount;
 
         #endregion
 
@@ -49,7 +92,7 @@ namespace CongratulatoryMoneyManagement.ViewModels
         private RelayCommand loadedCommand;
         private void ExecuteLoaded()
         {
-            UpdateAllConCongratulatoryMoney();
+            Update();
         }
 
         public RelayCommand UnloadedCommand
@@ -64,9 +107,20 @@ namespace CongratulatoryMoneyManagement.ViewModels
 
         #endregion
         
-        private async void UpdateAllConCongratulatoryMoney()
+        private async void Update()
         {
-            Source = await dataService.GetAllStatementAsync();
+            try
+            {
+                Source = await dataService.GetAllStatementsAsync();
+                TotalCongratulatoryMoney = Source.OfType<CongratulatoryMoney>().Sum(CM => CM.Sum);
+                TotalSpending = Source.OfType<Spending>().Sum(CM => CM.Sum);
+                TotalSummary = Source.Sum(S => S.SumForSummary);
+                var returnPresents = await dataService.GetAllReturnPresentsAsync();
+                MealTicketsCount = returnPresents.Where(RP => RP.Type == ReturnPresentType.MealTickets).Sum(RP => RP.Quantity);
+                PresentsCount = returnPresents.Where(RP => RP.Type == ReturnPresentType.Present).Sum(RP => RP.Quantity);
+                FaresCount = returnPresents.Where(RP => RP.Type == ReturnPresentType.Fare).Sum(RP => RP.Quantity);
+            }
+            catch { }
         }
     }
 }

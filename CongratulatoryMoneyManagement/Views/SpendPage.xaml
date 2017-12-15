@@ -23,6 +23,10 @@
         <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonBackgroundBrush" Color="{ThemeResource SystemAccentColor}"/>
         <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonPressedBackgroundBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.4"/>
         <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonPointerOverBackgroundBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.7"/>
+
+        <SolidColorBrush x:Key="TelerikNumericBoxBorderBrush" Color="{StaticResource SystemBaseMediumLowColor}"/>
+        <SolidColorBrush x:Key="TelerikNumericBoxPointerOverBorderBrush" Color="#666666"/>
+        <SolidColorBrush x:Key="TelerikNumericBoxFocusedBorderBrush" Color="{ThemeResource SystemAccentColor}"/>
     </Page.Resources>
     
     <i:Interaction.Behaviors>
@@ -75,6 +79,7 @@
                 <Border Background="{ThemeResource SystemControlHighlightAltTransparentBrush}" Height="30"/>
                 <Border Background="{ThemeResource SystemControlHighlightBaseHighBrush}" Height="30"/>
                 <Border Background="{ThemeResource SystemControlHighlightBaseLowBrush}" Height="30"/>
+                
                 <Border Background="{ThemeResource SystemControlHighlightBaseMediumBrush}" Height="30"/>
                 <Border Background="{ThemeResource SystemControlHighlightBaseMediumHighBrush}" Height="30"/>
                 <Border Background="{ThemeResource SystemControlHighlightBaseMediumLowBrush}" Height="30"/>

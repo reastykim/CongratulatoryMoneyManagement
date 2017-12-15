@@ -44,7 +44,7 @@ namespace CongratulatoryMoneyManagement.Services.DataService
         {
             using (var db = new CongratulatoryMoneyContext())
             {
-                var result = db.Database.ExecuteSqlCommand("CREATE TABLE IF NOT EXISTS 'MoneyOptions' ('Id' INTEGER PRIMARY KEY ASC, 'Display' TEXT, 'Sum' INTEGER, 'IsSelected' INTEGER)");
+                var result = db.Database.ExecuteSqlCommand("CREATE TABLE IF NOT EXISTS 'MoneyOptions' ('MoneyOptionId' INTEGER PRIMARY KEY ASC, 'Display' TEXT, 'Sum' INTEGER, 'IsSelected' INTEGER)");
 
                 result = db.SaveChanges();
                 return result;
@@ -55,7 +55,8 @@ namespace CongratulatoryMoneyManagement.Services.DataService
         {
             using (var db = new CongratulatoryMoneyContext())
             {
-                var result = db.Database.ExecuteSqlCommand("CREATE TABLE IF NOT EXISTS 'ReturnPresents' ('Id' INTEGER PRIMARY KEY ASC, 'Type' INTEGER, 'Quantity' INTEGER)");
+                var result = db.Database.ExecuteSqlCommand(
+                    "CREATE TABLE IF NOT EXISTS 'ReturnPresents' ('ReturnPresentId' INTEGER PRIMARY KEY ASC, 'Type' INTEGER, 'Quantity' INTEGER)");
 
                 result = db.SaveChanges();
                 return result;
@@ -67,8 +68,8 @@ namespace CongratulatoryMoneyManagement.Services.DataService
             using (var db = new CongratulatoryMoneyContext())
             {
                 var result = db.Database.ExecuteSqlCommand(
-                    "CREATE TABLE IF NOT EXISTS 'CongratulatoryMoney' ('Id' INTEGER PRIMARY KEY ASC, 'Sum' INTEGER, 'GuestName' TEXT, 'RecognizedText' TEXT, 'EnvelopeImageUri' TEXT, 'ReturnPresentId' INTEGER NOT NULL, 'Created' datetime, " +
-                    "FOREIGN KEY(ReturnPresentId) REFERENCES ReturnPresents(Id))");
+                    "CREATE TABLE IF NOT EXISTS 'CongratulatoryMoney' ('CongratulatoryMoneyId' INTEGER PRIMARY KEY ASC, 'Sum' INTEGER, 'GuestName' TEXT, 'RecognizedText' TEXT, 'EnvelopeImageUri' TEXT, 'ReturnPresentId' INTEGER NOT NULL, 'Created' datetime, " +
+                    "FOREIGN KEY(ReturnPresentId) REFERENCES ReturnPresents(ReturnPresentId))");
 
                 result = db.SaveChanges();
                 return result;
@@ -80,7 +81,7 @@ namespace CongratulatoryMoneyManagement.Services.DataService
             using (var db = new CongratulatoryMoneyContext())
             {
                 var result = db.Database.ExecuteSqlCommand(
-                    "CREATE TABLE IF NOT EXISTS 'Spendings' ('Id' INTEGER PRIMARY KEY ASC, 'Details' TEXT, 'Sum' INTEGER, 'Created' datetime)");
+                    "CREATE TABLE IF NOT EXISTS 'Spendings' ('SpendingId' INTEGER PRIMARY KEY ASC, 'Details' TEXT, 'Sum' INTEGER, 'Created' datetime)");
 
                 result = db.SaveChanges();
                 return result;
@@ -156,7 +157,7 @@ namespace CongratulatoryMoneyManagement.Services.DataService
             }
         }
 
-        public Task<IEnumerable<IStatementItem>> GetAllStatementAsync()
+        public Task<IEnumerable<IStatementItem>> GetAllStatementsAsync()
         {
             var tcs = new TaskCompletionSource<IEnumerable<IStatementItem>>();
             Task.Factory.StartNew(() =>
@@ -168,6 +169,20 @@ namespace CongratulatoryMoneyManagement.Services.DataService
                                         .OrderByDescending(SI => SI.Created);
 
                     tcs.SetResult(statementItems.ToList());
+                }
+            });
+
+            return tcs.Task;
+        }
+
+        public Task<IEnumerable<ReturnPresent>> GetAllReturnPresentsAsync()
+        {
+            var tcs = new TaskCompletionSource<IEnumerable<ReturnPresent>>();
+            Task.Factory.StartNew(() =>
+            {
+                using (var db = new CongratulatoryMoneyContext())
+                {
+                    tcs.SetResult(db.ReturnPresents.ToList());
                 }
             });
 

@@ -20,7 +20,7 @@ namespace CongratulatoryMoneyManagement.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int MoneyOptionId { get; set; }
 
         public string Display
         {

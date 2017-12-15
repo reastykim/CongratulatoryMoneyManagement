@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using CongratulatoryMoneyManagement.Data;
+using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,7 +14,7 @@ namespace CongratulatoryMoneyManagement.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int CongratulatoryMoneyId { get; set; }
 
         /// <summary>
         /// 금액
@@ -62,15 +63,38 @@ namespace CongratulatoryMoneyManagement.Models
         }
         private string envelopeImageUri;
 
+        [ForeignKey("ReturnPresent")]
+        public int ReturnPresentId
+        {
+            get => returnPresentId;
+            set => Set(ref returnPresentId, value);
+        }
+        private int returnPresentId;
+
         /// <summary>
         /// 답례품
         /// </summary>
         public virtual ReturnPresent ReturnPresent
         {
-            get => returnPresent;
-            set => Set(ref returnPresent, value);
+            get
+            {
+                if (returnPresent == null)
+                {
+                    using (var db = new CongratulatoryMoneyContext())
+                    {
+                        returnPresent = db.ReturnPresents.Find(ReturnPresentId);
+                        //RaisePropertyChanged("ReturnPresent");
+                    }
+                }
+
+                return returnPresent;
+            }
+            set
+            {
+                Set(ref returnPresent, value);
+            }
         }
-        private ReturnPresent returnPresent = new ReturnPresent();
+        private ReturnPresent returnPresent;
 
         [NotMapped]
         public string ItemTypeDisplay => "\uE944";

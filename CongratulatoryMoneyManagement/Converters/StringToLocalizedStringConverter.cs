@@ -19,7 +19,7 @@ namespace CongratulatoryMoneyManagement.Converters
             }
             else
             {
-                return DependencyProperty.UnsetValue;
+                return value?.ToString()?.GetLocalized();
             }
         }
 

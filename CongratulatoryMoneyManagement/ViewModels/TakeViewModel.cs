@@ -212,6 +212,7 @@ namespace CongratulatoryMoneyManagement.ViewModels
             newItem.RecognizedText = RecognizedText;
             newItem.Sum = Sum;
             newItem.EnvelopeImageUri = PhotoUri?.AbsolutePath;
+            newItem.ReturnPresent = new ReturnPresent();
             newItem.ReturnPresent.Type = selectedReturnPresentType;
             newItem.ReturnPresent.Quantity = ReturnPresentQuantity;
 

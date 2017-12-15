@@ -16,7 +16,7 @@ namespace CongratulatoryMoneyManagement.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int SpendingId { get; set; }
 
         /// <summary>
         /// 상세내용

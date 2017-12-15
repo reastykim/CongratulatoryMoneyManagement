@@ -312,4 +312,31 @@ And this app was created for developer own wedding.</value>
   <data name="Statement_Take_Sum.Text" xml:space="preserve">
     <value>Sum</value>
   </data>
+  <data name="Statement_Total_CongratulatoryMoney.Text" xml:space="preserve">
+    <value>Total Congratulatory Money</value>
+  </data>
+  <data name="Statement_Total_FaresCount.Text" xml:space="preserve">
+    <value>Fare</value>
+  </data>
+  <data name="Statement_Total_MealTicketsCount.Text" xml:space="preserve">
+    <value>Meal Tickets</value>
+  </data>
+  <data name="Statement_Total_PresentsCount.Text" xml:space="preserve">
+    <value>Present</value>
+  </data>
+  <data name="Statement_Total_Spending.Text" xml:space="preserve">
+    <value>Total Spending</value>
+  </data>
+  <data name="Statement_Total_Summary.Text" xml:space="preserve">
+    <value>Total Summary</value>
+  </data>
+  <data name="Fare" xml:space="preserve">
+    <value>Fare</value>
+  </data>
+  <data name="MealTickets" xml:space="preserve">
+    <value>Meal Tickets</value>
+  </data>
+  <data name="Present" xml:space="preserve">
+    <value>Present</value>
+  </data>
 </root>

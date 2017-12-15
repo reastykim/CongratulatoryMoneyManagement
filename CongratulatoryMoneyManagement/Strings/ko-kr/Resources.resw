@@ -144,6 +144,12 @@
   <data name="EA" xml:space="preserve">
     <value>개</value>
   </data>
+  <data name="Fare" xml:space="preserve">
+    <value>교통비</value>
+  </data>
+  <data name="MealTickets" xml:space="preserve">
+    <value>식권</value>
+  </data>
   <data name="MoneyOption_Input" xml:space="preserve">
     <value>직접입력</value>
   </data>
@@ -161,6 +167,9 @@
   </data>
   <data name="NavMenuItem_Take.Content" xml:space="preserve">
     <value>입력</value>
+  </data>
+  <data name="Present" xml:space="preserve">
+    <value>선물</value>
   </data>
   <data name="ResetCommand.Label" xml:space="preserve">
     <value>초기화</value>
@@ -236,6 +245,24 @@
   </data>
   <data name="Statement_Take_Sum.Text" xml:space="preserve">
     <value>금액</value>
+  </data>
+  <data name="Statement_Total_CongratulatoryMoney.Text" xml:space="preserve">
+    <value>축의금 합계</value>
+  </data>
+  <data name="Statement_Total_FaresCount.Text" xml:space="preserve">
+    <value>교통비</value>
+  </data>
+  <data name="Statement_Total_MealTicketsCount.Text" xml:space="preserve">
+    <value>식권</value>
+  </data>
+  <data name="Statement_Total_PresentsCount.Text" xml:space="preserve">
+    <value>선물</value>
+  </data>
+  <data name="Statement_Total_Spending.Text" xml:space="preserve">
+    <value>지출 합계</value>
+  </data>
+  <data name="Statement_Total_Summary.Text" xml:space="preserve">
+    <value>총 합계</value>
   </data>
   <data name="Summary" xml:space="preserve">
     <value>합계</value>
