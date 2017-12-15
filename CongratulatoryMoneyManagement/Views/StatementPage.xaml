@@ -16,7 +16,7 @@
     xmlns:gridTheming="using:Telerik.UI.Xaml.Controls.Grid.Theming"
     Style="{StaticResource PageStyle}"
     DataContext="{Binding StatementViewModel, Source={StaticResource Locator}}"
-    mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="800">
+    mc:Ignorable="d">
 
     <Page.Resources>
         <x:String x:Key="UnitString">EA</x:String>

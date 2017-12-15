@@ -16,7 +16,7 @@
     xmlns:vmodels="using:CongratulatoryMoneyManagement.ViewModels"
     Style="{StaticResource PageStyle}"
     DataContext="{Binding TakeViewModel, Source={StaticResource Locator}}"
-    mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="800">
+    mc:Ignorable="d">
 
     <Page.Resources>
         <eConverter:StringFormatConverter x:Key="StringFormatConverter"/>

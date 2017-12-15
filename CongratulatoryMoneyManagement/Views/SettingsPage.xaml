@@ -9,7 +9,7 @@
     xmlns:converters="using:CongratulatoryMoneyManagement.Converters"
     Style="{StaticResource PageStyle}"
     DataContext="{Binding SettingsViewModel, Source={StaticResource Locator}}"
-    mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="800">
+    mc:Ignorable="d">
     <Page.Resources>
         <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
     </Page.Resources>

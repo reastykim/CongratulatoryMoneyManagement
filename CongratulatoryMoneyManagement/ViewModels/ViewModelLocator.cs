@@ -15,7 +15,10 @@ namespace CongratulatoryMoneyManagement.ViewModels
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            SimpleIoc.Default.Register<IDataService, SqliteDataService>(true);
+            SimpleIoc.Default.Register<IDataService>(() =>
+            {
+                return GalaSoft.MvvmLight.ViewModelBase.IsInDesignModeStatic ? (IDataService)new DesignDataService() : (IDataService)new SqliteDataService();
+            }, true);
 
             SimpleIoc.Default.Register(() => new NavigationServiceEx());
             Register<NavigationRootViewModel, NavigationRootPage>();

@@ -10,7 +10,7 @@
     xmlns:local="using:CongratulatoryMoneyManagement.Views"
     xmlns:vm="using:CongratulatoryMoneyManagement.ViewModels"
     xmlns:converters="using:CongratulatoryMoneyManagement.Converters"
-    mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="800"
+    mc:Ignorable="d"
     DataContext="{Binding NavigationRootViewModel, Source={StaticResource Locator}}"
     Loaded="Page_Loaded">
 
