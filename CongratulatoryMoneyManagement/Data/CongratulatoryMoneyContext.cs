@@ -12,7 +12,8 @@ namespace CongratulatoryMoneyManagement.Data
 {
     public class CongratulatoryMoneyContext : DbContext
     {
-        const string MainDbFileName = "congratulatoryMoney.db";
+        const string OldMainDbFileName = "congratulatoryMoney.db";
+        const string MainDbFileName = "new_congratulatoryMoney.db";
 
         private static AsyncInitilizer<CongratulatoryMoneyContext> initializer = new AsyncInitilizer<CongratulatoryMoneyContext>();
 
@@ -96,14 +97,19 @@ namespace CongratulatoryMoneyManagement.Data
 
         private static async Task CheckForDatabase()
         {
-            var mainDbAssetPath = $"ms-appx:///Assets/{MainDbFileName}";
-
             var data = Windows.Storage.ApplicationData.Current.LocalFolder;
 
-            var exists = await data.TryGetItemAsync(MainDbFileName);
+            var exists = await data.TryGetItemAsync(OldMainDbFileName);
 
+            if (exists != null) // Renamined db file name for 1.0.0 version app.
+            {
+                await exists.RenameAsync(OldMainDbFileName + ".bak");
+            }
+
+            // Commentted, Because the table was made by Migration code
             //if (exists == null)
             //{
+            //    var mainDbAssetPath = $"ms-appx:///Assets/{OldMainDbFileName}";
             //    var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(mainDbAssetPath)).AsTask().ConfigureAwait(false);
             //    var database = await file.CopyAsync(data).AsTask().ConfigureAwait(false);
             //}
