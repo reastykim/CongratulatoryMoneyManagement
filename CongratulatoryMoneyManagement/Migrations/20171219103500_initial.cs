@@ -13,67 +13,77 @@ namespace CongratulatoryMoneyManagement.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "CongratulatoryMoney",
+                name: "MoneyOptions",
                 columns: table => new
                 {
-                    CongratulatoryMoneyId = table.Column<int>(nullable: false).Annotation("Sqlite:Autoincrement", true),
-                    Sum = table.Column<double>(nullable: false),
-                    GuestName = table.Column<string>(nullable: true),
-                    RecognizedText = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    EnvelopeImageUri = table.Column<string>(nullable: true),
-                    ReturnPresentId = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Display = table.Column<string>(nullable: true),
+                    IsSelected = table.Column<bool>(nullable: false),
+                    Sum = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CongratulatoryMoney", x => x.CongratulatoryMoneyId);
-                    table.ForeignKey(
-                        name: "FK_CongratulatoryMoney_ReturnPresents_ReturnPresentId",
-                        column: x => x.ReturnPresentId,
-                        principalTable: "ReturnPresents",
-                        principalColumn: "ReturnPresentId",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_MoneyOptions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ReturnPresents",
                 columns: table => new
                 {
-                    ReturnPresentId = table.Column<int>(nullable: false).Annotation("Sqlite:Autoincrement", true),
-                    Type = table.Column<ReturnPresentType>(nullable: false),
-                    Quantity = table.Column<uint>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Quantity = table.Column<uint>(nullable: false),
+                    Type = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ReturnPresents", x => x.ReturnPresentId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MoneyOptions",
-                columns: table => new
-                {
-                    MoneyOptionId = table.Column<int>(nullable: false).Annotation("Sqlite:Autoincrement", true),
-                    Display = table.Column<string>(nullable: true),
-                    Sum = table.Column<double>(nullable: false),
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MoneyOptions", x => x.MoneyOptionId);
+                    table.PrimaryKey("PK_ReturnPresents", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Spendings",
                 columns: table => new
                 {
-                    SpendingId = table.Column<int>(nullable: false).Annotation("Sqlite:Autoincrement", true),
-                    Details = table.Column<string>(nullable: true),
-                    Sum = table.Column<double>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Created = table.Column<DateTime>(nullable: false),
+                    Details = table.Column<string>(nullable: true),
+                    Sum = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Spendings", x => x.SpendingId);
+                    table.PrimaryKey("PK_Spendings", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "CongratulatoryMoney",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Created = table.Column<DateTime>(nullable: false),
+                    EnvelopeImageUri = table.Column<string>(nullable: true),
+                    GuestName = table.Column<string>(nullable: true),
+                    RecognizedText = table.Column<string>(nullable: true),
+                    ReturnPresentId = table.Column<int>(nullable: true),
+                    Sum = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CongratulatoryMoney", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CongratulatoryMoney_ReturnPresents_ReturnPresentId",
+                        column: x => x.ReturnPresentId,
+                        principalTable: "ReturnPresents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CongratulatoryMoney_ReturnPresentId",
+                table: "CongratulatoryMoney",
+                column: "ReturnPresentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -82,13 +92,13 @@ namespace CongratulatoryMoneyManagement.Migrations
                 name: "CongratulatoryMoney");
 
             migrationBuilder.DropTable(
-                name: "ReturnPresents");
-
-            migrationBuilder.DropTable(
                 name: "MoneyOptions");
 
             migrationBuilder.DropTable(
                 name: "Spendings");
+
+            migrationBuilder.DropTable(
+                name: "ReturnPresents");
         }
     }
 }

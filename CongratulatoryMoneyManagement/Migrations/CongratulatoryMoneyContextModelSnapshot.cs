@@ -15,50 +15,32 @@ namespace CongratulatoryMoneyManagement.Migrations
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
+#pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.0");
+                .HasAnnotation("ProductVersion", "2.0.1-rtm-125");
 
             modelBuilder.Entity("CongratulatoryMoneyManagement.Models.CongratulatoryMoney", b =>
             {
                 b.Property<int>("CongratulatoryMoneyId")
                     .ValueGeneratedOnAdd();
 
-                b.Property<double>("Sum");
-
-                b.Property<string>("GuestName");
-                
-                b.Property<string>("RecognizedText");
-
                 b.Property<DateTime>("Created");
 
                 b.Property<string>("EnvelopeImageUri");
 
+                b.Property<string>("GuestName");
+
+                b.Property<string>("RecognizedText");
+
                 b.Property<int>("ReturnPresentId");
 
-                b.HasOne("CongratulatoryMoneyManagement.Models.ReturnPresent");
+                b.Property<double>("Sum");
 
                 b.HasKey("CongratulatoryMoneyId");
 
+                b.HasIndex("ReturnPresentId");
+
                 b.ToTable("CongratulatoryMoney");
-            });
-
-
-            modelBuilder.Entity("CongratulatoryMoneyManagement.Models.ReturnPresent", b =>
-            {
-                b.Property<int>("ReturnPresentId")
-                    .ValueGeneratedOnAdd();
-
-                b.Property<ReturnPresentType>("Type");
-
-                b.Property<uint>("Quantity");
-
-                b.Property<int>("CongratulatoryMoneyId");
-
-                b.HasKey("ReturnPresentId");
-
-                b.HasOne("CongratulatoryMoneyManagement.Models.CongratulatoryMoney");
-
-                b.ToTable("ReturnPresents");
             });
 
             modelBuilder.Entity("CongratulatoryMoneyManagement.Models.MoneyOption", b =>
@@ -75,21 +57,44 @@ namespace CongratulatoryMoneyManagement.Migrations
                 b.ToTable("MoneyOptions");
             });
 
+            modelBuilder.Entity("CongratulatoryMoneyManagement.Models.ReturnPresent", b =>
+            {
+                b.Property<int>("ReturnPresentId")
+                    .ValueGeneratedOnAdd();
+
+                b.Property<uint>("Quantity");
+
+                b.Property<int>("Type");
+
+                b.HasKey("ReturnPresentId");
+
+                b.ToTable("ReturnPresents");
+            });
+
             modelBuilder.Entity("CongratulatoryMoneyManagement.Models.Spending", b =>
             {
                 b.Property<int>("SpendingId")
                     .ValueGeneratedOnAdd();
 
+                b.Property<DateTime>("Created");
+
                 b.Property<string>("Details");
 
                 b.Property<double>("Sum");
-
-                b.Property<DateTime>("Created");
 
                 b.HasKey("SpendingId");
 
                 b.ToTable("Spendings");
             });
+
+            modelBuilder.Entity("CongratulatoryMoneyManagement.Models.CongratulatoryMoney", b =>
+            {
+                b.HasOne("CongratulatoryMoneyManagement.Models.ReturnPresent", "ReturnPresent")
+                    .WithMany()
+                    .HasForeignKey("ReturnPresentId")
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+#pragma warning restore 612, 618
         }
     }
 }

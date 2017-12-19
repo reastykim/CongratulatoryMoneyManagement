@@ -1,5 +1,4 @@
 ﻿using CongratulatoryMoneyManagement.Data;
-using CongratulatoryMoneyManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -11,19 +10,19 @@ using System.Threading.Tasks;
 
 namespace CongratulatoryMoneyManagement.Migrations
 {
-	[DbContext(typeof(CongratulatoryMoneyContext))]
-	[Migration("20171219103500_initial")]
-	partial class initial
-	{
+    [DbContext(typeof(CongratulatoryMoneyContext))]
+    [Migration("20171219130000_regular")]
+    partial class regular
+    {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125");
 
-            modelBuilder.Entity("CongratulatoryMoneyContext.Models.CongratulatoryMoney", b =>
+            modelBuilder.Entity("CongratulatoryMoneyManagement.Models.CongratulatoryMoney", b =>
             {
-                b.Property<int>("Id")
+                b.Property<int>("CongratulatoryMoneyId")
                     .ValueGeneratedOnAdd();
 
                 b.Property<DateTime>("Created");
@@ -34,50 +33,48 @@ namespace CongratulatoryMoneyManagement.Migrations
 
                 b.Property<string>("RecognizedText");
 
-                b.Property<int?>("ReturnPresentId");
+                b.Property<int>("ReturnPresentId");
 
                 b.Property<double>("Sum");
 
-                b.HasKey("Id");
+                b.HasKey("CongratulatoryMoneyId");
 
                 b.HasIndex("ReturnPresentId");
 
                 b.ToTable("CongratulatoryMoney");
             });
 
-            modelBuilder.Entity("CongratulatoryMoneyContext.Models.MoneyOption", b =>
+            modelBuilder.Entity("CongratulatoryMoneyManagement.Models.MoneyOption", b =>
             {
-                b.Property<int>("Id")
+                b.Property<int>("MoneyOptionId")
                     .ValueGeneratedOnAdd();
 
                 b.Property<string>("Display");
 
-                b.Property<bool>("IsSelected");
-
                 b.Property<double>("Sum");
 
-                b.HasKey("Id");
+                b.HasKey("MoneyOptionId");
 
                 b.ToTable("MoneyOptions");
             });
 
-            modelBuilder.Entity("CongratulatoryMoneyContext.Models.ReturnPresent", b =>
+            modelBuilder.Entity("CongratulatoryMoneyManagement.Models.ReturnPresent", b =>
             {
-                b.Property<int>("Id")
+                b.Property<int>("ReturnPresentId")
                     .ValueGeneratedOnAdd();
 
                 b.Property<uint>("Quantity");
 
                 b.Property<int>("Type");
 
-                b.HasKey("Id");
+                b.HasKey("ReturnPresentId");
 
                 b.ToTable("ReturnPresents");
             });
 
-            modelBuilder.Entity("CongratulatoryMoneyContext.Models.Spending", b =>
+            modelBuilder.Entity("CongratulatoryMoneyManagement.Models.Spending", b =>
             {
-                b.Property<int>("Id")
+                b.Property<int>("SpendingId")
                     .ValueGeneratedOnAdd();
 
                 b.Property<DateTime>("Created");
@@ -86,16 +83,17 @@ namespace CongratulatoryMoneyManagement.Migrations
 
                 b.Property<double>("Sum");
 
-                b.HasKey("Id");
+                b.HasKey("SpendingId");
 
                 b.ToTable("Spendings");
             });
 
-            modelBuilder.Entity("CongratulatoryMoneyContext.Models.CongratulatoryMoney", b =>
+            modelBuilder.Entity("CongratulatoryMoneyManagement.Models.CongratulatoryMoney", b =>
             {
-                b.HasOne("WebApplication1.Models.ReturnPresent", "ReturnPresent")
+                b.HasOne("CongratulatoryMoneyManagement.Models.ReturnPresent", "ReturnPresent")
                     .WithMany()
-                    .HasForeignKey("ReturnPresentId");
+                    .HasForeignKey("ReturnPresentId")
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 #pragma warning restore 612, 618
         }

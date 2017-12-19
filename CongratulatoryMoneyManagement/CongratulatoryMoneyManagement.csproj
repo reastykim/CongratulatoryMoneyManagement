@@ -161,6 +161,10 @@
     <Compile Include="Migrations\20171219103500_initial.designer.cs">
       <DependentUpon>20171219103500_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20171219130000_regular.cs" />
+    <Compile Include="Migrations\20171219130000_regular.designer.cs">
+      <DependentUpon>20171219130000_regular.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\CongratulatoryMoneyContextModelSnapshot.cs" />
     <Compile Include="Models\CongratulatoryMoney.cs" />
     <Compile Include="Models\ISelectable.cs" />
