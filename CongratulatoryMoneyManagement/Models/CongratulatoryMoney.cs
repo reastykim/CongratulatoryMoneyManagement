@@ -83,7 +83,6 @@ namespace CongratulatoryMoneyManagement.Models
                     using (var db = new CongratulatoryMoneyContext())
                     {
                         returnPresent = db.ReturnPresents.Find(ReturnPresentId);
-                        //RaisePropertyChanged("ReturnPresent");
                     }
                 }
 

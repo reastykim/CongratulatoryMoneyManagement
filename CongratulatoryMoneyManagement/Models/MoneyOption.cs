@@ -36,6 +36,7 @@ namespace CongratulatoryMoneyManagement.Models
         }
         private double sum;
 
+        [NotMapped]
         public bool IsSelected
         {
             get => isSelected;

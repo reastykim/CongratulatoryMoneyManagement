@@ -157,6 +157,11 @@
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
     <Compile Include="Helpers\TaskExtensions.cs" />
     <Compile Include="Helpers\VisualHelpers.cs" />
+    <Compile Include="Migrations\20171219103500_initial.cs" />
+    <Compile Include="Migrations\20171219103500_initial.designer.cs">
+      <DependentUpon>20171219103500_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\CongratulatoryMoneyContextModelSnapshot.cs" />
     <Compile Include="Models\CongratulatoryMoney.cs" />
     <Compile Include="Models\ISelectable.cs" />
     <Compile Include="Models\MoneyOption.cs" />
@@ -309,9 +314,6 @@
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <Content Include="Assets\congratulatoryMoney.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="CongratulatoryMoneyManagement_StoreKey.pfx" />
     <None Include="Package.StoreAssociation.xml">
       <SubType>Designer</SubType>

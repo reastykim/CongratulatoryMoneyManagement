@@ -102,11 +102,11 @@ namespace CongratulatoryMoneyManagement.Data
 
             var exists = await data.TryGetItemAsync(MainDbFileName);
 
-            if (exists == null)
-            {
-                var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(mainDbAssetPath)).AsTask().ConfigureAwait(false);
-                var database = await file.CopyAsync(data).AsTask().ConfigureAwait(false);
-            }
+            //if (exists == null)
+            //{
+            //    var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(mainDbAssetPath)).AsTask().ConfigureAwait(false);
+            //    var database = await file.CopyAsync(data).AsTask().ConfigureAwait(false);
+            //}
         }
 
         public static void CheckMigrations()
