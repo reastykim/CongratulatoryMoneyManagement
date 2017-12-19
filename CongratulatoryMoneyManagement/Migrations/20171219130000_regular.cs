@@ -11,17 +11,17 @@ namespace CongratulatoryMoneyManagement.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "CongratulatoryMoney");
+            //migrationBuilder.DropTable(
+            //    name: "CongratulatoryMoney");
 
-            migrationBuilder.DropTable(
-                name: "MoneyOptions");
+            //migrationBuilder.DropTable(
+            //    name: "MoneyOptions");
 
-            migrationBuilder.DropTable(
-                name: "Spendings");
+            //migrationBuilder.DropTable(
+            //    name: "Spendings");
 
-            migrationBuilder.DropTable(
-                name: "ReturnPresents");
+            //migrationBuilder.DropTable(
+            //    name: "ReturnPresents");
 
             migrationBuilder.CreateTable(
                 name: "MoneyOptions",

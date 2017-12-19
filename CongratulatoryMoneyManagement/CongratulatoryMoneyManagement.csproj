@@ -157,10 +157,6 @@
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
     <Compile Include="Helpers\TaskExtensions.cs" />
     <Compile Include="Helpers\VisualHelpers.cs" />
-    <Compile Include="Migrations\20171219103500_initial.cs" />
-    <Compile Include="Migrations\20171219103500_initial.designer.cs">
-      <DependentUpon>20171219103500_initial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\20171219130000_regular.cs" />
     <Compile Include="Migrations\20171219130000_regular.designer.cs">
       <DependentUpon>20171219130000_regular.cs</DependentUpon>
