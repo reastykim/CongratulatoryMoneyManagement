@@ -129,6 +129,18 @@ namespace CongratulatoryMoneyManagement.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CongratulatoryMoney");
+
+            migrationBuilder.DropTable(
+                name: "MoneyOptions");
+
+            migrationBuilder.DropTable(
+                name: "Spendings");
+
+            migrationBuilder.DropTable(
+                name: "ReturnPresents");
+
             //migrationBuilder.DropForeignKey(
             //    name: "FK_CongratulatoryMoney_ReturnPresents_ReturnPresentId",
             //    table: "CongratulatoryMoney");
